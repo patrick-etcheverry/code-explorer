@@ -13,11 +13,11 @@ Language.build_library(
 
   # Include one or more languages
   [
-    'languages/tree-sitter-java',
-    'languages/tree-sitter-python',
-    'languages/tree-sitter-javascript',
-    'languages/tree-sitter-c',
-    'languages/tree-sitter-cpp'
+    'src/languages/tree-sitter-java',
+    'src/languages/tree-sitter-python',
+    'src/languages/tree-sitter-javascript',
+    'src/languages/tree-sitter-c',
+    'src/languages/tree-sitter-cpp'
   ]
 )
 
@@ -31,7 +31,7 @@ parser = Parser()
 parser.set_language(CPP_LANGUAGE)
 
 
-f=open("essai.cpp", encoding='utf-8')
+f=open("src/essai.cpp", encoding='utf-8')
 blob = f.read()
 splitted_code = blob.split("\n")
 
