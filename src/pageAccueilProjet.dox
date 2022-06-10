@@ -1,0 +1,47 @@
+/*! \mainpage %Code Explorer
+
+  \section presentation-projet Présentation du projet
+ 
+  %Code Explorer a pour objectif de proposer des fonctionnalités d'analyse de codes source. Ce dépôt contient uniquement une spécification des fonctionnalités imaginées pour extraire les éléments 
+  significatifs structurant un programme. 
+ 
+  A terme, l'objectif est de permettre de charger un code source à partir d'un fichier puis de décomposer 
+  ce code source sous forme d'un ensemble d'objets liés représentant la structure du code en termes 
+  de variables, de commentaires, de structures conditionnelles, de structures itératives, etc.
+ 
+\n
+Il s'agit donc de disposer de fonctionnalités permettant :
+- de charger un code source à partir d'un fichier ;
+- de décomposer ce code sous forme d'objets représentant la structure du code ;
+- d'analyser la structure du code à partir des objets précédemment identifiés.
+
+\n
+L'analyse du code source de départ doit permettre d'identifier les éléments utilisés dans le code, les liens entre ces éléments de sorte à produire une représentation objet de la structure du code. Il s'agira par exemple d'être en mesure de reconnaître :
+- les variables utilisées ;
+- les constantes utilisées ;
+- les commentaires mis en place ;
+- les structures conditionnelles utilisées et leur type ;
+- les éléments consituant une structure conditionnelle (conditions, instructions déclenchées...) ;
+- les structures itératives utilisées et leur type ;
+- les éléments consituant une structure itérative (indice de boucle, pas, condition d'arrêt...);
+- les sous-programmes utilisés ;
+- la nature d'un sous-programme (fonction / procédure / méthode) ;
+- les paramètres d'un sous-programme ;
+- etc, etc. :-)
+
+
+
+  \section elements-modelisation Eléments de modélisation
+  Le dossier modelisation contient un diagramme des classes décrivant les différents éléments constituant 
+  un code source une fois celui-ci analysé et décomposé par %Code Explorer :
+ 
+
+  \htmlinclude page-html-diagramme-complet.html
+  \image rtf 1-diagramme-classes-complet.jpg "Diagramme des classes de Code Explorer" width=90% 
+  \image latex 1-diagramme-classes-complet.pdf "Diagramme des classes de Code Explorer" width=\textwidth
+  
+
+  \n
+  Le dossier modelisation contient également un diagramme objet qui illustre la façon dont un code source 
+  donné en exemple peut être décomposé par %Code Explorer.
+ */

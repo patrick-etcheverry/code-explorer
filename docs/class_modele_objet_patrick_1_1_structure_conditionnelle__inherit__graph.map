@@ -1,0 +1,7 @@
+<map id="ModeleObjetPatrick.StructureConditionnelle" name="ModeleObjetPatrick.StructureConditionnelle">
+<area shape="rect" id="node1" title=" " alt="" coords="115,329,309,421"/>
+<area shape="rect" id="node4" href="$class_modele_objet_patrick_1_1_condition_if.html" title=" " alt="" coords="5,469,205,664"/>
+<area shape="rect" id="node5" href="$class_modele_objet_patrick_1_1_switch.html" title=" " alt="" coords="229,469,408,664"/>
+<area shape="rect" id="node2" href="$class_modele_objet_patrick_1_1_bloc_simple.html" title="Classe héritant de Bloc, elle ne contient que les objets les plus basique d&#39;un code." alt="" coords="109,204,315,281"/>
+<area shape="rect" id="node3" href="$class_modele_objet_patrick_1_1_bloc.html" title="Structure de données de plus haut niveau à laquelle on associe la gestion du Noeud." alt="" coords="129,5,295,156"/>
+</map>
