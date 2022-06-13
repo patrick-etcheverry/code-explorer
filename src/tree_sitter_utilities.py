@@ -6,13 +6,15 @@
 #@version 0.0.1 Alpha
 #
 
-import copy
+#import copy
 from xmlrpc.client import Boolean
 from tree_sitter import TreeCursor
 
 
 
 
+        
+'''
     
 def RecupereObjetsExpressionBinaire(lenode):
     danslaliste=[]
@@ -40,7 +42,7 @@ def RecupereObjetsBlocCompose(lenode):
     traverse(lenode, extraireTxt,["compound_statement", danslaliste])
     return danslaliste
 
-'''
+
 def RecupereObjetsAffectation(lenode):
     danslaliste=[]
     traverse(lenode, extraireTxt,["assignment_expression", danslaliste])
@@ -50,9 +52,10 @@ def RecupereObjetsDeclaration(lenode):
     danslaliste=[]
     traverse(lenode, extraireTxt,["declarator", danslaliste])
     return danslaliste          
+    
+
+
 '''
-
-
 
 
 def _traversev0_recursif(cursor:TreeCursor, fonction,  args):

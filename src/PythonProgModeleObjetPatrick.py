@@ -7,6 +7,8 @@ from ModeleObjetPatrick_helper import creeObjets
 import os 
 
 
+
+
 Language.build_library(
   # Store the library in the `build` directory
   'build/my-languages.so',
@@ -73,6 +75,7 @@ p.creeObjets()
 
  
 print()
+print(p.lesBlocs.next().getValeur())
 #Traitement des expressions
 #p.creeObjets_expressionsUnaires(liste_ExpressionUnaire)
 #p.creeObjets_expressionsparenthesees()
@@ -161,7 +164,7 @@ print("                on s'interesse aux boucles For du programme")
 print("                ----------------------------------------")
 print()
 
-for o in p.lesBoucles:
+for o in p.lesBouclesFor:
   print("==> "+ str(o) + ":" + str(type(o)))
   init=o.getInit()
   cond=o.getCondition()
@@ -212,7 +215,33 @@ for i, b in enumerate(list(p.lesBlocsComposes)):
     print("      => bloc "+ str(j) + " : "+str(bb) )
   print()
 print()
-print("FIN")
+print("FIN pour p")
+
+
+
+
+
+p2=Programme(splitted_code, root_node, CPP_LANGUAGE)
+#on cree les objets de base du programme
+p2.creeObjets()
+
+#on compare p1 et p2
+print("on compare p et p2")
+print("longueur des blocs de p : "+str(len(p.lesBlocs)))
+print("longueur des blocs de p2 : "+str(len(p2.lesBlocs)))
+print
+for x in p.lesBlocs:
+  trouve=False
+  for y in p2.lesBlocs:
+    if x.getPosition() == y.getPosition():
+      print("OK pour :"+x.getValeur())
+      trouve=True
+      break
+  if not trouve:
+    print("Non trouvé : "+x.getValeur())
+
+
+
 
 
 

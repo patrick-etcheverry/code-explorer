@@ -7,6 +7,34 @@
 #
 
 from tree_sitter_utilities import splited, traverse, extraireByType, extraireByName, cherche, recupereNoeud, recupereTexteDansSource
+#import bisect
+
+
+class listeOrdonnee(list):
+    def __init__(self, cletri):  #on lui passe le critère de tri
+        super().__init__()
+        self.laCleTri=cletri
+        self.iterListe=iter(self)
+    
+    def append(self, val):
+        super().append(val)
+        self.sort(key=self.laCleTri)
+
+    def next(self):
+        return next(self.iterListe)
+
+    def prec(self):
+        return 
+
+    
+
+#a déplacer
+def getCle(bloc):
+    x1=bloc.noeud.node.start_point[0]
+    y1=bloc.noeud.node.start_point[1]
+    x2=bloc.noeud.node.end_point[0]
+    y2=bloc.noeud.node.end_point[1]      
+    return (x1, y1, x2, y2)
 
 
 ##
@@ -15,9 +43,14 @@ from tree_sitter_utilities import splited, traverse, extraireByType, extraireByN
 class Noeud:
 
     ##Structure de données de la classe "Noeud" constituée d'un ensemble de clés.
-    lesCles = set()
+    #lesCles = set()
+    
+    #ici on va utiliser la structure lesCles attaché au prgramme p
+    
     ##Structure de données qui permet de récupérer le "Noeud" associé à une clé.
-    mondictCles = {}
+    
+    #ici on va utiliser la structure mondictCles attaché au programme p
+    #mondictCles = {}
 
     ##
     #@fn get_laCle(leNode)
@@ -37,51 +70,25 @@ class Noeud:
         return laCle
 
 
-    ##
-    #@fn cherche(node)
-    #@brief Renvoie une instance de Noeud correspondant au node Tree-Sitter si elle existe, sinon elle renvoie "None"
-    #@param node : Correspond au Noeud dont on veut savoir si sa clé existe déjà ou non.
-    def cherche(node):
-        laCleCherchee = Noeud.get_laCle(node)
-        if laCleCherchee in Noeud.getToutesLesCles():
-            return Noeud.getdictNoeuds()[laCleCherchee] # Si la clé existe, on récupère son noeud
-        else:
-            return None
     
     ##
     #@fn __init__(nodeTreesitter, leBloc)
     #@brief Constructeur de la classe Noeud.
     #@param nodeTreesitter : Correspond à un Node de Tree-Sitter à qui on va associer une clé
     #@param leBloc : Bloc qui va être associé à cet objet Noeud.
-    def __init__(self, nodeTreesitter, leBloc):
+    def __init__(self, nodeTreesitter, leBloc, dansprog):
         self.node = nodeTreesitter
         self.bloc = leBloc
         #on cree l'element du dictionnaire qui va permettre d'associer un Node au sens tree-sitter à une clé
         maCle = Noeud.get_laCle(nodeTreesitter)
-        Noeud.lesCles.add(maCle)
-        Noeud.mondictCles[maCle] = self 
-    
-
-    ##
-    #@fn getdictNoeuds()
-    #@brief Retourne la structure de données contenant tous les "Noeuds" associés à une clé. 
-    def getdictNoeuds():
-        return Noeud.mondictCles
-    
-
-    ##
-    #@fn getToutesLesCles()
-    #@brief Retourne la structure de données contenant l'ensemble de toutes les clés.
-    def getToutesLesCles():
-        return Noeud.lesCles
-    
+        dansprog.lesCles.add(maCle)
+        dansprog.mondictCles[maCle] = self 
     
 
 ##@class Bloc 
 #@brief Structure de données de plus haut niveau à laquelle on associe la gestion du Noeud.
 #Un Bloc se limite à sa référence à un objet Noeud (qui lui même fait référence à un node de Tressitter).
 class Bloc:
-
     ##
     #@fn __init__(lenodeTreeSitter, progObjetPatrick)
     #@brief Constructeur de la classe Bloc.
@@ -90,14 +97,16 @@ class Bloc:
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         #Cette partie permet d'éviter de créer inutilement des instances de noeuds
         cleNoeud = Noeud.get_laCle(lenodeTreeSitter) # cleNoeud contient les coordonnées du Bloc
-        if cleNoeud in Noeud.lesCles:
-            self.noeud = Noeud.mondictCles[cleNoeud]   #On récupère le noeud
+        if cleNoeud in progObjetPatrick.lesCles:
+            self.noeud = progObjetPatrick.mondictCles[cleNoeud]   #On récupère le noeud
         else:
-            self.noeud = Noeud(lenodeTreeSitter, self)  #On cree l'objet Noeud
+            self.noeud = Noeud(lenodeTreeSitter, self, progObjetPatrick)  #On cree l'objet Noeud
         
         self.prog = progObjetPatrick
-        progObjetPatrick.lesBlocs.add(self) #Ajoute à progObjetPatrick le Bloc que l'on vient de créer
-    
+        self.prog.lesBlocs.append(self) #Ajoute à progObjetPatrick le Bloc que l'on vient de créer
+        #self.prog.lesBlocs.sort(key=getCle)  #on maintient trié
+        #self.prog.lesBlocs.sort(key=getattr(self, 'getCle'))
+        #bisect.insort_left( self.prog.lesBlocs, self, key=Noeud.get_laCle)
 
     ##
     #@fn __str__()
@@ -107,16 +116,8 @@ class Bloc:
         return val       
 
 
-    ##
-    #@fn cherche(leNodeTreeSitter)
-    #@brief Vérifie si un noeud existe déjà. A pour but d'éviter les doublons.
-    #@param leNodeTreeSitter : Correspond à un Node de Tree-Sitter dont on veut vérifier s'il existe déjà dans le "Programme"
-    def cherche(leNodeTreeSitter):
-        leNoeud = Noeud.cherche(leNodeTreeSitter)
-        if not leNoeud is None:
-            return leNoeud.bloc
-        else: 
-            return None
+
+    
 
 
     ##
@@ -148,7 +149,8 @@ class BlocSimple(Bloc):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBlocsSimples.add(self) # Surcharge de progObjetPatrick en le définissant en BlocSimple
+        progObjetPatrick.lesBlocsSimples.append(self) # Surcharge de progObjetPatrick en le définissant en BlocSimple
+        #self.prog.lesBlocsSimples.sort(key=getCle)
 
 ##@class BlocCompose(Bloc)
 #@brief Classe héritant de Bloc, elle contient des objets composés de plusieurs Blocs Simples.
@@ -162,7 +164,9 @@ class BlocCompose(Bloc):
     def __init__(self, lenodeTreeSitter, progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         self.lesBlocs=[]
-        progObjetPatrick.lesBlocsComposes.add(self)# Surcharge de progObjetPatrick en le définissant en BlocComposee
+        progObjetPatrick.lesBlocsComposes.append(self)# Surcharge de progObjetPatrick en le définissant en BlocComposee
+        #self.prog.lesBlocsComposes.sort(key=getCle)
+        
         #il faudrait aussi rattacher les blocs inclus dans ce bloc à ce bloc compose
         #voir Modèle papier de Patrick pour comprendre les liens à établir. On le fera quand tous les objets de base seront créés
         # car sinon on peut en oublier 
@@ -195,7 +199,9 @@ class Commentaire(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog = progObjetPatrick
         #self.text = recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesCommentaires.add(self)
+        progObjetPatrick.lesCommentaires.append(self)
+        #self.prog.lesCommentaires.sort(key=getCle)
+        
 
 
 ##@class Literal(BlocSimple)
@@ -211,7 +217,9 @@ class Literal(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog = progObjetPatrick
         #self.text = recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesLiteral.add(self)
+        progObjetPatrick.lesLiteral.append(self)
+        #self.prog.lesLiteral.sort(key=getCle)
+        
     
 
 
@@ -228,8 +236,9 @@ class InstructionBreak(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesInstructionsBreak.add(self)
-
+        progObjetPatrick.lesInstructionsBreak.append(self)
+        #self.prog.lesInstructionsBreak.sort(key=getCle)
+        
 
 
 ##@class InstructionReturn(BlocSimple)
@@ -245,8 +254,9 @@ class InstructionReturn(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesInstructionsReturn.add(self)
-
+        progObjetPatrick.lesInstructionsReturn.append(self)
+        #self.prog.lesInstructionsReturn.sort(key=getCle)
+        
 
 
 
@@ -261,7 +271,8 @@ class TypeQualificateur(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter,  progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesTypesQualificateurs.add(self)
+        progObjetPatrick.lesTypesQualificateurs.append(self)
+        #progObjetPatrick.lesTypesQualificateurs.append(self)
 
 
 ##@class SizedTypeSpecificateur(BlocSimple)
@@ -276,7 +287,7 @@ class SizedTypeSpecificateur(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter,  progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesSizedTypeSpecificateurs.add(self)
+        progObjetPatrick.lesSizedTypeSpecificateurs.append(self)
 
 
 
@@ -291,7 +302,7 @@ class Type(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter,  progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesTypes.add(self)
+        progObjetPatrick.lesTypes.append(self)
 
 ##@class Identificateur(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Identificateur d'un code, c'est-à-dire les noms des variables par exemple.
@@ -306,7 +317,7 @@ class Identificateur(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog = progObjetPatrick
         #self.text = recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesIdentificateurs.add(self)
+        progObjetPatrick.lesIdentificateurs.append(self)
 
     ##
     #@fn setIdentificateur(node)
@@ -315,7 +326,7 @@ class Identificateur(BlocSimple):
     def setIdentificateur(self, node):
         self.identificateur = {}
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.identificateur["bloc"] = leBloc
         else:
@@ -344,7 +355,7 @@ class Declaration(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesDeclarations.add(self)
+        progObjetPatrick.lesDeclarations.append(self)
     
 
     ##
@@ -354,7 +365,7 @@ class Declaration(BlocSimple):
     def setType(self, node):
         self.type = {}
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.type["bloc"] = leBloc
         else:
@@ -377,7 +388,7 @@ class Declaration(BlocSimple):
     def setIdentificateur(self, node):       
         self.identificateur = {}
 
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.identificateur["bloc"] = leBloc
         else:
@@ -402,7 +413,7 @@ class Declaration(BlocSimple):
         if node==None:
             self.valeur["bloc"]=None
         else:
-            lebloc=Bloc.cherche(node)
+            lebloc=self.prog.cherche(node)
             if not lebloc==None:
                 self.valeur["bloc"]=lebloc
             else:
@@ -450,7 +461,7 @@ class ExpressionUpdate(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesExpressionsUpdate.add(self)
+        progObjetPatrick.lesExpressionsUpdate.append(self)
 
     ##
     #@fn setIdentificateur(node)
@@ -458,7 +469,7 @@ class ExpressionUpdate(BlocSimple):
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setIdentificateur(self, node):
         self.identificateur={}
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.identificateur["bloc"] = leBloc
         else:
@@ -508,7 +519,7 @@ class Affectation(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog = progObjetPatrick
         #self.text = recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesAffectations.add(self)
+        progObjetPatrick.lesAffectations.append(self)
     
     ##
     #@fn setIdentificateur(node)
@@ -517,7 +528,7 @@ class Affectation(BlocSimple):
     def setIdentificateur(self, node):
         self.identifier = {}
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.identifier["bloc"] = leBloc
         else:
@@ -540,7 +551,7 @@ class Affectation(BlocSimple):
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setExpression(self, node):
         self.expression = {} 
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.expression["bloc"] = leBloc
         else:
@@ -570,11 +581,11 @@ class Expression(BlocSimple):
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
 
-        progObjetPatrick.lesExpressions.add(self)
+        progObjetPatrick.lesExpressions.append(self)
 
     def setExpression(self, node):
         self.expression={} 
-        lebloc=Bloc.cherche(node)
+        lebloc=self.prog.cherche(node)
         if not lebloc==None:
             self.expression["bloc"]=lebloc
         else:
@@ -598,7 +609,7 @@ class ExpressionParenthesee(Expression):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog = progObjetPatrick
         #self.text = recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesExpressionsParenthesees.add(self)
+        progObjetPatrick.lesExpressionsParenthesees.append(self)
 
     ##
     #@fn setExpression(node)
@@ -606,7 +617,7 @@ class ExpressionParenthesee(Expression):
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setExpression(self, node):
         self.expression = {} 
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.expression["bloc"]=leBloc
         else:
@@ -632,7 +643,7 @@ class ExpressionUnaire(Expression):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesExpressionsUnaires.add(self)
+        progObjetPatrick.lesExpressionsUnaires.append(self)
 
 
     ##
@@ -641,7 +652,7 @@ class ExpressionUnaire(Expression):
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setArgument(self, node):
         self.argument = {} 
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.argument["bloc"]=leBloc
         else:
@@ -684,9 +695,11 @@ class ExpressionBinaire(Expression):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        #self.prog=progObjetPatrick
+        
+        self.prog=progObjetPatrick
+
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesExpressionsBinaires.add(self)
+        progObjetPatrick.lesExpressionsBinaires.append(self)
 
     ##
     #@fn setGauche(node)
@@ -694,7 +707,7 @@ class ExpressionBinaire(Expression):
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setGauche(self, node):
         self.gauche = {} 
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.gauche["bloc"] = leBloc
         else:
@@ -732,7 +745,7 @@ class ExpressionBinaire(Expression):
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setDroite(self, node):
         self.droite = {} 
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.droite["bloc"] = leBloc
         else:
@@ -830,7 +843,7 @@ class StructureConditionnelle(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesStructuresConditionelles.add(self)
+        progObjetPatrick.lesStructuresConditionelles.append(self)
 
 
 
@@ -851,7 +864,7 @@ class ConditionIf(StructureConditionnelle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesConditionsIf.add(self)
+        progObjetPatrick.lesConditionsIf.append(self)
 
     ##
     #@fn setCondition(node)
@@ -860,7 +873,7 @@ class ConditionIf(StructureConditionnelle):
     def setCondition(self, node):
         self.condition = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.condition["bloc"] = leBloc
         else:
@@ -889,7 +902,7 @@ class ConditionIf(StructureConditionnelle):
     def setBlocAlors(self, node):
         self.blocalors={} 
         
-        lebloc=Bloc.cherche(node)
+        lebloc=self.prog.cherche(node)
         if not lebloc==None:
             self.blocalors["bloc"]=lebloc
         else:
@@ -920,7 +933,7 @@ class ConditionIf(StructureConditionnelle):
         if node==None:
             self.blocsinon["bloc"]=None
         else:
-            lebloc=Bloc.cherche(node)
+            lebloc=self.prog.cherche(node)
             if not lebloc==None:
                 self.blocsinon["bloc"]=lebloc
             else:
@@ -961,7 +974,7 @@ class Switch(StructureConditionnelle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesSwitchs.add(self)
+        progObjetPatrick.lesSwitchs.append(self)
 
     ##
     #@fn setCondition(node)
@@ -970,7 +983,7 @@ class Switch(StructureConditionnelle):
     def setCondition(self, node):
         self.condition = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.condition["bloc"] = leBloc
         else:
@@ -1000,7 +1013,7 @@ class Switch(StructureConditionnelle):
     #@param lenodeTreeSitter : Correspond à objet un Noeud
     def setBlocTrt(self, node):
         self.bloctrt = {}
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.bloctrt["bloc"] = leBloc
         else:
@@ -1030,7 +1043,7 @@ class Switch(StructureConditionnelle):
     #@param lenodeTreeSitter : Correspond à objet un Noeud
     def setCase(self, node):
         self.case = {}
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.case["bloc"] = leBloc
         else:
@@ -1067,7 +1080,7 @@ class Sous_Programme(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesSousProgrammes.add(self)
+        progObjetPatrick.lesSousProgrammes.append(self)
 
 
 ##@class Function(Sous_Programme)
@@ -1081,7 +1094,7 @@ class Function(Sous_Programme):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesFonctions.add(self)
+        progObjetPatrick.lesFonctions.append(self)
 
 
 
@@ -1096,7 +1109,7 @@ class Boucle(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBoucles.add(self)
+        progObjetPatrick.lesBoucles.append(self)
 
     ##
     #@fn natureBoucle(indexBoucle, programme)
@@ -1127,7 +1140,7 @@ class BoucleNbRepConnu(Boucle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBouclesNbRepConnu.add(self)
+        progObjetPatrick.lesBouclesNbRepConnu.append(self)
 
 
 
@@ -1142,7 +1155,7 @@ class BoucleNbRepNonConnu(Boucle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBouclesNbRepNonConnu.add(self)
+        progObjetPatrick.lesBouclesNbRepNonConnu.append(self)
 
 
 
@@ -1158,7 +1171,7 @@ class BoucleWhile(BoucleNbRepNonConnu):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBouclesWhile.add(self)
+        progObjetPatrick.lesBouclesWhile.append(self)
 
     ##
     #@fn setCondition(node)
@@ -1167,7 +1180,7 @@ class BoucleWhile(BoucleNbRepNonConnu):
     def setCondition(self, node):
         self.condition = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.condition["bloc"] = leBloc
         else:
@@ -1196,7 +1209,7 @@ class BoucleWhile(BoucleNbRepNonConnu):
     #@param lenodeTreeSitter : Correspond à objet un Noeud
     def setBlocTrt(self, node):
         self.bloctrt = {}
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.bloctrt["bloc"] = leBloc
         else:
@@ -1231,7 +1244,7 @@ class BoucleDoWhile(BoucleNbRepNonConnu):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBouclesDoWhile.add(self)
+        progObjetPatrick.lesBouclesDoWhile.append(self)
 
 
     ##
@@ -1240,7 +1253,7 @@ class BoucleDoWhile(BoucleNbRepNonConnu):
     #@param lenodeTreeSitter : Correspond à objet un Noeud
     def setBlocTrt(self, node):
         self.bloctrt = {}
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.bloctrt["bloc"] = leBloc
         else:
@@ -1271,7 +1284,7 @@ class BoucleDoWhile(BoucleNbRepNonConnu):
     def setCondition(self, node):
         self.condition = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.condition["bloc"] = leBloc
         else:
@@ -1309,7 +1322,7 @@ class BoucleFor(BoucleNbRepConnu):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.prog=progObjetPatrick
         #self.text=recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
-        progObjetPatrick.lesBouclesFor.add(self)
+        progObjetPatrick.lesBouclesFor.append(self)
     
     ##
     #@fn setInit(node)
@@ -1318,7 +1331,7 @@ class BoucleFor(BoucleNbRepConnu):
     def setInit(self, node):
         self.init = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.init["bloc"] = leBloc
         else:
@@ -1349,7 +1362,7 @@ class BoucleFor(BoucleNbRepConnu):
     def setCondition(self, node):
         self.condition = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.condition["bloc"] = leBloc
         else:
@@ -1379,7 +1392,7 @@ class BoucleFor(BoucleNbRepConnu):
     def setPas(self, node):
         self.pas = {} 
         
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.pas["bloc"] = leBloc
         else:
@@ -1408,7 +1421,7 @@ class BoucleFor(BoucleNbRepConnu):
     #@param lenodeTreeSitter : Correspond à objet un Noeud
     def setBlocTrt(self, node):
         self.bloctrt = {}
-        leBloc = Bloc.cherche(node)
+        leBloc = self.prog.cherche(node)
         if not leBloc == None:
             self.bloctrt["bloc"] = leBloc
         else:
@@ -1464,7 +1477,7 @@ class Entree(BlocSimple):
     def __init__(self, lenodeTreeSitter, progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         
-        progObjetPatrick.lesEntrees.add(self)
+        progObjetPatrick.lesEntrees.append(self)
 
 ##@class Sortie(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Sortie d'un code, par exemple : "i" = i + 1.      
@@ -1477,7 +1490,7 @@ class Sortie(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick): 
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesSorties.add(self)
+        progObjetPatrick.lesSorties.append(self)
 
 
 ##@class Programme
@@ -1494,78 +1507,125 @@ class Programme:
         self.codeSource = liste_lignescode
         self.TreeNode = arbre_TreeSitter
         self.language = langage
-
-        #on utilise des set pour éviter les problemes de doublons
-        ##Conteneur de tous les Blocs
-        self.lesBlocs = set()
-        ##Conteneur de tous les Blocs Simples
-        self.lesBlocsSimples = set()
-        ##Conteneur de tous les Blocs Composés
-        self.lesBlocsComposes = set()
-        ##Conteneur de tous les Commentaires (EX : /* */)
-        self.lesCommentaires = set()
-        ##Conteneur de tous les TypesQualificateurs (EX : const)
-        self.lesTypesQualificateurs = set()
-        ##Conteneur de tous les SizedTypeSpecificateurs (EX : unsigned int)
-        self.lesSizedTypeSpecificateurs=set()
-        ##Conteneur de tous les Types (EX : int)
-        self.lesTypes = set()
-        ##Conteneur de tous les Identificateurs (EX : Nom d'une variable)
-        self.lesIdentificateurs = set()
-        ##Conteneur de toutes les Déclarations (EX : int toto)
-        self.lesDeclarations = set()
-        ##Conteneur de toutes les Affectations (EX : toto = toto + 1)
-        self.lesAffectations = set()
-        ##Conteneur de toutes les Expressions (EX : cout << endl)
-        self.lesExpressions = set()
-        ##Conteneur de toutes les Instructions Break (EX : break;)
-        self.lesInstructionsBreak=set()
-        ##Conteneur de toutes les Instructions Return (EX : return ();)
-        self.lesInstructionsReturn=set()
-        ##Conteneur de toutes les Expressions Parenthesées (EX : i <= "(nbCases - 2)")
-        self.lesExpressionsParenthesees = set()
-        ##Conteneur de toutes les Expressions Unaires (EX : (!estTriee))
-        self.lesExpressionsUnaires = set()
-        ##Conteneur de toutes les Expressions Binaires (EX : (compteur < 20))
-        self.lesExpressionsBinaires = set()
-        ##Conteneur de toutes les Expressions Binaires Simples
-        self.lesExpressionsBinairesSimples = set()
-        ##Conteneur de toutes les Expressions Binaires Composées
-        self.lesExpressionsBinairesComposees = set()
-        ##Conteneur de tous les Litéraux (EX : 3)
-        self.lesLiteral = set()
-        ##Conteneur de toutes les Expressions Update (EX : i++)
-        self.lesExpressionsUpdate = set()
-        ##Conteneur de toutes les Entrées (EX : toto = "titi + 1")
-        self.lesEntrees = set()
-        ##Conteneur de toutes les Sorties (EX : "toto" = titi + 1)
-        self.lesSorties = set()
-        ##Conteneur de toutes les Boucles While (EX : while())
-        self.lesBouclesWhile = set()
-        ##Conteneur de toutes les Boucles DoWhile (EX : do{} while())
-        self.lesBouclesDoWhile = set()
-        ##Conteneur de toutes les Boucles For (EX : for( ; ; ))
-        self.lesBouclesFor = set()
-        ##Conteneur de toutes les Boucles avec un nombre de répétition connu (EX : for( ; ; ))
-        self.lesBouclesNbRepConnu = set()
-        ##Conteneur de toutes les Boucles avec un nombre de répétition inconnu (EX : while(), dowhile())
-        self.lesBouclesNbRepNonConnu = set()
-        ##Conteneur de toutes les Boucles (EX : for( ; ; ), while())
-        self.lesBoucles = set()
-        ##Conteneur de toutes les Conditions If (EX : if())
-        self.lesConditionsIf = set()
-        ##Conteneur de tous les Switchs (EX : switch())
-        self.lesSwitchs = set()
-        ##Conteneur de toutes les Conditions (EX : (!estTriee))
-        self.lesFonctions = set()
-        ##Conteneur de tous les Sous-Programmes (EX : function())
-        self.lesSousProgrammes = set()
-        ##Conteneur de toutes les Structures Conditionelles If (EX : if() { })
-        self.lesStructuresConditionelles = set()
-        
         
         #ici References pour récuperer des infos sur les noeuds
         ##Conteneur de tous les Noeuds
-        self.lesNoeuds = Noeud.mondictCles
+        ## structures de données utilitaires à ne pas utiliser dans les programmes (à rendre privées)
+        self.lesNoeuds =  {}
+        self.mondictCles= {}
         ##Conteneur de toutes les Clés
-        self.lesCles = Noeud.lesCles
+        self.lesCles = set()
+
+
+        #on utilise des set pour éviter les problemes de doublons
+        ##Conteneur de tous les Blocs
+        self.lesBlocs = listeOrdonnee(getCle)
+        ##Conteneur de tous les Blocs Simples
+        self.lesBlocsSimples = listeOrdonnee(getCle)
+        ##Conteneur de tous les Blocs Composés
+        self.lesBlocsComposes = listeOrdonnee(getCle)
+        ##Conteneur de tous les Commentaires (EX : /* */)
+        self.lesCommentaires = listeOrdonnee(getCle)
+        ##Conteneur de tous les TypesQualificateurs (EX : const)
+        self.lesTypesQualificateurs = listeOrdonnee(getCle)
+        ##Conteneur de tous les SizedTypeSpecificateurs (EX : unsigned int)
+        self.lesSizedTypeSpecificateurs=listeOrdonnee(getCle)
+        ##Conteneur de tous les Types (EX : int)
+        self.lesTypes = listeOrdonnee(getCle)
+        ##Conteneur de tous les Identificateurs (EX : Nom d'une variable)
+        self.lesIdentificateurs = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Déclarations (EX : int toto)
+        self.lesDeclarations = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Affectations (EX : toto = toto + 1)
+        self.lesAffectations = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions (EX : cout << endl)
+        self.lesExpressions = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Instructions Break (EX : break;)
+        self.lesInstructionsBreak=listeOrdonnee(getCle)
+        ##Conteneur de toutes les Instructions Return (EX : return ();)
+        self.lesInstructionsReturn=listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions Parenthesées (EX : i <= "(nbCases - 2)")
+        self.lesExpressionsParenthesees = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions Unaires (EX : (!estTriee))
+        self.lesExpressionsUnaires = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions Binaires (EX : (compteur < 20))
+        self.lesExpressionsBinaires = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions Binaires Simples
+        self.lesExpressionsBinairesSimples = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions Binaires Composées
+        self.lesExpressionsBinairesComposees = listeOrdonnee(getCle)
+        ##Conteneur de tous les Litéraux (EX : 3)
+        self.lesLiteral = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Expressions Update (EX : i++)
+        self.lesExpressionsUpdate = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Entrées (EX : toto = "titi + 1")
+        self.lesEntrees = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Sorties (EX : "toto" = titi + 1)
+        self.lesSorties = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Boucles While (EX : while())
+        self.lesBouclesWhile = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Boucles DoWhile (EX : do{} while())
+        self.lesBouclesDoWhile = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Boucles For (EX : for( ; ; ))
+        self.lesBouclesFor = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Boucles avec un nombre de répétition connu (EX : for( ; ; ))
+        self.lesBouclesNbRepConnu = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Boucles avec un nombre de répétition inconnu (EX : while(), dowhile())
+        self.lesBouclesNbRepNonConnu = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Boucles (EX : for( ; ; ), while())
+        self.lesBoucles = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Conditions If (EX : if())
+        self.lesConditionsIf = listeOrdonnee(getCle)
+        ##Conteneur de tous les Switchs (EX : switch())
+        self.lesSwitchs = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Conditions (EX : (!estTriee))
+        self.lesFonctions = listeOrdonnee(getCle)
+        ##Conteneur de tous les Sous-Programmes (EX : function())
+        self.lesSousProgrammes = listeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures Conditionelles If (EX : if() { })
+        self.lesStructuresConditionelles = listeOrdonnee(getCle)
+        
+        
+    
+    ##
+    #@fn getdictNoeuds()
+    #@brief Retourne la structure de données contenant tous les "Noeuds" associés à une clé. 
+    def getdictNoeuds(self):
+        return self.mondictCles
+    
+
+    ##
+    #@fn getToutesLesCles()
+    #@brief Retourne la structure de données contenant l'ensemble de toutes les clés.
+    def getToutesLesCles(self):
+        return self.lesCles
+
+
+    ##
+    #@fn cherche(node)
+    #@brief Renvoie une instance de Noeud correspondant au node Tree-Sitter si elle existe, sinon elle renvoie "None"
+    #@param node : Correspond au Noeud dont on veut savoir si sa clé existe déjà ou non.
+    def chercheNoeud(self, node):
+        laCleCherchee = Noeud.get_laCle(node)
+        if laCleCherchee in self.getToutesLesCles():
+            return self.getdictNoeuds()[laCleCherchee] # Si la clé existe, on récupère son noeud
+        else:
+            return None
+    
+
+    ##
+    #@fn cherche(leNodeTreeSitter)
+    #@brief Vérifie si un noeud existe déjà. A pour but d'éviter les doublons.
+    #@param leNodeTreeSitter : Correspond à un Node de Tree-Sitter dont on veut vérifier s'il existe déjà dans le "Programme"
+    def cherche(self, leNodeTreeSitter):
+        leNoeud = self.chercheNoeud(leNodeTreeSitter)
+        if not leNoeud is None:
+            return leNoeud.bloc
+        else: 
+            return None
+
+    #def prepareList(self, laliste):
+    #    maliste=sorted(laliste, key=Noeud.get_laCle)
+    #    return iter(maliste)
+
+    

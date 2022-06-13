@@ -203,7 +203,7 @@ def creeObjets(prog):
         for bloc_compose in prog.lesBlocsComposes:
             lenoeud=bloc_compose.noeud
             for node in lenoeud.node.children:
-                    lebloc= Bloc.cherche(node) 
+                    lebloc= prog.cherche(node) 
                     if not lebloc==None:
                         bloc_compose.lesBlocs.append(lebloc)
                     else:
@@ -309,7 +309,7 @@ def _creeListes_bloc_compose(prog):
     for bloc_compose in prog.lesBlocsComposes:
          lenoeud=bloc_compose.noeud
          for node in lenoeud.node.children:
-                lebloc= Bloc.cherche(node) 
+                lebloc= prog.cherche(node) 
                 if not lebloc==None:
                     bloc_compose.lesBlocs.append(lebloc)
                 else:
