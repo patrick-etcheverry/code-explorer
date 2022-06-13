@@ -79,6 +79,9 @@ def creeObjets(prog):
 
         node_expression=lenode.children[2]
         obj.setExpression(node_expression)
+
+        lenode_operateur=lenode.children[1]
+        obj.setOperateur(lenode_operateur)
     
 
         #noeud=recupereNoeud(elem, listebalises[0])

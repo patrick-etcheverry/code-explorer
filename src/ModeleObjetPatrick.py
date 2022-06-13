@@ -6,6 +6,7 @@
 #@version 0.0.1 Alpha
 #
 
+from sqlalchemy import false, true
 from tree_sitter_utilities import splited, traverse, extraireByType, extraireByName, cherche, recupereNoeud, recupereTexteDansSource
 #import bisect
 
@@ -23,8 +24,6 @@ class listeOrdonnee(list):
     def next(self):
         return next(self.iterListe)
 
-    def prec(self):
-        return 
 
     
 
@@ -116,10 +115,6 @@ class Bloc:
         return val       
 
 
-
-    
-
-
     ##
     #@fn getValeur()
     #@brief Récupère la valeur d'un Bloc.
@@ -127,15 +122,53 @@ class Bloc:
         return self.__str__()    
 
     ##
-    #@fn getPosition()
-    #@brief Récupère la position d'un Bloc.
-    def getPosition(self):
+    #@fn getLocalisation()
+    #@brief Retourne la position d'un Bloc sous la forme : [(ligneDebut, colonneDebut) (ligneFin, colonneFin)].
+    def getLocalisation(self):
         x1=self.noeud.node.start_point[0]
         y1=self.noeud.node.start_point[1]
         x2=self.noeud.node.end_point[0]
         y2=self.noeud.node.end_point[1]
-        return "("+str(x1)+","+str(y1)+","+str(x2)+","+str(y2)+")"
+        return "[(" + str(x1) + ", " + str(x2) + ") (" + str(y1) + ", " + str(y2) + ")]"
 
+
+    ##
+    #@fn getLigneDebut()
+    #@brief Retourne la position de la première ligne du Bloc.
+    def getLigneDebut(self):
+        ligneDebut = self.noeud.node.start_point[0]
+        return  ligneDebut
+    
+    ##
+    #@fn getLigneFin()
+    #@brief Retourne la position de la dernière ligne du Bloc.
+    def getLigneFin(self):
+        ligneFin = self.noeud.node.start_point[1]
+        return ligneFin
+
+    ##
+    #@fn getColonneDebut()
+    #@brief Retourne la position du premier caractère de la première ligne du Bloc.
+    def getColonneDebut(self):
+        colonneDebut = self.noeud.node.end_point[0]
+        return colonneDebut
+    
+    ##
+    #@fn getColonneFin()
+    #@brief Retourne la position du dernier caractère de la dernière ligne du Bloc.
+    def getColonneFin(self):
+        colonneFin = self.noeud.node.end_point[1]
+        return colonneFin
+
+    ##
+    #@fn getTypeBloc()
+    #@brief Retourne le type du Bloc.
+    def getType(self):
+        return type(self)
+
+
+    def getTypeString(self):
+        return self.noeud.node.type.__str__()
 
     
 ##@class BlocSimple(Bloc)
@@ -567,6 +600,29 @@ class Affectation(BlocSimple):
         return self.expression["bloc"]
 
 
+      ##
+    #@fn setOperateur(node)
+    #@brief Défini le noeud en tant qu'Operateur.
+    #@param lenodeTreeSitter : Correspond à un objet Noeud
+    def setOperateur(self, node):
+        self.operateur = {}
+
+        leBloc = BlocSimple(node, self.prog)
+        if not leBloc == None:
+            self.operateur["bloc"] = leBloc
+        else:
+            pass
+            print("!!!!!!! Bloc inexistant pour setOperateur de Affectation")
+        self.operateur["node"] = node
+
+    ##
+    #@fn getIdentificateur()
+    #@brief Retourne tous les Operateurs sous forme d'une structure de données.
+    def getOperateur(self):
+        return self.operateur["bloc"]
+        #self.identifier["text"] = recupereTexteDansSource(self.prog.codeSource, node)
+
+
 ##@class Expression(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Affectations d'un code, par exemple : "toto = tab[i];".
 class Expression(BlocSimple):
@@ -827,17 +883,17 @@ class ExpressionBinaireComposee(ExpressionBinaire):
 
 
 
+##@class StructureConditionnelle(BlocSimple)
+#@brief Classe héritant de BlocSimple, elle contient toutes les Strucutures Conditionnelles d'un code, par exemple ( if() { } ).         
 class StructureConditionnelle(BlocSimple):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
     #@brief Constructeur de la classe StructureConditionnelle.
-    #Exemple de récupération d'une Structure Conditionnelle : str(list(p.lesStructuresConditionelles)[0]) \n
+    #Exemple de récupération d'une Structure Conditionnelle : p.lesStructuresConditionelles[0] \n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesStructuresConditionelles" en liste afin de pouvoir sélectionner la Structure Conditionnelle que l'on souhaite
     #- [0] = Première Structure Conditionnelle du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : (nombreDeNotes > 0)
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
@@ -848,17 +904,17 @@ class StructureConditionnelle(BlocSimple):
 
 
 
+##@class ConditionIf(StructureConditionnelle)
+#@brief Classe héritant de StructureConditionnelle, elle contient toutes les Strucutures sous forme de If d'un code.         
 class ConditionIf(StructureConditionnelle):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
     #@brief Constructeur de la classe ConditionIf.
-    #Exemple de récupération d'une Condition If : str(list(p.lesConditionsIf)[0]) \n
+    #Exemple de récupération d'une Condition If : p.lesConditionsIf[0] \n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesConditionsIf" en liste afin de pouvoir sélectionner la Condition If que l'on souhaite
     #- [0] = Première Condition If du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : (nombreDeNotes > 0)
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
@@ -884,12 +940,10 @@ class ConditionIf(StructureConditionnelle):
     ##
     #@fn getCondition()
     #@brief Retourne tous les Conditions de If sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesConditionsIf)[0].getCondition())\n
+    #Exemple d'utilisation : p.lesConditionsIf[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesConditionsIf" en liste afin de pouvoir sélectionner la Condition If que l'on souhaite
     #- [0] = Première Condition If du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : i < 20
     def getCondition(self):
         return self.condition["bloc"]
@@ -913,12 +967,10 @@ class ConditionIf(StructureConditionnelle):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesConditionsIf)[0].getBlocTrt())\n
+    #Exemple d'utilisation : p.lesConditionsIf[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesConditionsIf" en liste afin de pouvoir sélectionner la Condition If que l'on souhaite
     #- [0] = Première Condition If du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int toto = 4; }
     def getBlocAlors(self):
         return self.blocalors["bloc"]
@@ -946,29 +998,27 @@ class ConditionIf(StructureConditionnelle):
     ##
     #@fn getBlocSinon()
     #@brief Retourne tous les Blocs de Traitements Else sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesConditionsIf)[0].getBlocSinon())\n
+    #Exemple d'utilisation : p.lesConditionsIf[0].getBlocSinon().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesConditionsIf" en liste afin de pouvoir sélectionner la Condition If que l'on souhaite
     #- [0] = Première Condition If du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int toto = 4; }
     def getBlocSinon(self):
         return self.blocsinon["bloc"]
 
 
 
+##@class Switch(StructureConditionnelle)
+#@brief Classe héritant de StructureConditionnelle, elle contient toutes les Strucutures sous forme de Switch d'un code.         
 class Switch(StructureConditionnelle):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
     #@brief Constructeur de la classe Switch.
-    #Exemple de récupération d'une Switch : str(list(p.lesSwitchs)[0]) \n
+    #Exemple de récupération d'une Switch : p.lesSwitchs)[0] \n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesSwitchs" en liste afin de pouvoir sélectionner le Switch que l'on souhaite
     #- [0] = Premier Switch du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : (nombreDeNotes > 0)
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
@@ -995,12 +1045,10 @@ class Switch(StructureConditionnelle):
     ##
     #@fn getCondition()
     #@brief Retourne tous les Conditions des Switchs sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesSwitchs)[0].getCondition())\n
+    #Exemple d'utilisation : p.lesSwitchs[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesSwitchs" en liste afin de pouvoir sélectionner la Condition d'un Switch que l'on souhaite
     #- [0] = Première Condition d'un Switch du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : i < 20
     def getCondition(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
@@ -1025,12 +1073,10 @@ class Switch(StructureConditionnelle):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesSwitchs)[0].getBlocTrt())\n
+    #Exemple d'utilisation : p.lesSwitchs[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesSwitchs" en liste afin de pouvoir sélectionner la Condition d'un Switch que l'on souhaite
     #- [0] = Première Condition d'un Switch du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int toto = 4; }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
@@ -1055,12 +1101,10 @@ class Switch(StructureConditionnelle):
     ##
     #@fn getCase()
     #@brief Retourne tous les Cas sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesSwitchs)[0].getCase())\n
+    #Exemple d'utilisation : p.lesSwitchs[0].getCase().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesSwitchs" en liste afin de pouvoir sélectionner la Condition d'un Switch que l'on souhaite
     #- [0] = Première Condition d'un Switch du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int toto = 4; }
     def getCase(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.case["node"])
@@ -1069,8 +1113,8 @@ class Switch(StructureConditionnelle):
 
 
 
-##@class Sous_Programme(BlocCompose)
-#@brief Classe héritant de BlocCompose, elle contient tous les objets Sous_Programme d'un code.         
+##@class Sous_Programme(BlocSimple)
+#@brief Classe héritant de BlocSimple, elle contient tous les objets Sous_Programme d'un code.         
 class Sous_Programme(BlocSimple):
 
     ##
@@ -1098,8 +1142,8 @@ class Function(Sous_Programme):
 
 
 
-##@class Boucle(BlocCompose)
-#@brief Classe héritant de BlocCompose, elle contient tous les objets Boucle d'un code.
+##@class Boucle(BlocSimple)
+#@brief Classe héritant de BlocSimple, elle contient tous les objets Boucle d'un code.
 class Boucle(BlocSimple):
 
     ##
@@ -1115,7 +1159,7 @@ class Boucle(BlocSimple):
     #@fn natureBoucle(indexBoucle, programme)
     #@brief Méthode permettant de savoir si la boucle a un nombre de répétitions connues ou non.
     #\n Exemple d'utilisation : \n
-    #- toto = list(p.lesBoucles)[0].natureBoucle()
+    #- toto = p.lesBoucles[0].natureBoucle()
     #\n \n Résultat potentiel : "Cette boucle est une boucle à nombre de répétitions connues." \n \n
     #@warning Les boucles ne sont pas rangées dans l'ordre du code.
     def natureBoucle(self): 
@@ -1192,12 +1236,10 @@ class BoucleWhile(BoucleNbRepNonConnu):
     ##
     #@fn getCondition()
     #@brief Retourne tous les Conditions de Boucle While sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesBouclesWhile)[0].getCondition())\n
+    #Exemple d'utilisation : p.lesBouclesWhile[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesWhile" en liste afin de pouvoir sélectionner la Boucle While que l'on souhaite
     #- [0] = Première Boucle While du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : compteur < 20
     def getCondition(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
@@ -1221,12 +1263,10 @@ class BoucleWhile(BoucleNbRepNonConnu):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.*
-    #Exemple d'utilisation : str(list(p.lesBouclesWhile)[0].getBlocTrt())\n
+    #Exemple d'utilisation : p.lesBouclesWhile[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesWhile" en liste afin de pouvoir sélectionner la Boucle While que l'on souhaite
     #- [0] = Première Boucle While du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int toto = 3 }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
@@ -1265,12 +1305,10 @@ class BoucleDoWhile(BoucleNbRepNonConnu):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesBouclesDoWhile)[0].getBlocTrt())\n
+    #Exemple d'utilisation : p.lesBouclesDoWhile[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesDoWhile" en liste afin de pouvoir sélectionner la Boucle DoWhile que l'on souhaite
     #- [0] = Première Boucle DoWhile du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int toto = 3 }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
@@ -1296,12 +1334,10 @@ class BoucleDoWhile(BoucleNbRepNonConnu):
     ##
     #@fn getCondition()
     #@brief Retourne tous les Conditions de Boucle DoWhile sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesBouclesDoWhile)[0].getCondition())\n
+    #Exemple d'utilisation : p.lesBouclesDoWhile[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesDoWhile" en liste afin de pouvoir sélectionner la Boucle DoWhile que l'on souhaite
     #- [0] = Première Boucle DoWhile du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : compteur < 20
     def getCondition(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
@@ -1343,12 +1379,10 @@ class BoucleFor(BoucleNbRepConnu):
     ##
     #@fn getInit()
     #@brief Retourne tous les Initialisateurs sous forme d'une structure de données.\n
-    #Exemple d'utilisation : str(list(p.lesBouclesFor)[0].getInit())\n
+    #Exemple d'utilisation : p.lesBouclesFor[0].getInit().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesFor" en liste afin de pouvoir sélectionner la Boucle For que l'on souhaite
     #- [0] = Première Boucle For du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : int i = 0
     def getInit(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.init["node"])
@@ -1374,12 +1408,10 @@ class BoucleFor(BoucleNbRepConnu):
     ##
     #@fn getCondition()
     #@brief Retourne tous les Conditions de continuation sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesBouclesFor)[0].getCondition())\n
+    #Exemple d'utilisation : p.lesBouclesFor[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesFor" en liste afin de pouvoir sélectionner la Boucle For que l'on souhaite
     #- [0] = Première Boucle For du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : i < 5 , i >= 3
     def getCondition(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
@@ -1404,12 +1436,10 @@ class BoucleFor(BoucleNbRepConnu):
     ##
     #@fn getPas()
     #@brief Retourne tous les Pas sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesBouclesFor)[0].getPas())\n
+    #Exemple d'utilisation : p.lesBouclesFor[0].getPas().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesFor" en liste afin de pouvoir sélectionner la Boucle For que l'on souhaite
     #- [0] = Première Boucle For du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : i++, i--, i += 1, i = i + 1;
     def getPas(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.pas["node"])
@@ -1433,34 +1463,44 @@ class BoucleFor(BoucleNbRepConnu):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : str(list(p.lesBouclesFor)[0].getBlocTrt())\n
+    #Exemple d'utilisation : p.lesBouclesFor[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesFor" en liste afin de pouvoir sélectionner la Boucle For que l'on souhaite
     #- [0] = Première Boucle For du programme
-    #- str() = Fonction permettant d'afficher le contenu d'un objet Tree-Sitter
     #\n\n Résultat potentiel : { int i = 0; }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
         return self.bloctrt["bloc"]
 
     ##
-    #@fn estCroissante(indexBoucle, programme)
-    #@brief Retourne la nature du pas d'une Boucle For (Croissant ou Décroissant).
-    #Exemple d'utilisation : toto = list(p.lesBouclesFor)[0].estCroissante()
+    #@fn estCroissante()
+    #@brief Retourne "true" si la boucle a une incrémentation croissante et "false" sinon.
+    #Exemple d'utilisation : p.lesBouclesFor[0].estCroissante()
     #\n Avec :\n
     #- p = Objet Programme
-    #- list() = Conversion de "lesBouclesFor" en liste afin de pouvoir sélectionner la Boucle For que l'on souhaite
     #- [0] = Première Boucle For du programme
-    #\n\n Résultat potentiel : "C'est une boucle croissante : i++"
+    #\n\n Résultat potentiel : True
     def estCroissante(self):
-        verdict = str(self.getPas())
-        verdictFinal = splited(verdict)
+        operateur = ""
 
-        if verdictFinal == "i++" or "i=i+1" or "i+=1":
-            return "C'est une boucle croissante : " + verdict
+        if self.getPas().getType() == Affectation:
+            operateur = self.getPas().getOperateur().getValeur()
+            #Dans le cas de "i = i + 1" l'opérateur sera "=" on doit donc dissocier
+            if operateur == "=":
+                #Si c'est "=" alors on a affaire à une BinaryExpression, on a alors accès à getExpression()
+                operateur = self.getPas().getExpression().getOperateur().getValeur()
+        
+        if self.getPas().getType() == ExpressionUpdate:
+            operateur = self.getPas().getOperateur().getValeur()
+
+        if operateur == "++" or operateur == "+=" or operateur == "+":
+            return True
         else:
-            return "C'est une boucle décroissante : " + verdict
+            return True
+
+
+        
+        
 
 
 
@@ -1628,4 +1668,611 @@ class Programme:
     #    maliste=sorted(laliste, key=Noeud.get_laCle)
     #    return iter(maliste)
 
+
+
+
+
+    ##
+    #@fn getBloc()
+    #@brief Retourne tous les Blocs
+    def getBloc(self):
+        return self.lesBlocs
+    ##
+    #@fn getBlocAt(pos)
+    #@brief Retourne le Bloc correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBlocAt(self, pos):
+        try:
+            return self.lesBlocs[pos]
+        except:
+            return False
     
+
+
+
+    ##
+    #@fn getBlocSimple()
+    #@brief Retourne tous les Blocs Simples
+    def getBlocSimple(self):
+        return self.lesBlocsSimples
+    ##
+    #@fn getBlocSimpleAt(pos)
+    #@brief Retourne le BlocSimple correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBlocSimpleAt(self, pos):
+        try:
+            return self.lesBlocsSimples[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBlocCompose()
+    #@brief Retourne tous les Blocs Composés
+    def getBlocCompose(self):
+        return self.lesBlocsComposes
+    ##
+    #@fn getBlocComposeAt(pos)
+    #@brief Retourne le BlocCompose correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBlocComposeAt(self, pos):
+        try:
+            return self.lesBlocsComposes[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getCommentaire()
+    #@brief Retourne tous les Commentaires
+    def getCommentaire(self):
+        return self.lesCommentaires
+    ##
+    #@fn getBlocComposeAt(pos)
+    #@brief Retourne le Commentaire correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getCommentaireAt(self, pos):
+        try:
+            return self.lesCommentaires[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getTypeQualificateur()
+    #@brief Retourne tous les Type Qualificateur comme "const"
+    def getTypeQualificateur(self):
+        return self.lesTypesQualificateurs
+    ##
+    #@fn getBlocComposeAt(pos)
+    #@brief Retourne le Type Qualificateur correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getTypeQualificateurAt(self, pos):
+        try:
+            return self.lesTypesQualificateurs[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getLeType()
+    #@brief Retourne tous les Types de variables initialisés (int, string, ...)
+    def getLeType(self):
+        return self.lesTypes
+    ##
+    #@fn getLeTypeAt(pos)
+    #@brief Retourne le Type correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getLeTypeAt(self, pos):
+        try:
+            return self.lesTypes[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getIdentificateur()
+    #@brief Retourne tous les Identificateurs comme les noms de variables par exemple
+    def getIdentificateur(self):
+        return self.lesIdentificateurs
+    ##
+    #@fn getIdentificateurAt(pos)
+    #@brief Retourne l'Identificateur correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getIdentificateurAt(self, pos):
+        try:
+            return self.lesIdentificateurs[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getDeclaration()
+    #@brief Retourne toutes les Déclarations (int i = 0)
+    def getDeclaration(self):
+        return self.lesDeclarations
+    ##
+    #@fn getDeclarationAt(pos)
+    #@brief Retourne la Déclaration correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getDeclarationAt(self, pos):
+        try:
+            return self.lesDeclarations[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getgetAffectationBloc()
+    #@brief Retourne toutes les Affectations (i = i + 1)
+    def getAffectation(self):
+        return self.lesAffectations
+    ##
+    #@fn getAffectationAt(pos)
+    #@brief Retourne l'Affectation correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getAffectationAt(self, pos):
+        try:
+            return self.lesAffectations[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpression()
+    #@brief Retourne toutes les Expressions (2 * 3)
+    def getExpression(self):
+        return self.lesExpressions
+    ##
+    #@fn getExpressionAt(pos)
+    #@brief Retourne l'Expression correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionAt(self, pos):
+        try:
+            return self.lesExpressions[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBreak()
+    #@brief Retourne tous les Breaks (break;)
+    def getBreak(self):
+        return self.lesInstructionsBreak
+    ##
+    #@fn getBreakAt(pos)
+    #@brief Retourne le Break correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBreakAt(self, pos):
+        try:
+            return self.lesInstructionsBreak[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getReturn()
+    #@brief Retourne tous les Return (return 0;)
+    def getReturn(self):
+        return self.lesInstructionsReturn
+    ##
+    #@fn getReturnAt(pos)
+    #@brief Retourne le Return correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getReturnAt(self, pos):
+        try:
+            return self.lesInstructionsReturn[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpressionParenthesee()
+    #@brief Retourne toutes les Expressions Parenthesées ( (i < 4) )
+    def getExpressionParenthesee(self):
+        return self.lesExpressionsParenthesees
+    ##
+    #@fn getExpressionParentheseeAt(pos)
+    #@brief Retourne l'Expression Parenthesée correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionParentheseeAt(self, pos):
+        try:
+            return self.lesExpressionsParenthesees[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpressionUnaire()
+    #@brief Retourne toutes les Expressions Unaires (!estTriee)
+    def getExpressionUnaire(self):
+        return self.lesExpressionsUnaires
+    ##
+    #@fn getExpressionUnaireAt(pos)
+    #@brief Retourne l'Expression Unaire correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionUnaireAt(self, pos):
+        try:
+            return self.lesExpressionsUnaires[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpressionBinaire()
+    #@brief Retourne toutes les Expressions Binaires ( compteur < 20 )
+    def getExpressionBinaire(self):
+        return self.lesExpressionsBinaires
+    ##
+    #@fn getExpressionBinaireAt(pos)
+    #@brief Retourne l'Expression Binaire correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionBinaireAt(self, pos):
+        try:
+            return self.lesExpressionsBinaires[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpressionBinaireSimple()
+    #@brief Retourne toutes les Expressions Binaires Simples
+    def getExpressionBinaireSimple(self):
+        return self.lesExpressionsBinairesSimples
+    ##
+    #@fn getExpressionBinaireSimple(pos)
+    #@brief Retourne l'Expression Binaire Simple correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionBinaireSimpleAt(self, pos):
+        try:
+            return self.lesExpressionsBinairesSimples[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpressionBinaireComposee()
+    #@brief Retourne toutes les Expressions Binaires Composées 
+    def getExpressionBinaireComposee(self):
+        return self.lesExpressionsBinairesComposees
+    ##
+    #@fn getExpressionBinaireComposeeAt(pos)
+    #@brief Retourne l'Expression Binaire Composée correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionBinaireComposeeAt(self, pos):
+        try:
+            return self.lesExpressionsBinairesComposees[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getLiteral()
+    #@brief Retourne tous les Litéraux ( 4 )
+    def getLiteral(self):
+        return self.lesLiteral
+    ##
+    #@fn getLiteralAt(pos)
+    #@brief Retourne le Litéral correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getLiteralAt(self, pos):
+        try:
+            return self.lesLiteral[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getExpressionUpdate()
+    #@brief Retourne toutes les Expressions Updates (i++)
+    def getExpressionUpdateAt(self):
+        return self.lesExpressionsUpdate
+    ##
+    #@fn getExpressionUpdateAt(pos)
+    #@brief Retourne l'Expression Update Composée correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getExpressionUpdateAt(self, pos):
+        try:
+            return self.lesExpressionsUpdate[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getEntree()
+    #@brief Retourne toutes les Entrées
+    def getEntree(self):
+            return self.lesEntrees
+    ##
+    #@fn getEntreeAt(pos)
+    #@brief Retourne l'Entrée correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getEntreeAt(self, pos):
+        try:
+            return self.lesEntrees[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getSortie()
+    #@brief Retourne toutes les Sorties
+    def getSortie(self):
+        return self.lesSorties
+    ##
+    #@fn getSortieAt(pos)
+    #@brief Retourne la Sortie correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getSortieAt(self, pos):
+        try:
+            return self.lesSorties[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBoucleWhile()
+    #@brief Retourne toutes les Boucles While ( while() { } )
+    def getBoucleWhile(self):
+        return self.lesBouclesWhile
+    ##
+    #@fn getBoucleWhileAt(pos)
+    #@brief Retourne la Boucle While correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBoucleWhileAt(self, pos):
+        try:
+            return self.lesBouclesWhile[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBoucleDoWhile()
+    #@brief Retourne toutes les Boucles Do While ( do { } while() )
+    def getBoucleDoWhile(self):
+        return self.lesBouclesDoWhile
+    ##
+    #@fn getBoucleDoWhileAt(pos)
+    #@brief Retourne la Boucle Do While correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBoucleDoWhileAt(self, pos):
+        try:
+            return self.lesBouclesDoWhile[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBoucleFor()
+    #@brief Retourne toutes les Boucles For ( for( ; ; ) { } )
+    def getBoucleFor(self):
+        return self.lesBouclesFor
+    ##
+    #@fn getBoucleForAt(pos)
+    #@brief Retourne la Boucle For correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBoucleForAt(self, pos):
+        try:
+            return self.lesBouclesFor[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBloc()
+    #@brief Retourne toutes les Boucles à nombres de répétitions connues
+    def getBoucleNbRepConnu(self):
+        return self.lesBouclesNbRepConnu
+    ##
+    #@fn getBoucleNbRepConnuAt(pos)
+    #@brief Retourne la Boucle à nombre de répétitions connues correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBoucleNbRepConnuAt(self, pos):
+        try:
+            return self.lesBouclesNbRepConnu[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBloc()
+    #@brief Retourne toutes les Boucles à nombres de répétitions inconnues
+    def getBoucleNbRepNonConnu(self):
+        return self.lesBouclesNbRepNonConnu
+    ##
+    #@fn getBoucleNbRepNonConnuAt(pos)
+    #@brief Retourne la Boucle à nombre de répétitions inconnues correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBoucleNbRepNonConnuAt(self, pos):
+        try:
+            return self.lesBouclesNbRepNonConnu[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getBoucle()
+    #@brief Retourne toutes les Boucles
+    def getBoucle(self):
+        return self.lesBoucles
+    ##
+    #@fn getBoucleAt(pos)
+    #@brief Retourne la Boucle correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBoucleAt(self, pos):
+        try:
+            return self.lesBoucles[pos]
+        except:
+            return False
+
+
+
+
+
+
+    ##
+    #@fn getConditionIf()
+    #@brief Retourne toutes les Condition If ( if() { } )
+    def getConditionIf(self):
+        return self.lesConditionsIf
+    ##
+    #@fn getConditionIfAt(pos)
+    #@brief Retourne la Condition If correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionIfAt(self, pos):
+        try:
+            return self.lesConditionsIf[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getSwitch()
+    #@brief Retourne tous les Switchs ( switch() { } )
+    def getSwitch(self):
+        return self.lesSwitchs
+    ##
+    #@fn getSwitchAt(pos)
+    #@brief Retourne le Swtich correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getSwitchAt(self, pos):
+        try:
+            return self.lesSwitchs[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getFonction()
+    #@brief Retourne toutes les Fonctions ( bool estCroissante() { } )
+    def getFonction(self):
+        return self.lesFonctions
+    ##
+    #@fn getFonctionAt(pos)
+    #@brief Retourne la Fonction correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getFonctionAt(self, pos):
+        try:
+            return self.lesFonctions[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getSousProgramme()
+    #@brief Retourne tous les Sous-Programmes
+    def getSousProgramme(self):
+        return self.lesSousProgrammes
+    ##
+    #@fn getSousProgrammeAt(pos)
+    #@brief Retourne le Sous-Programme correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getSousProgrammeAt(self, pos):
+        try:
+            return self.lesSousProgrammes[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getStructureConditionelle()
+    #@brief Retourne toutes les Structures Conditionnelles
+    def getStructureConditionelle(self):
+        return self.lesStructuresConditionelles
+    ##
+    #@fn getStructureConditionelleAt(pos)
+    #@brief Retourne la Structure Conditionnelle correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getStructureConditionelleAt(self, pos):
+        try:
+            return self.lesStructuresConditionelles[pos]
+        except:
+            return False
+

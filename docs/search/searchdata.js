@@ -4,7 +4,7 @@ var indexSectionsWithContent =
   1: "abcdefilnpst",
   2: "mt",
   3: "_acegns",
-  4: "lm",
+  4: "l",
   5: "%"
 };
 
