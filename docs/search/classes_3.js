@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['declaration_0',['Declaration',['../class_modele_objet_patrick_1_1_declaration.html',1,'ModeleObjetPatrick']]]
+  ['declaration_0',['Declaration',['../class_declaration.html',1,'Declaration'],['../class_declaration_1_1_declaration.html',1,'Declaration.Declaration']]]
 ];

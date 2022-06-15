@@ -1,0 +1,150 @@
+<!-- HTML header for doxygen 1.8.8-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- For Mobile Devices -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+        <meta name="generator" content="Doxygen 1.9.4"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <title>Code Explorer: Introduction</title>
+        <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
+        <script type="text/javascript" src="dynsections.js"></script>
+        <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+        <link href="doxygen.css" rel="stylesheet" type="text/css" />
+        <link href="customdoxygen.css" rel="stylesheet" type="text/css"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="jquery.smartmenus.bootstrap.css" rel="stylesheet">
+        <script type="text/javascript" src="jquery.smartmenus.js"></script>
+        <!-- SmartMenus jQuery Bootstrap Addon -->
+        <script type="text/javascript" src="jquery.smartmenus.bootstrap.js"></script>
+        <!-- SmartMenus jQuery plugin -->
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                      <span><img src=logo.png height="30" class="d-inline-block align-top" alt=""></span>
+                       &nbsp;
+                       Code Explorer 
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div class="content" id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 panel " style="padding-bottom: 15px;">
+                            <div style="margin-bottom: 15px;">
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.4 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">Introduction </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p >These guidelines are intended to help developers contribute to the grammar and preserve consistency across the project while doing so.</p>
+<h2>Contributions needed</h2>
+<p >The main objective of this project is to support all versions of the Java language. This means addressing issues with the "todo" and "known error" labels, assigning yourself to a problem that you're working on so that work isn't duplicated. We're also open to documentation improvements and feature enhancements and recommend filing an issue.</p>
+<h1>Java Grammar Development Guide</h1>
+<h4>General grammar structure</h4>
+<p >Language constructs are grouped into the top-level categories denoting declarations, statements within methods and expressions. All granular constructs feed into those through the defined grammar hierarchy.</p>
+<div class="fragment"><div class="line">rules: {</div>
+<div class="line">    program: $ =&gt; repeat($._statement),</div>
+<div class="line"> </div>
+<div class="line">    _statement: $ =&gt; prec(1, choice(</div>
+<div class="line">      $._expression_statement,</div>
+<div class="line">      $._declaration,</div>
+<div class="line">      $._method_statement</div>
+<div class="line">    )),</div>
+</div><!-- fragment --><h4>Deviating from the language spec</h4>
+<p >The <code>grammar.js</code> file follows the BNF grammar outlined in the <a href="https://docs.oracle.com/javase/specs/jls/se9/html/jls-19.html">Java Language Specification</a>.</p>
+<p >There are situations where we've deviated from the spec:</p>
+<ul>
+<li><b>Prefered naming:</b> if common developer parlance prefers a naming convention other than the spec, we tend to deviate. An example of this is for <code>generic_type</code> as the outer wrapper for <code>type_arguments</code>, since generics are a familiar Java programming concept.</li>
+<li><b>Simplicity:</b> The spec is convoluted and not conducive to compact, readable code. In this situation, we've preferred structuring things in a way that are more reusable throughout the grammar and also read clearly. An example of this is our preference to use <code>binary_</code> and <code>unary_</code> expressions to model relationships between operators, as opposed to supporting the spec's <a href="https://docs.oracle.com/javase/specs/jls/se9/html/jls-15.html#jls-ConditionalExpression"><code>ConditionalExpression</code></a> hierarchy.</li>
+</ul>
+<h4>When it's okay to parse invalid Java</h4>
+<p >There are situations in which we parse invalid code to support end-user experiences. For example, it's important to ensure syntax-highlighting doesn't break down for a snippet of Java code in a markdown file. For this reason, we currently allow expressions to be parsed outside of methods, even though that is not valid Java.</p>
+<p >To know what is "valid enough", consider what good documentation would look like:</p>
+<ul>
+<li>✅ <code>int x = (1 + 2);</code> = This is invalid since it is not within a method, but still comprehensible. Parse this.</li>
+<li>❌ <code>int x = (1 + ) =;</code> This is not only invalid Java, but it is invalid logic. It wouldn't make sense in documentation. Don't parse this.</li>
+</ul>
+<p >Running your code using something like <a href="https://github.com/albertlatacz/java-repl">JavaRepl</a> is also a good way to verify the correctness of the input program.</p>
+<h4>Adding unit tests</h4>
+<p >The recommendation is to be comprehensive in adding tests. If it's a visible node, add it to a <code>/corpus/</code> test file. It's typically a good idea to test as many permutations of a particular language construct as possible. This increases test coverage, but doubly acquaints readers with a way to examine expected outputs and understand the "edges" of a language.</p>
+<h4>Testing on external repos</h4>
+<p >Three of the "most popular" Java repositories have been cloned into the project under the <code>/examples</code> directory (where popularity is defined by repositories that are most starred and have highest number of active contributers within the last month). Parsing these repos allows us to gauge how well our grammar performs at parsing "real world" Java.</p>
+<p ><em>To test:</em></p><ul>
+<li><code>./script/parse-examples</code> runs the tests and outputs them to <code>known-errors.txt</code>, representing the files that have any errors or <code>MISSING ;</code> flags.</li>
+<li>The goal is to drive down the errors in <code>known-errors.txt</code> to 0.</li>
+<li><code>known-errors.txt</code> allows you to find erroring files and parse them individually to diagnose and debug errors.</li>
+</ul>
+<h4>Testing with other parsers</h4>
+<p >It's worth consulting other LR Java parsers (such as <a href="https://github.com/javaparser/javaparser">JavaParser</a>) to guide your own grammar development. Comparing tree structure and naming can provide valuable insight into what is usable.</p>
+<h4>References</h4>
+<ul>
+<li><a href="https://github.com/javaparser/javaparser">JavaParser</a></li>
+<li><a href="https://docs.oracle.com/javase/specs/jls/se9/html/jls-19.html">Java Language Specification</a></li>
+<li><a href="http://tree-sitter.github.io/tree-sitter/creating-parsers.html">Tree-sitter documentation</a></li>
+<li><a href="https://github.com/albertlatacz/java-repl">JavaRepl</a> </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- HTML footer for doxygen 1.8.8-->
+<!-- start footer part -->
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>
+Généré le Mercredi 15 Juin 2022 13:48:44 pour Code Explorer par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.9.4
+</small></address>
+</body>
+        <script type="text/javascript" src="doxy-boot.js"></script>
+</html>
