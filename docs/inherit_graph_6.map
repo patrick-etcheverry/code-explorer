@@ -1,3 +1,20 @@
 <map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
-<area shape="rect" id="node1" href="$class_bloc_compose.html" title="Classe héritant de Bloc, elle contient des objets composés de plusieurs Blocs Simples." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,435,93,461"/>
+<area shape="rect" id="node2" href="$class_affectation_1_1_affectation.html" title=" " alt="" coords="181,5,329,32"/>
+<area shape="rect" id="node3" href="$class_boucle_1_1_boucle.html" title=" " alt="" coords="201,56,308,83"/>
+<area shape="rect" id="node4" href="$class_commentaire_1_1_commentaire.html" title=" " alt="" coords="165,107,345,133"/>
+<area shape="rect" id="node5" href="$class_declaration_1_1_declaration.html" title=" " alt="" coords="177,157,333,184"/>
+<area shape="rect" id="node6" href="$class_entree_1_1_entree.html" title=" " alt="" coords="203,208,306,235"/>
+<area shape="rect" id="node7" href="$class_expression_1_1_expression.html" title=" " alt="" coords="177,259,333,285"/>
+<area shape="rect" id="node8" href="$class_expression_update_1_1_expression_update.html" title=" " alt="" coords="156,310,353,351"/>
+<area shape="rect" id="node9" href="$class_identificateur_1_1_identificateur.html" title=" " alt="" coords="169,376,341,403"/>
+<area shape="rect" id="node10" href="$class_instruction_break_1_1_instruction_break.html" title=" " alt="" coords="165,427,345,469"/>
+<area shape="rect" id="node11" href="$class_instruction_return_1_1_instruction_return.html" title=" " alt="" coords="163,493,347,534"/>
+<area shape="rect" id="node12" href="$class_literal_1_1_literal.html" title=" " alt="" coords="207,559,303,585"/>
+<area shape="rect" id="node13" href="$class_size_typed_specificateur_1_1_sized_type_specificateur.html" title="Classe héritant de BlocSimple, elle contient tous les objets SizedTypeSpecificateur d&#39;un code,..." alt="" coords="157,610,352,651"/>
+<area shape="rect" id="node14" href="$class_sortie_1_1_sortie.html" title=" " alt="" coords="207,676,302,703"/>
+<area shape="rect" id="node15" href="$class_sous_programme_1_1_sous_programme.html" title=" " alt="" coords="145,727,365,753"/>
+<area shape="rect" id="node16" href="$class_structure_conditionnelle_1_1_structure_conditionnelle.html" title=" " alt="" coords="175,778,335,819"/>
+<area shape="rect" id="node17" href="$class_type_1_1_type.html" title=" " alt="" coords="213,844,296,871"/>
+<area shape="rect" id="node18" href="$class_type_qualificateur_1_1_type_qualificateur.html" title=" " alt="" coords="141,895,368,921"/>
 </map>

@@ -1,3 +1,3 @@
 <map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
-<area shape="rect" id="node1" href="$class_noeud.html" title="Base de toutes choses dans le programme, elle encapsule un &quot;node&quot; de Tree&#45;Sitter." alt="" coords="5,5,64,32"/>
+<area shape="rect" id="node1" href="$class_type_qualificateur.html" title="Classe héritant de BlocSimple, elle contient tous les objets TypeQualificateur d&#39;un code,..." alt="" coords="5,5,128,32"/>
 </map>
