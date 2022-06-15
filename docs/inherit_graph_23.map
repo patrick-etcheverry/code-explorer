@@ -1,3 +1,3 @@
 <map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
-<area shape="rect" id="node1" href="$class_declaration.html" title="Classe héritant de BlocSimple, elle contient tous les objets Declaration d&#39;un code,..." alt="" coords="5,5,92,32"/>
+<area shape="rect" id="node1" href="$class_expression_parenthesee.html" title="Classe héritant de Expression, elle contient tous les objets ExpressionParenthesee d&#39;un code,..." alt="" coords="5,5,165,32"/>
 </map>

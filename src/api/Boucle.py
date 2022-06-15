@@ -1,4 +1,3 @@
-from sqlalchemy import true
 from src.api.BlocSimple import BlocSimple
 from src.api.tree_sitter_utilities import splited
 
