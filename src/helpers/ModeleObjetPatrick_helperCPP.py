@@ -3,7 +3,6 @@ from src.api.Commentaire import Commentaire
 from src.api.Type import Type
 from src.api.Literal import Literal
 from src.api.TypeQualificateur import TypeQualificateur
-#from src.api.Programme import Programme
 from src.api.BoucleFor import BoucleFor
 from src.api.Affectation import Affectation
 from src.api.BoucleWhile import BoucleWhile
@@ -23,10 +22,13 @@ from src.api.Identificateur import Identificateur
 from src.api.BlocCompose import BlocCompose
 from src.api.Switch import Switch
 
+#from src.api.Programme import Programme
 
 
+import logging
 
-
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 
 
@@ -264,7 +266,7 @@ def creeObjets(prog):
                         bloc_compose.lesBlocs.append(lebloc)
                     else:
                         pass
-                        print("!!!!!!! Bloc inexistant dans BlocCompose"+str(node))    
+                        logger.debug("!!!!!!! Bloc inexistant dans BlocCompose"+str(node))    
 
 
 
@@ -312,7 +314,8 @@ def creeObjets(prog):
         elif node.type=="do_statement":
             _creeObjet_BoucleDoWhile(node, prog)
         else:
-            print("element non categorisé : "+ str(node))
+            pass
+            logger.debug("element non categorisé : "+ str(node))
 
       
     traverse(prog.TreeNode, False, _creeElement,[])
@@ -372,7 +375,7 @@ def _creeListes_bloc_compose(prog):
                     bloc_compose.lesBlocs.append(lebloc)
                 else:
                     pass
-                    print("!!!!!!! Bloc inexistant pour BlocCompose"+str(node))
+                    logger.debug("!!!!!!! Bloc inexistant pour BlocCompose"+str(node))
 
 
 

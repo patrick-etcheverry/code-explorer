@@ -1,7 +1,10 @@
 from src.api.Expression import Expression
 from src.api.BlocSimple import BlocSimple
 
+import logging
 
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class ExpressionBinaire(Expression)
 #@brief Classe héritant de Expression, elle contient tous les objets ExpressionBinaire d'un code, par exemple : while("compteur < 20").
@@ -30,7 +33,7 @@ class ExpressionBinaire(Expression):
         if not leBloc == None:
             self.gauche["bloc"] = leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour Gauche")
+            logger.debug("!!!!!!! Bloc inexistant pour Gauche")
         self.gauche["node"] = node
 
     ##
@@ -49,7 +52,7 @@ class ExpressionBinaire(Expression):
         if not leBloc == None:
             self.operateur["bloc"] = leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour Operateur" + str(node))
+            logger.debug("!!!!!!! Bloc inexistant pour Operateur" + str(node))
         self.operateur["node"] = node
 
     ##
@@ -68,7 +71,7 @@ class ExpressionBinaire(Expression):
         if not leBloc == None:
             self.droite["bloc"] = leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour Droite")
+            logger.debug("!!!!!!! Bloc inexistant pour Droite")
         self.droite["node"] = node
 
     ##

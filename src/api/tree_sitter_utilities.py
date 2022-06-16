@@ -9,6 +9,10 @@
 from xmlrpc.client import Boolean
 from tree_sitter import TreeCursor
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 
 def getCle(bloc):
@@ -98,7 +102,7 @@ def extraireByType(node, eltaextraire, exact: Boolean, danslaliste):
             danslaliste.append(node)
     else:
         if eltaextraire in node.type:
-            print(eltaextraire + " " + str(node.type))
+            logger.debug(eltaextraire + " " + str(node.type))
             danslaliste.append(node)
 
 
@@ -108,7 +112,7 @@ def extraireByName(node, eltaextraire, exact: Boolean, danslaliste):
             danslaliste.append(node)
     else:
         if node.parent.child_by_field_name("eltaextraire") == node:
-            print(eltaextraire + " " + str(node.type))
+            logger.debug(eltaextraire + " " + str(node.type))
             danslaliste.append(node)  
 
 
@@ -256,10 +260,10 @@ def capturesByName(tree, codesource, query, nom):
 #methode testée mais pas forcément utilisée    
 def lint(tree, codesource, msg, query, nom, fonction_appliquee = None):
     if fonction_appliquee == None:
-        print("on retourne " + msg)
+        logger.debug("on retourne " + msg)
         return capturesByName(tree, codesource, query, nom)
     else:
-        print("on applique " + str(fonction_appliquee) + " " + msg)
+        logger.debug("on applique " + str(fonction_appliquee) + " " + msg)
         fonction_appliquee(capturesByName(tree, codesource, query, nom))
 
 

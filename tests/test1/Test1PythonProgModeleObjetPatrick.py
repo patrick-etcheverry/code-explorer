@@ -1,8 +1,15 @@
+import logging
+
 import os
 import sys
 sys.path.append(os.getcwd())
 from src.api.Programme import Programme
 
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
+logging.basicConfig(level=logging.DEBUG)
+logger.debug("salut")
 p = Programme("fichiers/etudiant001.cpp")
 
 

@@ -1,5 +1,9 @@
 from src.api.BlocSimple import BlocSimple
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class ExpressionUpdate(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets ExpressionUpdate d'un code, par exemple : "i++".
@@ -26,7 +30,7 @@ class ExpressionUpdate(BlocSimple):
         if not leBloc == None:
             self.identificateur["bloc"] = leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour setIdentificateur de ExpressionUpdate")
+            logger.debug("!!!!!!! Bloc inexistant pour setIdentificateur de ExpressionUpdate")
         self.identificateur["node"] = node
 
     ##
@@ -47,7 +51,7 @@ class ExpressionUpdate(BlocSimple):
             self.operateur["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour setOperateur de ExpressionUpdate")
+            logger.debug("!!!!!!! Bloc inexistant pour setOperateur de ExpressionUpdate")
         self.operateur["node"] = node
 
     ##

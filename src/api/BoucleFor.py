@@ -2,6 +2,10 @@ from src.api.BoucleNbRepConnu import BoucleNbRepConnu
 from src.api.ExpressionUpdate import ExpressionUpdate
 from src.api.Affectation import Affectation
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class BoucleFor(Boucle)
 #@brief Classe héritant de Boucle, elle contient tous les objets BoucleFor d'un code, par exemple : "for( ; ; )".      
@@ -30,7 +34,7 @@ class BoucleFor(BoucleNbRepConnu):
             self.init["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur BoucleFor: Bloc inexistant pour init")
+            logger.debug("!!!!!!! Pb sur BoucleFor: Bloc inexistant pour init")
         self.init["node"] = node
         #self.init["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
 
@@ -59,7 +63,7 @@ class BoucleFor(BoucleNbRepConnu):
             self.condition["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur condition")
+            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur condition")
         self.condition["node"] = node
         #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -87,7 +91,7 @@ class BoucleFor(BoucleNbRepConnu):
             self.pas["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur pas")
+            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur pas")
         self.pas["node"] = node
         #self.pas["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -114,7 +118,7 @@ class BoucleFor(BoucleNbRepConnu):
             self.bloctrt["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur bloctrt")        
+            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur bloctrt")        
         self.bloctrt["node"] = node
         #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     

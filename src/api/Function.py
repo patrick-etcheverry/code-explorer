@@ -1,5 +1,9 @@
 from src.api.SousProgramme import SousProgramme
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class Function(SousProgramme)
 #@brief Classe héritant de SousProgramme, elle contient tous les objets Function d'un code, par exemple : "int function()".
@@ -27,7 +31,7 @@ class Function(SousProgramme):
             self.type["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour type")
+            logger.debug("!!!!!!! Bloc inexistant pour type")
         self.type["node"] = node
         #self.type["text"]=recupereTexteDansSource(self.prog.codeSource, nodeType)
 
@@ -51,7 +55,7 @@ class Function(SousProgramme):
             self.nom["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour Identificateur")
+            logger.debug("!!!!!!! Bloc inexistant pour Identificateur")
         self.nom["node"] = node
         #self.type["text"]=recupereTexteDansSource(self.prog.codeSource, nodeNom)
 
@@ -75,7 +79,7 @@ class Function(SousProgramme):
             self.parametres["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur parametres")        
+            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur parametres")        
         self.parametres["node"] = node
         #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -105,7 +109,7 @@ class Function(SousProgramme):
             self.bloctrt["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur bloctrt")        
+            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur bloctrt")        
         self.bloctrt["node"] = node
         #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     

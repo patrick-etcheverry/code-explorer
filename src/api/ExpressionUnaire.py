@@ -1,7 +1,10 @@
 from src.api.Expression import Expression
 from src.api.BlocSimple import BlocSimple
 
+import logging
 
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class ExpressionUnaire(Expression)
 #@brief Classe héritant de Expression, elle contient tous les objets ExpressionUnaire d'un code, par exemple : while("!estTrie").
@@ -29,7 +32,7 @@ class ExpressionUnaire(Expression):
         if not leBloc == None:
             self.argument["bloc"]=leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour Argument")
+            logger.debug("!!!!!!! Bloc inexistant pour Argument")
         self.argument["node"] = node
     
     ##
@@ -48,7 +51,7 @@ class ExpressionUnaire(Expression):
         if not leBloc == None:
             self.operateur["bloc"]=leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour operateur" + str(node))
+            logger.debug("!!!!!!! Bloc inexistant pour operateur" + str(node))
         self.operateur["node"] = node
     
     ##

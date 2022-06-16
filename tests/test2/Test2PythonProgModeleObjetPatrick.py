@@ -5,6 +5,7 @@ from src.api.Programme import Programme
 
 p = Programme("tests/test2/essai.cpp")
 
+print(p.getBoucles().next().getType())
 print("---------------------------------")
 
 

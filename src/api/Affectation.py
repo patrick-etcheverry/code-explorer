@@ -1,5 +1,8 @@
 from src.api.BlocSimple import BlocSimple
+import logging
 
+# Gets or creates a logger
+logger = logging.getLogger(__name__)  
 
 ##@class Affectation(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Affectations d'un code, par exemple : "i = i + 1".
@@ -28,7 +31,7 @@ class Affectation(BlocSimple):
             self.identifier["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour identificateur")
+            logger.debug("!!!!!!! Bloc inexistant pour identificateur")
         self.identifier["node"] = node
         #self.identifier["text"] = recupereTexteDansSource(self.prog.codeSource, node)
 
@@ -50,7 +53,7 @@ class Affectation(BlocSimple):
         if not leBloc == None:
             self.expression["bloc"] = leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour expression dans Affectation")
+            logger.debug("!!!!!!! Bloc inexistant pour expression dans Affectation")
         self.expression["node"] = node
         #self.expression["text"]=recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -74,7 +77,7 @@ class Affectation(BlocSimple):
             self.operateur["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour setOperateur de Affectation")
+            logger.debug("!!!!!!! Bloc inexistant pour setOperateur de Affectation")
         self.operateur["node"] = node
 
     ##

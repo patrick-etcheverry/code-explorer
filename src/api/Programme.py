@@ -8,6 +8,11 @@ import sys
 import os
 from importlib import import_module
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
+
 ##@class Programme
 #@brief Base de tout, la classe Programme contient tous les Blocs.
 class Programme:  
@@ -17,23 +22,30 @@ class Programme:
     #@param liste_lignescode : Correspond au tableau contenant à chaque index toutes lignes du code que vous analysez
     #@param arbre_TreeSitter : Noeud principal du code que vous analysez
     #@param langage : Langage du code que vous analysez
-    def __init__(self, cheminfichier):
+    def __init__(self, cheminfichier, ArgLibTreeSitter=None, ArgLanguagesTreeSitter=None):
         
         self.cheminfichier=cheminfichier
         
+        if ArgLibTreeSitter==None:
+            self.ArgumentlibTreeSitter='build/my-languages.so'
+            self.ArgumentLanguagesTreeSitter= [
+                'src/languages/tree-sitter-java',
+                'src/languages/tree-sitter-python',
+                'src/languages/tree-sitter-javascript',
+                'src/languages/tree-sitter-c',
+                'src/languages/tree-sitter-cpp'
+            ]
+        else:
+            self.ArgumentlibTreeSitter=ArgLibTreeSitter
+            self.ArgumentLanguagesTreeSitter=ArgLanguagesTreeSitter 
+        
         Language.build_library(
-        # Store the library in the `build` directory
-        'build/my-languages.so',
+            # Store the library in the `build` directory
+           self.ArgumentlibTreeSitter,
+           self.ArgumentLanguagesTreeSitter
+            )   
+          
 
-        # Include one or more languages
-        [
-            'src/languages/tree-sitter-java',
-            'src/languages/tree-sitter-python',
-            'src/languages/tree-sitter-javascript',
-            'src/languages/tree-sitter-c',
-            'src/languages/tree-sitter-cpp'
-        ]
-        )
 
         #JS_LANGUAGE = Language('build/my-languages.so', 'javascript')
         #PY_LANGUAGE = Language('build/my-languages.so', 'python')
@@ -44,22 +56,25 @@ class Programme:
         #selon le cas
         nom, extension = os.path.splitext(cheminfichier)
         if extension==".c":
-            LANGUAGE= Language('build/my-languages.so', 'c')
-            helper="ModeleObjetPatrick_helperC"
+            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'c')
+            self.helper="ModeleObjetPatrick_helperC"
+        elif extension==".h":
+            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'cpp')
+            self.helper="ModeleObjetPatrick_helperCPP"
         elif extension==".cpp":
-            self.LANGUAGE= Language('build/my-languages.so', 'cpp')
+            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'cpp')
             self.helper="ModeleObjetPatrick_helperCPP"
         elif extension==".java":
-            self.LANGUAGE= Language('build/my-languages.so', 'java')
+            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'java')
             self.helper="ModeleObjetPatrick_helperJAVA"
         elif extension==".js":
-            self.LANGUAGE = Language('build/my-languages.so', 'javascript')
+            self.LANGUAGE = Language(self.ArgumentlibTreeSitter, 'javascript')
             self.helper="ModeleObjetPatrick_helperJS"
         elif extension==".py":
-            self.LANGUAGE = Language('build/my-languages.so', 'python')
+            self.LANGUAGE = Language(self.ArgumentlibTreeSitter, 'python')
             self.helper="ModeleObjetPatrick_helperJS"
         else:
-            print("Attention, ce type de fichier n'a pas de parseur associé")
+            logger.debug("Attention, ce type de fichier n'a pas de parseur associé")
             sys.exit()
         #dans les cas où ca marche ...    
         parser = Parser()

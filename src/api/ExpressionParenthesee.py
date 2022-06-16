@@ -1,6 +1,9 @@
 from src.api.Expression import Expression
 
+import logging
 
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 
 ##@class ExpressionParenthesee(Expression)
@@ -28,7 +31,7 @@ class ExpressionParenthesee(Expression):
         if not leBloc == None:
             self.expression["bloc"]=leBloc
         else:
-            print("!!!!!!! Bloc inexistant pour Expression dans expr parenth")
+            logger.debug("!!!!!!! Bloc inexistant pour Expression dans expr parenth")
         self.expression["node"] = node
     
     ##

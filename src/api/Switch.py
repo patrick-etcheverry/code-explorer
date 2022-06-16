@@ -1,5 +1,9 @@
 from src.api.StructureConditionnelle import StructureConditionnelle
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class Switch(StructureConditionnelle)
 #@brief Classe héritant de StructureConditionnelle, elle contient toutes les Strucutures sous forme de Switch d'un code.         
@@ -31,7 +35,7 @@ class Switch(StructureConditionnelle):
             self.condition["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur ConditionIf: Noeud inexistant sur condition")
+            logger.debug("!!!!!!! Pb sur ConditionIf: Noeud inexistant sur condition")
         self.condition["node"] = node
         #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -59,7 +63,7 @@ class Switch(StructureConditionnelle):
             self.bloctrt["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur ConditionIf: Noeud inexistant sur bloctrt")        
+            logger.debug("!!!!!!! Pb sur ConditionIf: Noeud inexistant sur bloctrt")        
         self.bloctrt["node"] = node
         #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -87,7 +91,7 @@ class Switch(StructureConditionnelle):
             self.case["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur Switch: Noeud inexistant sur case")        
+            logger.debug("!!!!!!! Pb sur Switch: Noeud inexistant sur case")        
         self.case["node"] = node
         #self.case["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     

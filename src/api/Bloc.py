@@ -81,7 +81,11 @@ class Bloc:
     #@fn getType()
     #@brief Retourne le type du Bloc.
     def getType(self):
-        return type(self)
+        letype=type(self)
+        tab=str(letype).split('.')
+        val=tab[len(tab)-1][:-2]
+        return val
+        #return type(self)
 
 
     ##

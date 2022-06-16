@@ -1,5 +1,8 @@
 from src.api.StructureConditionnelle import StructureConditionnelle
+import logging
 
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 
 ##@class ConditionIf(StructureConditionnelle)
@@ -32,7 +35,7 @@ class ConditionIf(StructureConditionnelle):
             self.condition["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Pb sur ConditionIf: Noeud inexistant sur condition")
+            logger.debug("!!!!!!! Pb sur ConditionIf: Noeud inexistant sur condition")
         self.condition["node"] = node
     
     ##
@@ -59,7 +62,7 @@ class ConditionIf(StructureConditionnelle):
             self.blocalors["bloc"]=lebloc
         else:
             pass
-            print("!!!!!!! Pb sur If: Bloc inexistant pour blocalors dans if")
+            logger.debug("!!!!!!! Pb sur If: Bloc inexistant pour blocalors dans if")
         self.blocalors["node"]=node
     
     ##
@@ -88,7 +91,7 @@ class ConditionIf(StructureConditionnelle):
                 self.blocsinon["bloc"]=lebloc
             else:
                 pass
-                print("!!!!!!! Pb sur If: Bloc inexistant pour bloc sinon dans if")
+                logger.debug("!!!!!!! Pb sur If: Bloc inexistant pour bloc sinon dans if")
         self.blocsinon["node"]=node
 
 

@@ -1,5 +1,9 @@
 from src.api.BlocSimple import BlocSimple
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
 
 ##@class Expression(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Affectations d'un code, par exemple : "toto = tab[i];".
@@ -23,7 +27,7 @@ class Expression(BlocSimple):
         if not lebloc==None:
             self.expression["bloc"]=lebloc
         else:
-            print("!!!!!!! Bloc inexistant pour setExpression dans expression")
+            logger.debug("!!!!!!! Bloc inexistant pour setExpression dans expression")
         self.expression["node"]=node
     
     def getExpression(self):

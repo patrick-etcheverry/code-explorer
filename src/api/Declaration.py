@@ -1,5 +1,10 @@
 from src.api.BlocSimple import BlocSimple
 
+import logging
+
+# Gets or creates a logger
+logger = logging.getLogger(__name__) 
+
 ##@class Declaration(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Declaration d'un code, par exemple : "int i = 2;".
 class Declaration(BlocSimple):  
@@ -28,7 +33,7 @@ class Declaration(BlocSimple):
             self.type["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour type")
+            logger.debug("!!!!!!! Bloc inexistant pour type")
         self.type["node"] = node
         #self.type["text"]=recupereTexteDansSource(self.prog.codeSource, nodeType)
 
@@ -51,7 +56,7 @@ class Declaration(BlocSimple):
             self.identificateur["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour identificateur")
+            logger.debug("!!!!!!! Bloc inexistant pour identificateur")
         self.identificateur["node"] = node
     
 
@@ -76,7 +81,7 @@ class Declaration(BlocSimple):
                 self.valeur["bloc"]=lebloc
             else:
                 pass
-                print("!!!!!!! Bloc inexistant pour setvaleurexpression")
+                logger.debug("!!!!!!! Bloc inexistant pour setvaleurexpression")
         self.valeur["node"]=node
     
     ##
@@ -96,7 +101,7 @@ class Declaration(BlocSimple):
             self.declaration["bloc"] = leBloc
         else:
             pass
-            print("!!!!!!! Bloc inexistant pour setDeclaration")
+            logger.debug("!!!!!!! Bloc inexistant pour setDeclaration")
         self.declaration["node"] = node
 
 
