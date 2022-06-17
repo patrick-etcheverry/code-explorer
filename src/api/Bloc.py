@@ -92,6 +92,77 @@ class Bloc:
     #@fn getTypeString()
     #@brief Retourne le type du Bloc en chaîne de caractères (Plus d'informations sur le Wiki du GitHub de Code-Explorer).
     def getTypeString(self):
-        return self.noeud.node.type.__str__()
+        leType = self.noeud.node.type.__str__()
+        leVraiType = ""
+
+
+        if leType == "comment":
+            leVraiType = "Commentaire"
+
+        elif leType in {"true, false", "string_literal", "number_literal"}:
+            leVraiType = "Literal"
+
+        elif leType == "type_qualifier":
+            leVraiType = "TypeQualificateur"
+
+        elif leType == "sized_type_specifier":
+            leVraiType = "SizedTypeSpecificateur"
+
+        elif leType == "break_statement":
+            leVraiType = "InstructionBreak"
+
+        elif leType == "return_statement":
+            leVraiType = "InstructionReturn"
+
+        elif leType == "identifier":
+            leVraiType = "Identificateur"
+
+        elif leType == "expression_statement":
+            leVraiType = "Expression"
+
+        elif leType == "unary_expression":
+            leVraiType = "ExpressionUnaire"
+
+        elif leType == "binary_expression":
+            leVraiType = "ExpressionBinaire"
+
+        elif leType == "parenthesized_expression":
+            leVraiType = "ExpressionParenthesee"
+
+        elif leType == "update_expression":
+            leVraiType = "UpdateExpression"
+
+        elif leType == "function_definition":
+            leVraiType = "Function"
+
+        elif leType == "assignment_expression":
+            leVraiType = "Affectation"
+
+        elif leType == "declaration":
+            leVraiType = "Declaration"
+
+        elif leType == "compound_statement":
+            leVraiType = "BlocCompose"
+
+        elif leType == "if_statement":
+            leVraiType = "ConditionIf"
+
+        elif leType == "switch_statement":
+            leVraiType = "Switch"
+
+        elif leType == "for_statement":
+            leVraiType = "BoucleFor"
+
+        elif leType == "while_statement":
+            leVraiType = "BoucleWhile"
+
+        elif leType == "do_statement":
+            leVraiType = "BoucleDoWhile"
+
+        else:
+            leVraiType = "Élément non catégorisé"
+
+        return leVraiType
+
 
     

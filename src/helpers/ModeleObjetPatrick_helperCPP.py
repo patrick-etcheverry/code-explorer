@@ -21,6 +21,7 @@ from src.api.SizeTypedSpecificateur import SizedTypeSpecificateur
 from src.api.Identificateur import Identificateur
 from src.api.BlocCompose import BlocCompose
 from src.api.Switch import Switch
+<<<<<<< Updated upstream
 
 #from src.api.Programme import Programme
 
@@ -41,6 +42,8 @@ logger = logging.getLogger(__name__)
 
 
 
+=======
+>>>>>>> Stashed changes
 from src.api.tree_sitter_utilities import traverse, extraireByType, extraireByName, cherche, cherchev2, creeObjetsBlocs, recupereNoeud, recupereTexteDansSource
 #un objet Noeud encapsule un Node de Tree-sitter 
 

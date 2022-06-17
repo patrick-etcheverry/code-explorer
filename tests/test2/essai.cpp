@@ -42,7 +42,10 @@ int main(void)
     while (i < 5);
 
 
-    while(i < 3)
+    while(true)
+        i++;
+
+    while(i < 20)
         i++;
 
 }

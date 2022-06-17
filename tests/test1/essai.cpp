@@ -11,6 +11,14 @@ int main(void)
 		while(i > 3)
 			i++;
 	}
+	int compteur = 3;
+
+	if(compteur < 5)
+	{
+		cout << "C'est prêt !";
+	}
+
+
 	int toto = 3;
 
 	do

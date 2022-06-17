@@ -1,6 +1,0 @@
-<map id="ModeleObjetPatrick.ConditionIf_Else" name="ModeleObjetPatrick.ConditionIf_Else">
-<area shape="rect" id="node1" title=" " alt="" coords="19,469,213,679"/>
-<area shape="rect" id="node2" href="$class_modele_objet_patrick_1_1_structure_conditionnelle.html" title=" " alt="" coords="19,329,213,421"/>
-<area shape="rect" id="node3" href="$class_modele_objet_patrick_1_1_bloc_compose.html" title="Classe héritant de Bloc, elle contient des objets composés de plusieurs Blocs Simples." alt="" coords="5,175,227,281"/>
-<area shape="rect" id="node4" href="$class_modele_objet_patrick_1_1_bloc.html" title="Structure de données de plus haut niveau à laquelle on associe la gestion du Noeud." alt="" coords="33,5,199,127"/>
-</map>
