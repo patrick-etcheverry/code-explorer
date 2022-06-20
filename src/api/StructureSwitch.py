@@ -5,9 +5,9 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class Switch(StructureConditionnelle)
+##@class StructureSwitch(StructureConditionnelle)
 #@brief Classe héritant de StructureConditionnelle, elle contient toutes les Strucutures sous forme de Switch d'un code.         
-class Switch(StructureConditionnelle):
+class StructureSwitch(StructureConditionnelle):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
@@ -21,7 +21,7 @@ class Switch(StructureConditionnelle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesSwitchs.append(self)
+        progObjetPatrick.lesStructuresSwitchs.append(self)
 
     ##
     #@fn setCondition(node)

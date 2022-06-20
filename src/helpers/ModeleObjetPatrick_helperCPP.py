@@ -7,7 +7,7 @@ from src.api.BoucleFor import BoucleFor
 from src.api.Affectation import Affectation
 from src.api.BoucleWhile import BoucleWhile
 from src.api.BoucleDoWhile import BoucleDoWhile
-from src.api.ConditionIf import ConditionIf
+from src.api.StructureIf import StructureIf
 from src.api.Declaration import Declaration
 from src.api.Expression import Expression
 from src.api.ExpressionBinaire import ExpressionBinaire
@@ -20,7 +20,13 @@ from src.api.InstructionReturn import InstructionReturn
 from src.api.SizeTypedSpecificateur import SizedTypeSpecificateur
 from src.api.Identificateur import Identificateur
 from src.api.BlocCompose import BlocCompose
-from src.api.Switch import Switch
+from src.api.StructureSwitch import StructureSwitch
+from src.api.Condition import Condition
+from src.api.ConditionContinuation import ConditionContinuation
+from src.api.ConditionIf import ConditionIf
+from src.api.ConditionSwitch import ConditionSwitch
+
+
 #from src.api.Programme import Programme
 import logging
 
@@ -186,6 +192,7 @@ def creeObjets(prog):
         if lenode.children[2].type=="assignment_expression":
             #il n'y a pas de déclaration de type
             lenoeud_condition=lenode.children[4]
+            ConditionContinuation(lenoeud_condition, prog)
             obj.setCondition(lenoeud_condition)
 
             lenoeud_pas=lenode.children[6]
@@ -197,6 +204,8 @@ def creeObjets(prog):
         else:
             #il y a une déclaration de type 
             lenoeud_condition=lenode.children[3]
+            obj2=ConditionContinuation(lenoeud_condition, prog)
+            obj2.__init__(lenoeud_condition, prog)
             obj.setCondition(lenoeud_condition)
         
             lenoeud_pas=lenode.children[5]
@@ -207,9 +216,11 @@ def creeObjets(prog):
 
 
     def _creeObjet_InstructionIf(lenode, prog):
-        obj=ConditionIf(lenode, prog)
+        obj=StructureIf(lenode, prog)
         
         lenoeud_condition=lenode.children[1].children[1]
+        obj2=ConditionIf(lenoeud_condition, prog)
+        obj2.__init__(lenoeud_condition, prog)
         obj.setCondition(lenoeud_condition)
 
         lenoeud_then=lenode.children[2]
@@ -223,9 +234,11 @@ def creeObjets(prog):
 
     
     def _creeObjet_Switch(lenode, prog):
-        obj=Switch(lenode, prog)
+        obj=StructureSwitch(lenode, prog)
         
         lenoeud_condition=lenode.children[1].children[1]
+        obj2=ConditionSwitch(lenoeud_condition, prog)
+        obj2.__init__(lenoeud_condition, prog)
         obj.setCondition(lenoeud_condition)
 
         lenoeud_corps=lenode.children[2]
@@ -239,6 +252,8 @@ def creeObjets(prog):
         obj=BoucleWhile(lenode, prog)
         
         lenoeud_condition=lenode.children[1].children[1]
+        obj2=ConditionContinuation(lenoeud_condition, prog)
+        obj2.__init__(lenoeud_condition, prog)
         obj.setCondition(lenoeud_condition)
 
         lenoeud_then=lenode.children[2]
@@ -251,6 +266,8 @@ def creeObjets(prog):
         obj.setBlocTrt(lenoeud_then)
 
         lenoeud_condition=lenode.children[3].children[1]
+        obj2=ConditionContinuation(lenoeud_condition, prog)
+        obj2.__init__(lenoeud_condition, prog)
         obj.setCondition(lenoeud_condition)
 
 

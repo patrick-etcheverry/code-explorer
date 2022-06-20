@@ -1,9 +1,9 @@
 from src.api.BlocSimple import BlocSimple
 from src.api.tree_sitter_utilities import splited
 
-##@class Boucle(BlocSimple)
+##@class StructureIterative(BlocSimple)
 #@brief Classe héritant de BlocSimple, elle contient tous les objets Boucle d'un code.
-class Boucle(BlocSimple):
+class StructureIterative(BlocSimple):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
@@ -12,7 +12,7 @@ class Boucle(BlocSimple):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBoucles.append(self)
+        progObjetPatrick.lesStructuresIterative.append(self)
 
     ##
     #@fn natureBoucle(indexBoucle, programme)

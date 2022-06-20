@@ -1,11 +1,11 @@
-from src.api.BoucleNbRepNonConnu import BoucleNbRepNonConnu
+from src.api.StructureNbRepNonConnu import StructureNbRepNonConnu
 import logging
 
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 ##@class BoucleWhile(Boucle)
 #@brief Classe héritant de Boucle, elle contient tous les objets BoucleWhile d'un code.
-class BoucleWhile(BoucleNbRepNonConnu):
+class BoucleWhile(StructureNbRepNonConnu):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)

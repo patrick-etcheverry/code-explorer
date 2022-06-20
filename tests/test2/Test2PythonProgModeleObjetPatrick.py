@@ -3,7 +3,7 @@ import sys
 sys.path.append(os.getcwd())
 from src.api.Programme import Programme
 
-p = Programme("fichiers/etudiant003.cpp")
+p = Programme("tests/test2/essai.cpp")
 
 print("---------------------------------")
 
@@ -16,7 +16,7 @@ print("---------------------------------")
 
 
 #Affiche "OK" si la première Boucle du code est un For, "Non" sinon.
-if p.getBoucles()[0].getTypeString() == "for_statement":
+if p.getBoucles()[0].getType() == "BoucleFor":
   print("OK")
 else:
   print("Non")

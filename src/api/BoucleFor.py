@@ -1,4 +1,4 @@
-from src.api.BoucleNbRepConnu import BoucleNbRepConnu
+from src.api.StructureNbRepConnu import StructureNbRepConnu
 from src.api.ExpressionUpdate import ExpressionUpdate
 from src.api.Affectation import Affectation
 
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 ##@class BoucleFor(Boucle)
 #@brief Classe héritant de Boucle, elle contient tous les objets BoucleFor d'un code, par exemple : "for( ; ; )".      
-class BoucleFor(BoucleNbRepConnu):
+class BoucleFor(StructureNbRepConnu):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)

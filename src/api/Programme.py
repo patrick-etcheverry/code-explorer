@@ -22,28 +22,23 @@ class Programme:
     #@param liste_lignescode : Correspond au tableau contenant à chaque index toutes lignes du code que vous analysez
     #@param arbre_TreeSitter : Noeud principal du code que vous analysez
     #@param langage : Langage du code que vous analysez
-    def __init__(self, cheminfichier, ArgLibTreeSitter=None, ArgLanguagesTreeSitter=None):
+    def __init__(self, cheminfichier):
         
         self.cheminfichier=cheminfichier
         
-        if ArgLibTreeSitter==None:
-            self.ArgumentlibTreeSitter='build/my-languages.so'
-            self.ArgumentLanguagesTreeSitter= [
-                'src/languages/tree-sitter-java',
-                'src/languages/tree-sitter-python',
-                'src/languages/tree-sitter-javascript',
-                'src/languages/tree-sitter-c',
-                'src/languages/tree-sitter-cpp'
-            ]
-        else:
-            self.ArgumentlibTreeSitter=ArgLibTreeSitter
-            self.ArgumentLanguagesTreeSitter=ArgLanguagesTreeSitter 
-        
         Language.build_library(
-            # Store the library in the `build` directory
-           self.ArgumentlibTreeSitter,
-           self.ArgumentLanguagesTreeSitter
-            )   
+        # Store the library in the `build` directory
+        'build/my-languages.so',
+
+        # Include one or more languages
+        [
+            'src/languages/tree-sitter-java',
+            'src/languages/tree-sitter-python',
+            'src/languages/tree-sitter-javascript',
+            'src/languages/tree-sitter-c',
+            'src/languages/tree-sitter-cpp'
+        ]
+        )  
           
 
 
@@ -56,22 +51,22 @@ class Programme:
         #selon le cas
         nom, extension = os.path.splitext(cheminfichier)
         if extension==".c":
-            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'c')
+            self.LANGUAGE= Language('build/my-languages.so', 'c')
             self.helper="ModeleObjetPatrick_helperC"
         elif extension==".h":
-            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'cpp')
+            self.LANGUAGE= Language('build/my-languages.so', 'cpp')
             self.helper="ModeleObjetPatrick_helperCPP"
         elif extension==".cpp":
-            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'cpp')
+            self.LANGUAGE= Language('build/my-languages.so', 'cpp')
             self.helper="ModeleObjetPatrick_helperCPP"
         elif extension==".java":
-            self.LANGUAGE= Language(self.ArgumentlibTreeSitter, 'java')
+            self.LANGUAGE= Language('build/my-languages.so', 'java')
             self.helper="ModeleObjetPatrick_helperJAVA"
         elif extension==".js":
-            self.LANGUAGE = Language(self.ArgumentlibTreeSitter, 'javascript')
+            self.LANGUAGE = Language('build/my-languages.so', 'javascript')
             self.helper="ModeleObjetPatrick_helperJS"
         elif extension==".py":
-            self.LANGUAGE = Language(self.ArgumentlibTreeSitter, 'python')
+            self.LANGUAGE = Language('build/my-languages.so', 'python')
             self.helper="ModeleObjetPatrick_helperJS"
         else:
             logger.debug("Attention, ce type de fichier n'a pas de parseur associé")
@@ -152,22 +147,34 @@ class Programme:
         self.lesBouclesDoWhile = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Boucles For (EX : for( ; ; ))
         self.lesBouclesFor = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Boucles avec un nombre de répétition connu (EX : for( ; ; ))
-        self.lesBouclesNbRepConnu = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Boucles avec un nombre de répétition inconnu (EX : while(), dowhile())
-        self.lesBouclesNbRepNonConnu = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Boucles (EX : for( ; ; ), while())
-        self.lesBoucles = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures avec un nombre de répétition connu (EX : for( ; ; ))
+        self.lesStructuresNbRepConnu = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures avec un nombre de répétition inconnu (EX : while(), dowhile())
+        self.lesStructuresNbRepNonConnu = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures Itératives (EX : for( ; ; ), while())
+        self.lesStructuresIterative = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Conditions If (EX : if())
-        self.lesConditionsIf = ListeOrdonnee(getCle)
+        self.lesStructuresIf = ListeOrdonnee(getCle)
         ##Conteneur de tous les Switchs (EX : switch())
-        self.lesSwitchs = ListeOrdonnee(getCle)
+        self.lesStructuresSwitchs = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Conditions (EX : (!estTriee))
         self.lesFonctions = ListeOrdonnee(getCle)
         ##Conteneur de tous les Sous-Programmes (EX : function())
         self.lesSousProgrammes = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Structures Conditionelles If (EX : if() { })
         self.lesStructuresConditionelles = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Conditions If (EX : i < 20)
+        self.lesConditions = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les ConditionBoucle If (EX : i < 20)
+        self.lesConditionsBoucle = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les ConditionContinuation If (EX : i < 20)
+        self.lesConditionsContinuation = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les ConditionArret If (EX : i < 20)
+        self.lesConditionsArret = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les ConditionIf If (EX : i < 20)
+        self.lesConditionsIf = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les ConditionSwitch If (EX : i < 20)
+        self.lesConditionsSwitch = ListeOrdonnee(getCle)
 
         moduleCreeObjets.creeObjets(self)
         
@@ -674,17 +681,17 @@ class Programme:
 
 
     ##
-    #@fn getBouclesNbRepConnu()
-    #@brief Retourne toutes les Boucles à nombres de répétitions connues
-    def getBouclesNbRepConnu(self):
-        return self.lesBouclesNbRepConnu
+    #@fn getStructuresNbRepConnu()
+    #@brief Retourne toutes les Structures à nombres de répétitions connues
+    def getStructuresNbRepConnu(self):
+        return self.lesStructuresNbRepConnu
     ##
-    #@fn getBoucleNbRepConnuAt(pos)
-    #@brief Retourne la Boucle à nombre de répétitions connues correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@fn getStructureNbRepConnuAt(pos)
+    #@brief Retourne la Structure à nombre de répétitions connues correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBoucleNbRepConnuAt(self, pos):
+    def getStructureNbRepConnuAt(self, pos):
         try:
-            return self.lesBouclesNbRepConnu[pos]
+            return self.lesStructuresNbRepConnu[pos]
         except:
             return False
 
@@ -693,17 +700,17 @@ class Programme:
 
 
     ##
-    #@fn getBouclesNbRepNonConnu()
-    #@brief Retourne toutes les Boucles à nombres de répétitions inconnues
-    def getBouclesNbRepNonConnu(self):
-        return self.lesBouclesNbRepNonConnu
+    #@fn getStructuresNbRepNonConnu()
+    #@brief Retourne toutes les Structures à nombres de répétitions inconnues
+    def getStructuresNbRepNonConnu(self):
+        return self.lesStructuresNbRepNonConnu
     ##
-    #@fn getBoucleNbRepNonConnuAt(pos)
-    #@brief Retourne la Boucle à nombre de répétitions inconnues correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@fn getStructureNbRepNonConnuAt(pos)
+    #@brief Retourne la Structure à nombre de répétitions inconnues correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBoucleNbRepNonConnuAt(self, pos):
+    def getStructureNbRepNonConnuAt(self, pos):
         try:
-            return self.lesBouclesNbRepNonConnu[pos]
+            return self.lesStructuresNbRepNonConnu[pos]
         except:
             return False
 
@@ -712,17 +719,17 @@ class Programme:
 
 
     ##
-    #@fn getBoucles()
+    #@fn getStructuresIterative()
     #@brief Retourne toutes les Boucles
-    def getBoucles(self):
-        return self.lesBoucles
+    def getStructuresIterative(self):
+        return self.lesStructuresIterative
     ##
-    #@fn getBoucleAt(pos)
+    #@fn getStructureIterativeAt(pos)
     #@brief Retourne la Boucle correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBoucleAt(self, pos):
+    def getStructureIterativeAt(self, pos):
         try:
-            return self.lesBoucles[pos]
+            return self.lesStructuresIterative[pos]
         except:
             return False
 
@@ -732,33 +739,33 @@ class Programme:
 
 
     ##
-    #@fn getConditionsIf()
-    #@brief Retourne toutes les Condition If ( if() { } )
-    def getConditionsIf(self):
-        return self.lesConditionsIf
+    #@fn getStructuresIf()
+    #@brief Retourne toutes les Structure If ( if() { } )
+    def getStructuresIf(self):
+        return self.lesStructuresIf
     ##
-    #@fn getConditionIfAt(pos)
-    #@brief Retourne la Condition If correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@fn getStructureIfAt(pos)
+    #@brief Retourne la Structure If correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getConditionIfAt(self, pos):
+    def getStructureIfAt(self, pos):
         try:
-            return self.lesConditionsIf[pos]
+            return self.lesStructuresIf[pos]
         except:
             return False
 
 
     ##
-    #@fn getSwitchs()
+    #@fn getStructuresSwitch()
     #@brief Retourne tous les Switchs ( switch() { } )
-    def getSwitchs(self):
-        return self.lesSwitchs
+    def getStructuresSwitch(self):
+        return self.lesStructuresSwitchs
     ##
-    #@fn getSwitchAt(pos)
+    #@fn getStructureSwitchAt(pos)
     #@brief Retourne le Swtich correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getSwitchAt(self, pos):
+    def getStructureSwitchAt(self, pos):
         try:
-            return self.lesSwitchs[pos]
+            return self.lesStructuresSwitchs[pos]
         except:
             return False
 
@@ -813,5 +820,118 @@ class Programme:
     def getStructureConditionelleAt(self, pos):
         try:
             return self.lesStructuresConditionelles[pos]
+        except:
+            return False
+    
+
+
+
+
+    ##
+    #@fn getConditions()
+    #@brief Retourne toutes les Conditions
+    def getConditions(self):
+        return self.lesConditions
+    ##
+    #@fn getConditionAt(pos)
+    #@brief Retourne la condition correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionAt(self, pos):
+        try:
+            return self.lesConditions[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getConditionsBoucle()
+    #@brief Retourne toutes les ConditionBoucle
+    def getConditionsBoucle(self):
+        return self.lesConditionsBoucle
+    ##
+    #@fn getConditionBoucleAt(pos)
+    #@brief Retourne la ConditionBoucle correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionBoucleAt(self, pos):
+        try:
+            return self.lesConditionsBoucle[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getConditionsContinuation()
+    #@brief Retourne toutes les ConditionsContinuation
+    def getConditionsContinuation(self):
+        return self.lesConditionsContinuation
+    ##
+    #@fn getConditionAt(pos)
+    #@brief Retourne la ConditionContinuation correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionContinuationAt(self, pos):
+        try:
+            return self.lesConditionsContinuation[pos]
+        except:
+            return False
+
+
+
+
+    ##
+    #@fn getConditionsArret()
+    #@brief Retourne toutes les ConditionsArret
+    def getConditionsArret(self):
+        return self.lesConditionsArret
+    ##
+    #@fn getConditionArretAt(pos)
+    #@brief Retourne la ConditionArret correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionArretAt(self, pos):
+        try:
+            return self.lesConditionsArret[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getConditionsIf()
+    #@brief Retourne toutes les ConditionsArret
+    def getConditionsIf(self):
+        return self.lesConditionsIf
+    ##
+    #@fn getConditionIfAt(pos)
+    #@brief Retourne la ConditionIf correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionIfAt(self, pos):
+        try:
+            return self.lesConditionsIf[pos]
+        except:
+            return False
+
+
+
+
+
+    ##
+    #@fn getConditionsSwitch()
+    #@brief Retourne toutes les ConditionsArret
+    def getConditionsSwitch(self):
+        return self.lesConditionsSwitch
+    ##
+    #@fn getConditionSwitchAt(pos)
+    #@brief Retourne la ConditionSwitch correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getConditionSwitchAt(self, pos):
+        try:
+            return self.lesConditionsSwitch[pos]
         except:
             return False
