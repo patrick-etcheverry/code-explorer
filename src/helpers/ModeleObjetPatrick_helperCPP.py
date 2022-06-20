@@ -21,11 +21,7 @@ from src.api.SizeTypedSpecificateur import SizedTypeSpecificateur
 from src.api.Identificateur import Identificateur
 from src.api.BlocCompose import BlocCompose
 from src.api.Switch import Switch
-<<<<<<< Updated upstream
-
 #from src.api.Programme import Programme
-
-
 import logging
 
 # Gets or creates a logger
@@ -42,8 +38,6 @@ logger = logging.getLogger(__name__)
 
 
 
-=======
->>>>>>> Stashed changes
 from src.api.tree_sitter_utilities import traverse, extraireByType, extraireByName, cherche, cherchev2, creeObjetsBlocs, recupereNoeud, recupereTexteDansSource
 #un objet Noeud encapsule un Node de Tree-sitter 
 
@@ -276,7 +270,7 @@ def creeObjets(prog):
     def _creeElement(node):
         if node.type=="comment":
             _creeObjet_Commentaire(node, prog) 
-        elif node.type in {"true, false", "string_literal", "number_literal"}:
+        elif node.type in {"true", "false", "string_literal", "number_literal"}:
             _creeObjet_Literal(node, prog)
         elif node.type =="type_qualifier":
             _creeObjet_TypeQualificateur(node, prog)
