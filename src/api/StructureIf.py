@@ -107,3 +107,13 @@ class StructureIf(StructureConditionnelle):
     def getBlocSinon(self):
         return self.blocsinon["bloc"]
 
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getStructuresIf()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'StructureIf', 'BlocCompose'
+    def getType(self):
+        return self.getTypeBloc()

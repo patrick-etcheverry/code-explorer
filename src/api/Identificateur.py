@@ -42,3 +42,14 @@ class Identificateur(BlocSimple):
     #@brief Retourne tous les Identificateurs sous forme d'une structure de données.
     def getIdentificateur(self):
         return self.identificateur["bloc"]
+
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getIdentificateur()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'Identificateur'
+    def getType(self):
+        return self.getTypeBloc()

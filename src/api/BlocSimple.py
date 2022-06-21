@@ -14,3 +14,13 @@ class BlocSimple(Bloc):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesBlocsSimples.append(self) # Surcharge de progObjetPatrick en le définissant en BlocSimple
         #self.prog.lesBlocsSimples.sort(key=getCle)
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getBlocSimples()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'BlocSimple'
+    def getType(self):
+        return self.getTypeBloc()

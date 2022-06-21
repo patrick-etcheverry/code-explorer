@@ -61,3 +61,12 @@ class ExpressionUpdate(BlocSimple):
         return self.operateur["bloc"]
         #self.identifier["text"] = recupereTexteDansSource(self.prog.codeSource, node)
 
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getExpressionsUpdate()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'ExpressionUpdate', 'Identificateur'
+    def getType(self):
+        return self.getTypeBloc()

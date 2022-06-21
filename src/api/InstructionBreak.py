@@ -17,3 +17,13 @@ class InstructionBreak(BlocSimple):
         progObjetPatrick.lesInstructionsBreak.append(self)
         #self.prog.lesInstructionsBreak.sort(key=getCle)
   
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getInstructionsBreak()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'InstructionBreak'
+    def getType(self):
+        return self.getTypeBloc()

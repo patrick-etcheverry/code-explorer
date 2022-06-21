@@ -79,3 +79,13 @@ class ExpressionBinaire(Expression):
     #@brief Retourne tous les éléments de Droite sous forme d'une structure de données.
     def getDroite(self):
         return self.droite["bloc"]
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getExpressionsBinaire()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'ExpressionBinaire'
+    def getType(self):
+        return self.getTypeBloc()

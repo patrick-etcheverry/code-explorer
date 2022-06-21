@@ -87,3 +87,12 @@ class Affectation(BlocSimple):
         return self.operateur["bloc"]
         #self.identifier["text"] = recupereTexteDansSource(self.prog.codeSource, node)
 
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getAffectations()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'Affectation', 'Expression', 'Identificateur'
+    def getType(self):
+        return self.getTypeBloc()

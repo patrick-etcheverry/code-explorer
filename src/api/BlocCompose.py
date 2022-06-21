@@ -36,3 +36,13 @@ class BlocCompose(Bloc):
     #@brief Renvoie la liste de tous les Blocs sous forme d'un ensemble.
     def getBlocs(self):
         return self.lesBlocs() 
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getBlocComposes()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'BlocCompose'
+    def getType(self):
+        return self.getTypeBloc()

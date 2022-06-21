@@ -85,7 +85,7 @@ class Bloc:
     #'Identificateur', 'Commentaire', 'Literal', 'TypeQualificateur', 'SizedTypeSpecificateur', 'Identificateur', 'Expression', 'ExpressionUnaire'
     #'ExpressionBinaire', 'ExpressionUpdate', 'ExpressionParenthesee', 'Function', 'Affectation', 'Declaration', 'BlocCompose', 'StructureIf'
     #'StructureSwitch', 'StructureFor', 'StructureWhile', 'StructureDoWhile', 'InstructionReturn', 'InstructionBreak' ...
-    def getType(self):
+    def getTypeBloc(self):
         letype=type(self)
         tab=str(letype).split('.')
         val=tab[len(tab)-1][:-2]

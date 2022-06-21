@@ -13,3 +13,13 @@ class ConditionContinuation(ConditionBoucle):
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesConditionsContinuation.append(self)
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getConditionsContinuation()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'ConditionContinuation'
+    def getType(self):
+        return self.getTypeBloc()

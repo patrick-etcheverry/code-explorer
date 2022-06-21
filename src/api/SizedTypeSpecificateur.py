@@ -14,3 +14,13 @@ class SizedTypeSpecificateur(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesSizedTypeSpecificateurs.append(self)
 
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getSizedTypeSpecificateurs()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'SizedTypeSpecificateur'
+    def getType(self):
+        return self.getTypeBloc()

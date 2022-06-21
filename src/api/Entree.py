@@ -13,3 +13,14 @@ class Entree(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         
         progObjetPatrick.lesEntrees.append(self)
+
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getEntrees()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'Entree'
+    def getType(self):
+        return self.getTypeBloc()

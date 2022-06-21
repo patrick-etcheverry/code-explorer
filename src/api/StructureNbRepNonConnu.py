@@ -14,3 +14,11 @@ class StructureNbRepNonConnu(StructureIterative):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesStructuresNbRepNonConnu.append(self)
 
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getStructuresNbRepNonConnu()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'StructureNbRepNonConnu', 'StructureFor', 'StructureWhile', 'StructureDoWhile'
+    def getType(self):
+        return self.getTypeBloc()

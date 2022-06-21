@@ -197,6 +197,7 @@ def creeObjets(prog):
                 obj2=ConditionContinuation(lenoeud_condition, prog)
                 obj2.__init__(lenoeud_condition, prog)
                 obj.setConditionContinuation(lenoeud_condition)
+                obj.setConditionArret(None)
 
                 lenoeud_pas=lenode.children[6]
                 obj.setPas(lenoeud_pas)
@@ -210,6 +211,7 @@ def creeObjets(prog):
                 obj2=ConditionContinuation(lenoeud_condition, prog)
                 obj2.__init__(lenoeud_condition, prog)
                 obj.setConditionContinuation(lenoeud_condition)
+                obj.setConditionArret(None)
 
                 lenoeud_pas=lenode.children[5]
                 obj.setPas(lenoeud_pas)
@@ -219,6 +221,7 @@ def creeObjets(prog):
         else:
             obj.setInit(None)
             obj.setConditionContinuation(None)
+            obj.setConditionArret(None)
             obj.setPas(None)
             obj.setBlocTrt(lenode.children[5])
 
@@ -264,6 +267,7 @@ def creeObjets(prog):
         obj2=ConditionContinuation(lenoeud_condition, prog)
         obj2.__init__(lenoeud_condition, prog)
         obj.setConditionContinuation(lenoeud_condition)
+        obj.setConditionArret(None)
 
         lenoeud_then=lenode.children[2]
         obj.setBlocTrt(lenoeud_then)
@@ -278,6 +282,7 @@ def creeObjets(prog):
         obj2=ConditionContinuation(lenoeud_condition, prog)
         obj2.__init__(lenoeud_condition, prog)
         obj.setConditionContinuation(lenoeud_condition)
+        obj.setConditionArret(None)
 
 
     def _creeContenus_bloc_compose(prog):

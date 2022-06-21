@@ -16,3 +16,12 @@ class Literal(BlocSimple):
         progObjetPatrick.lesLiteral.append(self)
         #self.prog.lesLiteral.sort(key=getCle)
     
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getLiterals()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'Literal'
+    def getType(self):
+        return self.getTypeBloc()

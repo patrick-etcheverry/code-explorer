@@ -13,3 +13,14 @@ class TypeQualificateur(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesTypesQualificateurs.append(self)
         #progObjetPatrick.lesTypesQualificateurs.append(self)
+
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getTypesQualificateurs()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'TypeQualificateur'
+    def getType(self):
+        return self.getTypeBloc()

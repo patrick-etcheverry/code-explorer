@@ -104,10 +104,19 @@ class Declaration(BlocSimple):
             logger.debug("!!!!!!! Bloc inexistant pour setDeclaration")
         self.declaration["node"] = node
 
-
     ##
     #@fn getDeclaration()
     #@brief Retourne toutes les Declarations sous forme d'une structure de données.
     def getDeclaration(self):
         return self.declaration["bloc"]
   
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getDeclarations()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'Declarations', 'Type', 'Identificateur', 'Expression'
+    def getType(self):
+        return self.getTypeBloc()

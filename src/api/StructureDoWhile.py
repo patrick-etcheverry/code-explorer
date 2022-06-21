@@ -74,4 +74,45 @@ class StructureDoWhile(StructureNbRepNonConnu):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
         return self.condition["bloc"]
     
-  
+    
+
+
+    ##
+    #@fn setConditionArret(node)
+    #@brief Défini le noeud en tant que Condition d'Arret.
+    #@param lenodeTreeSitter : Correspond à un objet Noeud
+    def setConditionArret(self, node):
+        self.condition = {} 
+        if node==None:
+                self.condition["bloc"]=None
+        else:
+            leBloc = self.prog.cherche(node)
+            if not leBloc == None:
+                self.condition["bloc"] = leBloc
+            else:
+                pass
+                logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur condition")
+        self.condition["node"] = node
+        #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
+    
+    ##
+    #@fn getConditionArret()
+    #@brief Retourne tous les Conditions d'Arrêt sous forme d'une structure de données.
+    #Exemple d'utilisation : p.getStructuresFor[0].getConditionArret().getValeur()\n
+    #\n Avec :\n
+    #- p = Objet Programme
+    #- [0] = Première Structure For du programme
+    #\n\n Résultat potentiel : i < 5 , i >= 3
+    def getConditionArret(self):
+        #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
+        return self.condition["bloc"]
+
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getStructuresDoWhile()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'StructureDoWhile', 'BlocCompose'
+    def getType(self):
+        return self.getTypeBloc()

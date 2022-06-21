@@ -43,3 +43,13 @@ class StructureIterative(BlocSimple):
         else:
             return False
 
+
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getStructuresIterative()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'StructureIterative', 'StructureNbRepConnu', 'StructureNbRepNonConnu','StructureFor', 'StructureWhile', 'StructureDoWhile'
+    def getType(self):
+        return self.getTypeBloc()
+

@@ -13,3 +13,11 @@ class SousProgramme(BlocSimple):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesSousProgrammes.append(self)
 
+    ##
+    #@fn getType()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getSousProgrammes()[2].getType() \n \n
+    #Résultat possible : \n \n
+    #'SousProgramme', 'Function'
+    def getType(self):
+        return self.getTypeBloc()
