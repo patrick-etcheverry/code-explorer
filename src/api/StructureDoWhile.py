@@ -4,18 +4,18 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class BoucleDoWhile(Boucle)
-#@brief Classe héritant de Boucle, elle contient tous les objets BoucleDoWhile d'un code.
-class BoucleDoWhile(StructureNbRepNonConnu):
+##@class StructureDoWhile(StructureNbRepNonConnu)
+#@brief Classe héritant de StructureNbRepNonConnu, elle contient tous les objets StructureDoWhile d'un code.
+class StructureDoWhile(StructureNbRepNonConnu):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
-    #@brief Constructeur de la classe BoucleDoWhile.
+    #@brief Constructeur de la classe StructureDoWhile.
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBouclesDoWhile.append(self)
+        progObjetPatrick.lesStructuresDoWhile.append(self)
 
 
     ##
@@ -36,10 +36,10 @@ class BoucleDoWhile(StructureNbRepNonConnu):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesBouclesDoWhile[0].getBlocTrt().getValeur()\n
+    #Exemple d'utilisation : p.getStructuresDoWhile[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Boucle DoWhile du programme
+    #- [0] = Première Structure DoWhile du programme
     #\n\n Résultat potentiel : { int toto = 3 }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
@@ -47,10 +47,10 @@ class BoucleDoWhile(StructureNbRepNonConnu):
 
 
     ##
-    #@fn setCondition(node)
-    #@brief Défini le noeud en tant que Condition d'une Boucle DoWhile.
+    #@fn setConditionContinuation(node)
+    #@brief Défini le noeud en tant que Condition d'une Structure DoWhile.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
-    def setCondition(self, node):
+    def setConditionContinuation(self, node):
         self.condition = {} 
         
         leBloc = self.prog.cherche(node)
@@ -63,14 +63,14 @@ class BoucleDoWhile(StructureNbRepNonConnu):
         #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
     ##
-    #@fn getCondition()
-    #@brief Retourne tous les Conditions de Boucle DoWhile sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesBouclesDoWhile[0].getCondition().getValeur()\n
+    #@fn getConditionContinuation()
+    #@brief Retourne tous les Conditions des Structures DoWhile sous forme d'une structure de données.
+    #Exemple d'utilisation : p.getStructuresDoWhile[0].getConditionContinuation().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Boucle DoWhile du programme
+    #- [0] = Première Structure DoWhile du programme
     #\n\n Résultat potentiel : compteur < 20
-    def getCondition(self):
+    def getConditionContinuation(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
         return self.condition["bloc"]
     

@@ -79,7 +79,12 @@ class Bloc:
 
     ##
     #@fn getType()
-    #@brief Retourne le type du Bloc.
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getBlocs()[2].getType() \n \n
+    #Résultats possibles : \n \n
+    #'Identificateur', 'Commentaire', 'Literal', 'TypeQualificateur', 'SizedTypeSpecificateur', 'Identificateur', 'Expression', 'ExpressionUnaire'
+    #'ExpressionBinaire', 'ExpressionUpdate', 'ExpressionParenthesee', 'Function', 'Affectation', 'Declaration', 'BlocCompose', 'StructureIf'
+    #'StructureSwitch', 'StructureFor', 'StructureWhile', 'StructureDoWhile', 'InstructionReturn', 'InstructionBreak' ...
     def getType(self):
         letype=type(self)
         tab=str(letype).split('.')

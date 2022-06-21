@@ -3,10 +3,10 @@ from src.api.Commentaire import Commentaire
 from src.api.Type import Type
 from src.api.Literal import Literal
 from src.api.TypeQualificateur import TypeQualificateur
-from src.api.BoucleFor import BoucleFor
+from src.api.StructureFor import StructureFor
 from src.api.Affectation import Affectation
-from src.api.BoucleWhile import BoucleWhile
-from src.api.BoucleDoWhile import BoucleDoWhile
+from src.api.StructureWhile import StructureWhile
+from src.api.StructureDoWhile import StructureDoWhile
 from src.api.StructureIf import StructureIf
 from src.api.Declaration import Declaration
 from src.api.Expression import Expression
@@ -17,7 +17,7 @@ from src.api.ExpressionUpdate import ExpressionUpdate
 from src.api.Function import Function
 from src.api.InstructionBreak import InstructionBreak
 from src.api.InstructionReturn import InstructionReturn
-from src.api.SizeTypedSpecificateur import SizedTypeSpecificateur
+from src.api.SizedTypeSpecificateur import SizedTypeSpecificateur
 from src.api.Identificateur import Identificateur
 from src.api.BlocCompose import BlocCompose
 from src.api.StructureSwitch import StructureSwitch
@@ -184,38 +184,47 @@ def creeObjets(prog):
         obj=BlocCompose(lenode, prog)
 
 
-    def _creeObjet_BoucleFor(lenode, prog):
-        obj=BoucleFor(lenode, prog)
+    def _creeObjet_StructureFor(lenode, prog):
+        obj=StructureFor(lenode, prog)
         
-        lenoeud_init=lenode.children[2]
-        obj.setInit(lenoeud_init)
-        if lenode.children[2].type=="assignment_expression":
-            #il n'y a pas de déclaration de type
-            lenoeud_condition=lenode.children[4]
-            ConditionContinuation(lenoeud_condition, prog)
-            obj.setCondition(lenoeud_condition)
+        if len(lenode.children) > 6:
 
-            lenoeud_pas=lenode.children[6]
-            obj.setPas(lenoeud_pas)
+            lenoeud_init=lenode.children[2]
+            obj.setInit(lenoeud_init)
+            if lenode.children[2].type=="assignment_expression":
+                #il n'y a pas de déclaration de type
+                lenoeud_condition=lenode.children[4]
+                obj2=ConditionContinuation(lenoeud_condition, prog)
+                obj2.__init__(lenoeud_condition, prog)
+                obj.setConditionContinuation(lenoeud_condition)
 
-            lenoeud_bloctrt=lenode.children[8]
-            obj.setBlocTrt(lenoeud_bloctrt)
+                lenoeud_pas=lenode.children[6]
+                obj.setPas(lenoeud_pas)
 
+                lenoeud_bloctrt=lenode.children[8]
+                obj.setBlocTrt(lenoeud_bloctrt)
+
+            else:
+                #il y a une déclaration de type 
+                lenoeud_condition=lenode.children[3]
+                obj2=ConditionContinuation(lenoeud_condition, prog)
+                obj2.__init__(lenoeud_condition, prog)
+                obj.setConditionContinuation(lenoeud_condition)
+
+                lenoeud_pas=lenode.children[5]
+                obj.setPas(lenoeud_pas)
+
+                lenoeud_bloctrt=lenode.children[7]
+                obj.setBlocTrt(lenoeud_bloctrt)
         else:
-            #il y a une déclaration de type 
-            lenoeud_condition=lenode.children[3]
-            obj2=ConditionContinuation(lenoeud_condition, prog)
-            obj2.__init__(lenoeud_condition, prog)
-            obj.setCondition(lenoeud_condition)
-        
-            lenoeud_pas=lenode.children[5]
-            obj.setPas(lenoeud_pas)
-
-            lenoeud_bloctrt=lenode.children[7]
-            obj.setBlocTrt(lenoeud_bloctrt)
+            obj.setInit(None)
+            obj.setConditionContinuation(None)
+            obj.setPas(None)
+            obj.setBlocTrt(lenode.children[5])
 
 
-    def _creeObjet_InstructionIf(lenode, prog):
+
+    def _creeObjet_StructureIf(lenode, prog):
         obj=StructureIf(lenode, prog)
         
         lenoeud_condition=lenode.children[1].children[1]
@@ -233,7 +242,7 @@ def creeObjets(prog):
             obj.setBlocSinon(None)
 
     
-    def _creeObjet_Switch(lenode, prog):
+    def _creeObjet_StructureSwitch(lenode, prog):
         obj=StructureSwitch(lenode, prog)
         
         lenoeud_condition=lenode.children[1].children[1]
@@ -248,19 +257,19 @@ def creeObjets(prog):
         obj.setCase(lenoeud_case)
 
 
-    def _creeObjet_BoucleWhile(lenode, prog):
-        obj=BoucleWhile(lenode, prog)
+    def _creeObjet_StructureWhile(lenode, prog):
+        obj=StructureWhile(lenode, prog)
         
         lenoeud_condition=lenode.children[1].children[1]
         obj2=ConditionContinuation(lenoeud_condition, prog)
         obj2.__init__(lenoeud_condition, prog)
-        obj.setCondition(lenoeud_condition)
+        obj.setConditionContinuation(lenoeud_condition)
 
         lenoeud_then=lenode.children[2]
         obj.setBlocTrt(lenoeud_then)
 
-    def _creeObjet_BoucleDoWhile(lenode, prog):
-        obj=BoucleDoWhile(lenode, prog)
+    def _creeObjet_StructureDoWhile(lenode, prog):
+        obj=StructureDoWhile(lenode, prog)
         
         lenoeud_then=lenode.children[1]
         obj.setBlocTrt(lenoeud_then)
@@ -268,7 +277,7 @@ def creeObjets(prog):
         lenoeud_condition=lenode.children[3].children[1]
         obj2=ConditionContinuation(lenoeud_condition, prog)
         obj2.__init__(lenoeud_condition, prog)
-        obj.setCondition(lenoeud_condition)
+        obj.setConditionContinuation(lenoeud_condition)
 
 
     def _creeContenus_bloc_compose(prog):
@@ -318,15 +327,15 @@ def creeObjets(prog):
         elif node.type=="compound_statement":
             _creeObjet_BlocCompose(node, prog)
         elif node.type=="for_statement":
-            _creeObjet_BoucleFor(node, prog)
+            _creeObjet_StructureFor(node, prog)
         elif node.type=="if_statement":
-            _creeObjet_InstructionIf(node, prog)
+            _creeObjet_StructureIf(node, prog)
         elif node.type=="switch_statement":
-            _creeObjet_Switch(node, prog)
+            _creeObjet_StructureSwitch(node, prog)
         elif node.type=="while_statement":
-            _creeObjet_BoucleWhile(node, prog)
+            _creeObjet_StructureWhile(node, prog)
         elif node.type=="do_statement":
-            _creeObjet_BoucleDoWhile(node, prog)
+            _creeObjet_StructureDoWhile(node, prog)
         else:
             pass
             logger.debug("element non categorisé : "+ str(node))

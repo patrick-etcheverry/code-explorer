@@ -8,7 +8,7 @@ class StructureConditionnelle(BlocSimple):
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
     #@brief Constructeur de la classe StructureConditionnelle.
-    #Exemple de récupération d'une Structure Conditionnelle : p.lesStructuresConditionelles[0] \n
+    #Exemple de récupération d'une Structure Conditionnelle : p.getStructuresConditionelles[0] \n
     #\n Avec :\n
     #- p = Objet Programme
     #- [0] = Première Structure Conditionnelle du programme

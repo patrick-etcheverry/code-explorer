@@ -141,12 +141,12 @@ class Programme:
         self.lesEntrees = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Sorties (EX : "toto" = titi + 1)
         self.lesSorties = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Boucles While (EX : while())
-        self.lesBouclesWhile = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Boucles DoWhile (EX : do{} while())
-        self.lesBouclesDoWhile = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Boucles For (EX : for( ; ; ))
-        self.lesBouclesFor = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures While (EX : while())
+        self.lesStructuresWhile = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures DoWhile (EX : do{} while())
+        self.lesStructuresDoWhile = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Structures For (EX : for( ; ; ))
+        self.lesStructuresFor = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Structures avec un nombre de répétition connu (EX : for( ; ; ))
         self.lesStructuresNbRepConnu = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Structures avec un nombre de répétition inconnu (EX : while(), dowhile())
@@ -156,7 +156,7 @@ class Programme:
         ##Conteneur de toutes les Conditions If (EX : if())
         self.lesStructuresIf = ListeOrdonnee(getCle)
         ##Conteneur de tous les Switchs (EX : switch())
-        self.lesStructuresSwitchs = ListeOrdonnee(getCle)
+        self.lesStructuresSwitch = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Conditions (EX : (!estTriee))
         self.lesFonctions = ListeOrdonnee(getCle)
         ##Conteneur de tous les Sous-Programmes (EX : function())
@@ -624,17 +624,17 @@ class Programme:
 
 
     ##
-    #@fn getBouclesWhile()
-    #@brief Retourne toutes les Boucles While ( while() { } )
-    def getBouclesWhile(self):
-        return self.lesBouclesWhile
+    #@fn getStructuresWhile()
+    #@brief Retourne toutes les Structures While ( while() { } )
+    def getStructuresWhile(self):
+        return self.lesStructuresWhile
     ##
-    #@fn getBoucleWhileAt(pos)
-    #@brief Retourne la Boucle While correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@fn getStructureWhileAt(pos)
+    #@brief Retourne la Structure While correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBoucleWhileAt(self, pos):
+    def getStructureWhileAt(self, pos):
         try:
-            return self.lesBouclesWhile[pos]
+            return self.lesStructuresWhile[pos]
         except:
             return False
 
@@ -643,17 +643,17 @@ class Programme:
 
 
     ##
-    #@fn getBouclesDoWhile()
-    #@brief Retourne toutes les Boucles Do While ( do { } while() )
-    def getBouclesDoWhile(self):
-        return self.lesBouclesDoWhile
+    #@fn getStructuresDoWhile()
+    #@brief Retourne toutes les Structures Do While ( do { } while() )
+    def getStructuresDoWhile(self):
+        return self.lesStructuresDoWhile
     ##
-    #@fn getBoucleDoWhileAt(pos)
-    #@brief Retourne la Boucle Do While correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@fn getStructureDoWhileAt(pos)
+    #@brief Retourne la Structure Do While correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBoucleDoWhileAt(self, pos):
+    def getStructureDoWhileAt(self, pos):
         try:
-            return self.lesBouclesDoWhile[pos]
+            return self.lesStructuresDoWhile[pos]
         except:
             return False
 
@@ -662,17 +662,17 @@ class Programme:
 
 
     ##
-    #@fn getBouclesFor()
-    #@brief Retourne toutes les Boucles For ( for( ; ; ) { } )
-    def getBouclesFor(self):
-        return self.lesBouclesFor
+    #@fn getStructuresFor()
+    #@brief Retourne toutes les Structures For ( for( ; ; ) { } )
+    def getStructuresFor(self):
+        return self.lesStructuresFor
     ##
-    #@fn getBoucleForAt(pos)
-    #@brief Retourne la Boucle For correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@fn getStructureForAt(pos)
+    #@brief Retourne la Structure For correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBoucleForAt(self, pos):
+    def getStructureForAt(self, pos):
         try:
-            return self.lesBouclesFor[pos]
+            return self.lesStructuresFor[pos]
         except:
             return False
 
@@ -758,14 +758,14 @@ class Programme:
     #@fn getStructuresSwitch()
     #@brief Retourne tous les Switchs ( switch() { } )
     def getStructuresSwitch(self):
-        return self.lesStructuresSwitchs
+        return self.lesStructuresSwitch
     ##
     #@fn getStructureSwitchAt(pos)
     #@brief Retourne le Swtich correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
     def getStructureSwitchAt(self, pos):
         try:
-            return self.lesStructuresSwitchs[pos]
+            return self.lesStructuresSwitch[pos]
         except:
             return False
 

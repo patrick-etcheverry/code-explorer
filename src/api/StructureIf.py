@@ -12,10 +12,10 @@ class StructureIf(StructureConditionnelle):
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
     #@brief Constructeur de la classe ConditionIf.
-    #Exemple de récupération d'une Condition If : p.lesConditionsIf[0] \n
+    #Exemple de récupération d'une Structure If : p.getStructuresIf[0] \n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Condition If du programme
+    #- [0] = Première Structure If du programme
     #\n\n Résultat potentiel : (nombreDeNotes > 0)
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
@@ -25,7 +25,7 @@ class StructureIf(StructureConditionnelle):
 
     ##
     #@fn setCondition(node)
-    #@brief Défini le noeud en tant que Condition d'un If.
+    #@brief Défini le noeud en tant que Condition d'une Structure If.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setCondition(self, node):
         self.condition = {} 
@@ -40,11 +40,11 @@ class StructureIf(StructureConditionnelle):
     
     ##
     #@fn getCondition()
-    #@brief Retourne tous les Conditions de If sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesConditionsIf[0].getCondition().getValeur()\n
+    #@brief Retourne tous les Structures de If sous forme d'une structure de données.
+    #Exemple d'utilisation : p.getStructuresIf[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Condition If du programme
+    #- [0] = Première Structure If du programme
     #\n\n Résultat potentiel : i < 20
     def getCondition(self):
         return self.condition["bloc"]
@@ -68,10 +68,10 @@ class StructureIf(StructureConditionnelle):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesConditionsIf[0].getBlocTrt().getValeur()\n
+    #Exemple d'utilisation : p.getStructuresIf[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Condition If du programme
+    #- [0] = Première Structure If du programme
     #\n\n Résultat potentiel : { int toto = 4; }
     def getBlocAlors(self):
         return self.blocalors["bloc"]

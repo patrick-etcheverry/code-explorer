@@ -108,10 +108,10 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="memdesc:a62481f2b33577b7008c9b9dc3f0eb934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe <a class="el" href="class_condition_if.html" title="Classe héritant de Condition, elle contient tous les objets ConditionIf d&#39;un code.">ConditionIf</a>.  <a href="class_structure_if_1_1_structure_if.html#a62481f2b33577b7008c9b9dc3f0eb934">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a62481f2b33577b7008c9b9dc3f0eb934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f7e485d14ed36ac8478fd155e605023"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_structure_if_1_1_structure_if.html#a6f7e485d14ed36ac8478fd155e605023">setCondition</a> (self, node)</td></tr>
-<tr class="memdesc:a6f7e485d14ed36ac8478fd155e605023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Défini le noeud en tant que <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> d'un If.  <a href="class_structure_if_1_1_structure_if.html#a6f7e485d14ed36ac8478fd155e605023">Plus de détails...</a><br /></td></tr>
+<tr class="memdesc:a6f7e485d14ed36ac8478fd155e605023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Défini le noeud en tant que <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> d'une Structure If.  <a href="class_structure_if_1_1_structure_if.html#a6f7e485d14ed36ac8478fd155e605023">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a6f7e485d14ed36ac8478fd155e605023"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e76108b3effb1cc58266da2b6480faa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_structure_if_1_1_structure_if.html#a3e76108b3effb1cc58266da2b6480faa">getCondition</a> (self)</td></tr>
-<tr class="memdesc:a3e76108b3effb1cc58266da2b6480faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne tous les Conditions de If sous forme d'une structure de données.  <a href="class_structure_if_1_1_structure_if.html#a3e76108b3effb1cc58266da2b6480faa">Plus de détails...</a><br /></td></tr>
+<tr class="memdesc:a3e76108b3effb1cc58266da2b6480faa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne tous les Structures de If sous forme d'une structure de données.  <a href="class_structure_if_1_1_structure_if.html#a3e76108b3effb1cc58266da2b6480faa">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a3e76108b3effb1cc58266da2b6480faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f4703e80be88787b051e64664e8e43d"><td class="memItemLeft" align="right" valign="top"><a id="a9f4703e80be88787b051e64664e8e43d" name="a9f4703e80be88787b051e64664e8e43d"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>setBlocAlors</b> (self, node)</td></tr>
@@ -172,12 +172,12 @@ Attributs publics</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructeur de la classe <a class="el" href="class_condition_if.html" title="Classe héritant de Condition, elle contient tous les objets ConditionIf d&#39;un code.">ConditionIf</a>. </p>
-<p >Exemple de récupération d'une <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> If : p.lesConditionsIf[0] <br  />
+<p >Exemple de récupération d'une Structure If : p.getStructuresIf[0] <br  />
 <br  />
  Avec :<br  />
 </p><ul>
 <li>p = Objet <a class="el" href="class_programme.html" title="Base de tout, la classe Programme contient tous les Blocs.">Programme</a></li>
-<li>[0] = Première <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> If du programme <br  />
+<li>[0] = Première Structure If du programme <br  />
 <br  />
  Résultat potentiel : (nombreDeNotes &gt; 0) <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
@@ -237,13 +237,13 @@ Attributs publics</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Retourne tous les Conditions de If sous forme d'une structure de données. </p>
-<p >Exemple d'utilisation : p.lesConditionsIf[0].<a class="el" href="class_structure_if_1_1_structure_if.html#a3e76108b3effb1cc58266da2b6480faa" title="Retourne tous les Conditions de If sous forme d&#39;une structure de données.">getCondition()</a>.getValeur()<br  />
+<p>Retourne tous les Structures de If sous forme d'une structure de données. </p>
+<p >Exemple d'utilisation : p.getStructuresIf[0].<a class="el" href="class_structure_if_1_1_structure_if.html#a3e76108b3effb1cc58266da2b6480faa" title="Retourne tous les Structures de If sous forme d&#39;une structure de données.">getCondition()</a>.getValeur()<br  />
 <br  />
  Avec :<br  />
 </p><ul>
 <li>p = Objet <a class="el" href="class_programme.html" title="Base de tout, la classe Programme contient tous les Blocs.">Programme</a></li>
-<li>[0] = Première <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> If du programme <br  />
+<li>[0] = Première Structure If du programme <br  />
 <br  />
  Résultat potentiel : i &lt; 20 </li>
 </ul>
@@ -312,7 +312,7 @@ Attributs publics</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Défini le noeud en tant que <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> d'un If. </p>
+<p>Défini le noeud en tant que <a class="el" href="class_condition.html" title="Classe héritant de BlocSimple, elle contient tous les objets Conditions d&#39;un code.">Condition</a> d'une Structure If. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramname">lenodeTreeSitter</td><td>: Correspond à un objet <a class="el" href="class_noeud.html" title="Base de toutes choses dans le programme, elle encapsule un &quot;node&quot; de Tree-Sitter.">Noeud</a> </td></tr>
@@ -331,7 +331,7 @@ Attributs publics</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Généré le Lundi 20 Juin 2022 16:23:22 pour Code Explorer par &#160;<a href="http://www.doxygen.org/index.html">
+Généré le Mardi 21 Juin 2022 10:39:41 pour Code Explorer par &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.4
 </small></address>

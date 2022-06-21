@@ -8,6 +8,12 @@ int main(void)
     int sommeNotes = 0;
     int nombreDeNotes = 0;
 
+    for ( ; ; )
+    {
+
+    } 
+
+
 
     for (int i = 5; i<20; i++)
     {

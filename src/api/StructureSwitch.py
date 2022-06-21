@@ -42,7 +42,7 @@ class StructureSwitch(StructureConditionnelle):
     ##
     #@fn getCondition()
     #@brief Retourne tous les Conditions des Switchs sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesSwitchs[0].getCondition().getValeur()\n
+    #Exemple d'utilisation : p.getStructuresSwitch[0].getCondition().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
     #- [0] = Première Condition d'un Switch du programme
@@ -70,7 +70,7 @@ class StructureSwitch(StructureConditionnelle):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesSwitchs[0].getBlocTrt().getValeur()\n
+    #Exemple d'utilisation : p.getStructuresSwitch[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
     #- [0] = Première Condition d'un Switch du programme
@@ -98,7 +98,7 @@ class StructureSwitch(StructureConditionnelle):
     ##
     #@fn getCase()
     #@brief Retourne tous les Cas sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesSwitchs[0].getCase().getValeur()\n
+    #Exemple d'utilisation : p.getStructuresSwitch[0].getCase().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
     #- [0] = Première Condition d'un Switch du programme

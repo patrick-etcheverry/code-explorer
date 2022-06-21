@@ -3,24 +3,24 @@ import logging
 
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
-##@class BoucleWhile(Boucle)
-#@brief Classe héritant de Boucle, elle contient tous les objets BoucleWhile d'un code.
-class BoucleWhile(StructureNbRepNonConnu):
+##@class StructureWhile(Boucle)
+#@brief Classe héritant de Boucle, elle contient tous les objets StructureWhile d'un code.
+class StructureWhile(StructureNbRepNonConnu):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
-    #@brief Constructeur de la classe BoucleWhile.
+    #@brief Constructeur de la classe StructureWhile.
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesBouclesWhile.append(self)
+        progObjetPatrick.lesStructuresWhile.append(self)
 
     ##
     #@fn setCondition(node)
-    #@brief Défini le noeud en tant que Condition d'une Boucle While.
+    #@brief Défini le noeud en tant que Condition d'une Structure While.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
-    def setCondition(self, node):
+    def setConditionContinuation(self, node):
         self.condition = {} 
         
         leBloc = self.prog.cherche(node)
@@ -33,14 +33,14 @@ class BoucleWhile(StructureNbRepNonConnu):
         #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
     ##
-    #@fn getCondition()
-    #@brief Retourne tous les Conditions de Boucle While sous forme d'une structure de données.
-    #Exemple d'utilisation : p.lesBouclesWhile[0].getCondition().getValeur()\n
+    #@fn getConditionContinuation()
+    #@brief Retourne tous les Conditions de Structure While sous forme d'une structure de données.
+    #Exemple d'utilisation : p.getStructuresWhile[0].getConditionContinuation().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
     #- [0] = Première Boucle While du programme
     #\n\n Résultat potentiel : compteur < 20
-    def getCondition(self):
+    def getConditionContinuation(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
         return self.condition["bloc"]
     
@@ -62,7 +62,7 @@ class BoucleWhile(StructureNbRepNonConnu):
     ##
     #@fn getBlocTrt()
     #@brief Retourne tous les Blocs de Traitements sous forme d'une structure de données.*
-    #Exemple d'utilisation : p.lesBouclesWhile[0].getBlocTrt().getValeur()\n
+    #Exemple d'utilisation : p.getStructuresWhile[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
     #- [0] = Première Boucle While du programme
