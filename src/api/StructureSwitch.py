@@ -109,11 +109,3 @@ class StructureSwitch(StructureConditionnelle):
         return self.case["bloc"]
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getStructuresSwitch()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'StructureSwitch', 'BlocCompose'
-    def getType(self):
-        return self.getTypeBloc()

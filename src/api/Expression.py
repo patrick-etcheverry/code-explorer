@@ -34,11 +34,3 @@ class Expression(BlocSimple):
         return self.expression["bloc"]
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getExpressions()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'Expression', 'ExpressionBinaire', 'ExpressionUnaire', 'ExpressionParenthesee'
-    def getType(self):
-        return self.getTypeBloc()

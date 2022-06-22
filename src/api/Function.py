@@ -126,11 +126,3 @@ class Function(SousProgramme):
         return self.bloctrt["bloc"]
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getFunction()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'Function', 'BlocCompose'
-    def getType(self):
-        return self.getTypeBloc()

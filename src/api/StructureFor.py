@@ -29,7 +29,7 @@ class StructureFor(StructureNbRepConnu):
     def setInit(self, node):
         self.init = {} 
         if node == None:
-            self.init["bloc"] = None
+            self.init["bloc"] = False
         else:
             leBloc = self.prog.cherche(node)
             if not leBloc == None:
@@ -60,17 +60,17 @@ class StructureFor(StructureNbRepConnu):
     #@brief Défini le noeud en tant que Condition de continuation.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setConditionContinuation(self, node):
-        self.condition = {} 
+        self.conditionContinuation = {} 
         if node==None:
-                self.condition["bloc"]=None
+                self.conditionContinuation["bloc"]=False
         else:
             leBloc = self.prog.cherche(node)
             if not leBloc == None:
-                self.condition["bloc"] = leBloc
+                self.conditionContinuation["bloc"] = leBloc
             else:
                 pass
-                logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur condition")
-        self.condition["node"] = node
+                logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur conditionContinuation")
+        self.conditionContinuation["node"] = node
         #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
     ##
@@ -83,7 +83,7 @@ class StructureFor(StructureNbRepConnu):
     #\n\n Résultat potentiel : i < 5 , i >= 3
     def getConditionContinuation(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
-        return self.condition["bloc"]
+        return self.conditionContinuation["bloc"]
 
 
 
@@ -93,17 +93,17 @@ class StructureFor(StructureNbRepConnu):
     #@brief Défini le noeud en tant que Condition d'Arret.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
     def setConditionArret(self, node):
-        self.condition = {} 
+        self.conditionArret = {} 
         if node==None:
-                self.condition["bloc"]=None
+                self.conditionArret["bloc"]=False
         else:
             leBloc = self.prog.cherche(node)
             if not leBloc == None:
-                self.condition["bloc"] = leBloc
+                self.conditionArret["bloc"] = leBloc
             else:
                 pass
-                logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur condition")
-        self.condition["node"] = node
+                logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur conditionArret")
+        self.conditionArret["node"] = node
         #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
     ##
@@ -116,7 +116,7 @@ class StructureFor(StructureNbRepConnu):
     #\n\n Résultat potentiel : i < 5 , i >= 3
     def getConditionArret(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
-        return self.condition["bloc"]
+        return self.conditionArret["bloc"]
     
 
 
@@ -129,7 +129,7 @@ class StructureFor(StructureNbRepConnu):
     def setPas(self, node):
         self.pas = {} 
         if node==None:
-            self.pas["bloc"]=None
+            self.pas["bloc"]=False
         else:
             leBloc = self.prog.cherche(node)
             if not leBloc == None:
@@ -159,7 +159,7 @@ class StructureFor(StructureNbRepConnu):
     def setBlocTrt(self, node):
         self.bloctrt = {}
         if node==None:
-            self.bloctrt["bloc"]=None
+            self.bloctrt["bloc"]=False
         else:
             leBloc = self.prog.cherche(node)
             if not leBloc == None:
@@ -209,11 +209,3 @@ class StructureFor(StructureNbRepConnu):
             return True
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getStructuresFor()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'StructureFor', 'BlocCompose', 'ExpressionUpdate'
-    def getType(self):
-        return self.getTypeBloc()

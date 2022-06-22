@@ -417,13 +417,13 @@ class Programme:
     ##
     #@fn getBreaks()
     #@brief Retourne tous les Breaks (break;)
-    def getBreaks(self):
+    def getInstructionsBreak(self):
         return self.lesInstructionsBreak
     ##
     #@fn getBreakAt(pos)
     #@brief Retourne le Break correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getBreakAt(self, pos):
+    def getInstructionBreakAt(self, pos):
         try:
             return self.lesInstructionsBreak[pos]
         except:

@@ -15,12 +15,3 @@ class ConditionBoucle(Condition):
         progObjetPatrick.lesConditionsBoucle.append(self)
 
 
-
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getConditionsBoucle()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'ConditionBoucle', 'ConditionContinuation', 'ConditionArret'
-    def getType(self):
-        return self.getTypeBloc()

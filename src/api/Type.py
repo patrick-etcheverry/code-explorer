@@ -14,11 +14,3 @@ class Type(BlocSimple):
         progObjetPatrick.lesTypes.append(self)
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getTypes()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'Type'
-    def getType(self):
-        return self.getTypeBloc()

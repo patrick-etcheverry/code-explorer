@@ -20,11 +20,3 @@ class StructureConditionnelle(BlocSimple):
         progObjetPatrick.lesStructuresConditionelles.append(self)
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getStructuresConditionnelles()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'StructureConditionnelle', 'StructureIf', 'StructureSwitch'
-    def getType(self):
-        return self.getTypeBloc()

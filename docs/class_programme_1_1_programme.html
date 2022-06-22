@@ -170,12 +170,12 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>getTypeQualificateurAt
 <tr class="memitem:aa48e6834424e5128452f2a145b626c0c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_programme_1_1_programme.html#aa48e6834424e5128452f2a145b626c0c">getExpressionAt</a> (self, pos)</td></tr>
 <tr class="memdesc:aa48e6834424e5128452f2a145b626c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne l'<a class="el" href="class_expression.html" title="Classe héritant de BlocSimple, elle contient tous les objets Affectations d&#39;un code,...">Expression</a> correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.  <a href="class_programme_1_1_programme.html#aa48e6834424e5128452f2a145b626c0c">Plus de détails...</a><br /></td></tr>
 <tr class="separator:aa48e6834424e5128452f2a145b626c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab28ccbf1a8e60fe5466a063d23656428"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_programme_1_1_programme.html#ab28ccbf1a8e60fe5466a063d23656428">getBreaks</a> (self)</td></tr>
-<tr class="memdesc:ab28ccbf1a8e60fe5466a063d23656428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne tous les Breaks (break;)  <a href="class_programme_1_1_programme.html#ab28ccbf1a8e60fe5466a063d23656428">Plus de détails...</a><br /></td></tr>
-<tr class="separator:ab28ccbf1a8e60fe5466a063d23656428"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0bce8d5ab21ea61d10f0bc210947ca4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_programme_1_1_programme.html#ad0bce8d5ab21ea61d10f0bc210947ca4">getBreakAt</a> (self, pos)</td></tr>
-<tr class="memdesc:ad0bce8d5ab21ea61d10f0bc210947ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le Break correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.  <a href="class_programme_1_1_programme.html#ad0bce8d5ab21ea61d10f0bc210947ca4">Plus de détails...</a><br /></td></tr>
-<tr class="separator:ad0bce8d5ab21ea61d10f0bc210947ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7520bd1036ea528fed6b9c4b1eb85147"><td class="memItemLeft" align="right" valign="top"><a id="a7520bd1036ea528fed6b9c4b1eb85147" name="a7520bd1036ea528fed6b9c4b1eb85147"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>getInstructionsBreak</b> (self)</td></tr>
+<tr class="separator:a7520bd1036ea528fed6b9c4b1eb85147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6903e11e9cddcf33e608fc00ea25bcf"><td class="memItemLeft" align="right" valign="top"><a id="ad6903e11e9cddcf33e608fc00ea25bcf" name="ad6903e11e9cddcf33e608fc00ea25bcf"></a>
+def&#160;</td><td class="memItemRight" valign="bottom"><b>getInstructionBreakAt</b> (self, pos)</td></tr>
+<tr class="separator:ad6903e11e9cddcf33e608fc00ea25bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22a504d6310fdde09885bf2f6efc4ace"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_programme_1_1_programme.html#a22a504d6310fdde09885bf2f6efc4ace">getReturns</a> (self)</td></tr>
 <tr class="memdesc:a22a504d6310fdde09885bf2f6efc4ace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne tous les Return (return 0;)  <a href="class_programme_1_1_programme.html#a22a504d6310fdde09885bf2f6efc4ace">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a22a504d6310fdde09885bf2f6efc4ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -792,62 +792,6 @@ Attributs publics</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retourne tous les Blocs Simples. </p>
-
-</div>
-</div>
-<a id="ad0bce8d5ab21ea61d10f0bc210947ca4" name="ad0bce8d5ab21ea61d10f0bc210947ca4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0bce8d5ab21ea61d10f0bc210947ca4">&#9670;&nbsp;</a></span>getBreakAt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def Programme.Programme.getBreakAt </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retourne le Break correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False. </p>
-<dl class="params"><dt>Paramètres</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>: Position de l'objet souhaité </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab28ccbf1a8e60fe5466a063d23656428" name="ab28ccbf1a8e60fe5466a063d23656428"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab28ccbf1a8e60fe5466a063d23656428">&#9670;&nbsp;</a></span>getBreaks()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def Programme.Programme.getBreaks </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retourne tous les Breaks (break;) </p>
 
 </div>
 </div>
@@ -3262,7 +3206,7 @@ Attributs publics</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Généré le Mardi 21 Juin 2022 14:25:04 pour Code Explorer par &#160;<a href="http://www.doxygen.org/index.html">
+Généré le Mercredi 22 Juin 2022 13:58:59 pour Code Explorer par &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.4
 </small></address>

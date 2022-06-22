@@ -16,13 +16,3 @@ class InstructionReturn(BlocSimple):
         progObjetPatrick.lesInstructionsReturn.append(self)
         #self.prog.lesInstructionsReturn.sort(key=getCle)
         
-
-
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getInstructionsReturn()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'InstructionReturn'
-    def getType(self):
-        return self.getTypeBloc()

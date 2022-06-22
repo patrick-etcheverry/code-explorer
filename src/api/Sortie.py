@@ -14,11 +14,3 @@ class Sortie(BlocSimple):
         progObjetPatrick.lesSorties.append(self)
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getSorties()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'Sortie'
-    def getType(self):
-        return self.getTypeBloc()

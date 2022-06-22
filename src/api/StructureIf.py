@@ -84,7 +84,7 @@ class StructureIf(StructureConditionnelle):
     def setBlocSinon(self, node):
         self.blocsinon={} 
         if node==None:
-            self.blocsinon["bloc"]=None
+            self.blocsinon["bloc"]=False
         else:
             lebloc=self.prog.cherche(node)
             if not lebloc==None:
@@ -109,11 +109,3 @@ class StructureIf(StructureConditionnelle):
 
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getStructuresIf()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'StructureIf', 'BlocCompose'
-    def getType(self):
-        return self.getTypeBloc()

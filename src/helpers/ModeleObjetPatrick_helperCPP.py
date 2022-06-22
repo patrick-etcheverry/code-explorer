@@ -184,6 +184,9 @@ def creeObjets(prog):
         obj=BlocCompose(lenode, prog)
 
 
+
+
+
     def _creeObjet_StructureFor(lenode, prog):
         obj=StructureFor(lenode, prog)
         
@@ -193,6 +196,10 @@ def creeObjets(prog):
             obj.setInit(lenoeud_init)
             if lenode.children[2].type=="assignment_expression":
                 #il n'y a pas de déclaration de type
+
+                lenoeud_bloctrt=lenode.children[8]
+                obj.setBlocTrt(lenoeud_bloctrt)
+
                 lenoeud_condition=lenode.children[4]
                 obj2=ConditionContinuation(lenoeud_condition, prog)
                 obj2.__init__(lenoeud_condition, prog)
@@ -202,11 +209,41 @@ def creeObjets(prog):
                 lenoeud_pas=lenode.children[6]
                 obj.setPas(lenoeud_pas)
 
-                lenoeud_bloctrt=lenode.children[8]
-                obj.setBlocTrt(lenoeud_bloctrt)
+
+                if obj.getBlocTrt().getType() == 'BlocCompose':
+                    corpsBoucle = obj.noeud.node.children[8].children
+
+                    breakConfirmer = False
+
+                    for instruction in corpsBoucle:
+                    
+                        if instruction.type == 'break_statement':
+                            breakConfirmer = True
+
+                    if breakConfirmer == True:
+                        obj.setConditionArret(lenoeud_condition)
+                    else:
+                        obj.setConditionArret(None)
+
+                if obj.getBlocTrt().getType() in {'InstructionBreak', 'Expression'}:
+                    corpsBoucle = obj.noeud.node.children[8]
+
+                    breakConfirmer = False
+
+                    if corpsBoucle.type == 'break_statement':
+                        breakConfirmer = True
+
+                    if breakConfirmer == True:
+                        obj.setConditionArret(lenoeud_condition)
+                    else:
+                        obj.setConditionArret(None)
+
 
             else:
                 #il y a une déclaration de type 
+                lenoeud_bloctrt=lenode.children[7]
+                obj.setBlocTrt(lenoeud_bloctrt)
+
                 lenoeud_condition=lenode.children[3]
                 obj2=ConditionContinuation(lenoeud_condition, prog)
                 obj2.__init__(lenoeud_condition, prog)
@@ -216,14 +253,45 @@ def creeObjets(prog):
                 lenoeud_pas=lenode.children[5]
                 obj.setPas(lenoeud_pas)
 
-                lenoeud_bloctrt=lenode.children[7]
-                obj.setBlocTrt(lenoeud_bloctrt)
+                
+                if obj.getBlocTrt().getType() == 'BlocCompose':
+                    corpsBoucle = obj.noeud.node.children[7].children
+
+                    breakConfirmer = False
+
+                    for instruction in corpsBoucle:
+                    
+                        if instruction.type == 'break_statement':
+                            breakConfirmer = True
+
+                    if breakConfirmer == True:
+                        obj.setConditionArret(lenoeud_condition)
+                    else:
+                        obj.setConditionArret(None)
+
+                if obj.getBlocTrt().getType() in {'InstructionBreak', 'Expression'}:
+                    corpsBoucle = obj.noeud.node.children[7]
+
+                    breakConfirmer = False
+
+                    if corpsBoucle.type == 'break_statement':
+                        breakConfirmer = True
+
+                    if breakConfirmer == True:
+                        obj.setConditionArret(lenoeud_condition)
+                    else:
+                        obj.setConditionArret(None)
+
+
         else:
             obj.setInit(None)
             obj.setConditionContinuation(None)
-            obj.setConditionArret(None)
-            obj.setPas(None)
             obj.setBlocTrt(lenode.children[5])
+            obj.setPas(None)
+            obj.setConditionArret(None)
+
+
+    
 
 
 
@@ -260,17 +328,49 @@ def creeObjets(prog):
         obj.setCase(lenoeud_case)
 
 
+
+
     def _creeObjet_StructureWhile(lenode, prog):
         obj=StructureWhile(lenode, prog)
-        
+
+        lenoeud_then=lenode.children[2]
+        obj.setBlocTrt(lenoeud_then)
+
         lenoeud_condition=lenode.children[1].children[1]
         obj2=ConditionContinuation(lenoeud_condition, prog)
         obj2.__init__(lenoeud_condition, prog)
         obj.setConditionContinuation(lenoeud_condition)
-        obj.setConditionArret(None)
 
-        lenoeud_then=lenode.children[2]
-        obj.setBlocTrt(lenoeud_then)
+        if obj.getBlocTrt().getType() == 'BlocCompose':
+            corpsBoucle = obj.noeud.node.children[2].children
+
+            breakConfirmer = False
+
+            for instruction in corpsBoucle:
+
+                if instruction.type == 'break_statement':
+                    breakConfirmer = True
+
+            if breakConfirmer == True:
+                obj.setConditionArret(lenoeud_condition)
+            else:
+                obj.setConditionArret(None)
+
+        if obj.getBlocTrt().getType() in {'InstructionBreak', 'Expression'}:
+            corpsBoucle = obj.noeud.node.children[2]
+
+            breakConfirmer = False
+
+            if corpsBoucle.type == 'break_statement':
+                breakConfirmer = True
+
+            if breakConfirmer == True:
+                obj.setConditionArret(lenoeud_condition)
+            else:
+                obj.setConditionArret(None)
+
+
+
 
     def _creeObjet_StructureDoWhile(lenode, prog):
         obj=StructureDoWhile(lenode, prog)
@@ -283,6 +383,35 @@ def creeObjets(prog):
         obj2.__init__(lenoeud_condition, prog)
         obj.setConditionContinuation(lenoeud_condition)
         obj.setConditionArret(None)
+
+        if obj.getBlocTrt().getType() == 'BlocCompose':
+            corpsBoucle = obj.noeud.node.children[1].children
+
+            breakConfirmer = False
+
+            for instruction in corpsBoucle:
+
+                if instruction.type == 'break_statement':
+                    breakConfirmer = True
+
+            if breakConfirmer == True:
+                obj.setConditionArret(lenoeud_condition)
+            else:
+                obj.setConditionArret(None)
+
+        if obj.getBlocTrt().getType() in {'InstructionBreak', 'Expression'}:
+            corpsBoucle = obj.noeud.node.children[1]
+
+            breakConfirmer = False
+
+            if corpsBoucle.type == 'break_statement':
+                breakConfirmer = True
+
+            if breakConfirmer == True:
+                obj.setConditionArret(lenoeud_condition)
+            else:
+                obj.setConditionArret(None)
+
 
 
     def _creeContenus_bloc_compose(prog):
@@ -298,9 +427,12 @@ def creeObjets(prog):
 
 
 
+
     def _creeElement(node):
         if node.type=="comment":
             _creeObjet_Commentaire(node, prog) 
+        elif node.type=="compound_statement":
+            _creeObjet_BlocCompose(node, prog)
         elif node.type in {"true", "false", "string_literal", "number_literal"}:
             _creeObjet_Literal(node, prog)
         elif node.type =="type_qualifier":
@@ -329,8 +461,6 @@ def creeObjets(prog):
             _creeObjet_Affectation(node, prog)
         elif node.type=="declaration":
             _creeObjet_Declaration(node, prog)
-        elif node.type=="compound_statement":
-            _creeObjet_BlocCompose(node, prog)
         elif node.type=="for_statement":
             _creeObjet_StructureFor(node, prog)
         elif node.type=="if_statement":
@@ -348,6 +478,7 @@ def creeObjets(prog):
       
     traverse(prog.TreeNode, False, _creeElement,[])
     _creeContenus_bloc_compose(prog)
+    #_creeConditionArretSurBoucles(prog)
 
 
 

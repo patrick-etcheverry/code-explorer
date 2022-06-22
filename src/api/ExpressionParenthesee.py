@@ -41,11 +41,3 @@ class ExpressionParenthesee(Expression):
         return self.expression
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getExpressionsParenthesee()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'ExpressionParenthesee'
-    def getType(self):
-        return self.getTypeBloc()

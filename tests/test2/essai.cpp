@@ -7,10 +7,22 @@ int main(void)
     float valeurSaisie ;
     int sommeNotes = 0;
     int nombreDeNotes = 0;
+    bool estTrie = false;
+
+    while (estTrie == false)
+    {
+        //Supposer que le tableau est totalement trié
+        estTrie = true;
+        break;
+        if (sommeNotes < 2)
+        {
+            break;
+        }
+    }
 
     for ( ; ; )
     {
-
+        break;
     } 
 
 
@@ -19,21 +31,26 @@ int main(void)
     {
         cout  << "Entrez une note comprise dans l'intervalle [0:20] : ";
         cin >> valeurSaisie;
+        break;
     } 
 
+
+    for (int i = 5; i<20; i++)
+        break;
+
+
     int i = 0;
-    do {
-        cout << i << "\n";
-        i++;
-    }
+    do
+        break;
     while (i < 5);
 
 
     while(true)
         i++;
+        
 
     while(i < 20)
-        i++;
+        break;
 
 }
 

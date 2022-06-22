@@ -74,7 +74,7 @@ class Declaration(BlocSimple):
     def setValeurExpression(self, node):
         self.valeur={}
         if node==None:
-            self.valeur["bloc"]=None
+            self.valeur["bloc"]=False
         else:
             lebloc=self.prog.cherche(node)
             if not lebloc==None:
@@ -112,11 +112,3 @@ class Declaration(BlocSimple):
   
 
 
-    ##
-    #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
-    #Exemple d'utilisation : p.getDeclarations()[2].getType() \n \n
-    #Résultat possible : \n \n
-    #'Declarations', 'Type', 'Identificateur', 'Expression'
-    def getType(self):
-        return self.getTypeBloc()
