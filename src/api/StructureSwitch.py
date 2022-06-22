@@ -5,8 +5,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class StructureSwitch(StructureConditionnelle)
-#@brief Classe héritant de StructureConditionnelle, elle contient toutes les Strucutures sous forme de Switch d'un code.         
+
+##@brief Classe héritant de StructureConditionnelle, elle contient toutes les StructureSwitch d'un code.         
 class StructureSwitch(StructureConditionnelle):
     
     ##

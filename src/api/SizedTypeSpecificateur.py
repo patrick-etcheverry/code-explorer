@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class SizedTypeSpecificateur(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets SizedTypeSpecificateur d'un code, comme les "unsigned int" par exemple.
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets SizedTypeSpecificateur d'un code, comme les "unsigned int" par exemple.
 class SizedTypeSpecificateur(BlocSimple):
 
 

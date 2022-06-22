@@ -1,8 +1,8 @@
 from src.api.BlocSimple import BlocSimple
 
 
-##@class StructureConditionnelle(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient toutes les Strucutures Conditionnelles d'un code, par exemple ( if() { } ).         
+
+##@brief Classe héritant de BlocSimple, elle contient toutes les StrucutureConditionnelle d'un code, par exemple ( if() { } ).         
 class StructureConditionnelle(BlocSimple):
     
     ##

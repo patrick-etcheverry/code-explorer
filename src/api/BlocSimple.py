@@ -1,8 +1,8 @@
 from src.api.Bloc import Bloc
 
 
-##@class BlocSimple(Bloc)
-#@brief Classe héritant de Bloc, elle ne contient que les objets les plus basique d'un code.
+
+##@brief Classe héritant de Bloc, elle ne contient que les objets les plus basique d'un code.
 class BlocSimple(Bloc):
 
     ##

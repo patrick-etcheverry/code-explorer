@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class Literal(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets litéral d'un code.
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Literal d'un code.
 class Literal(BlocSimple):
 
     ##

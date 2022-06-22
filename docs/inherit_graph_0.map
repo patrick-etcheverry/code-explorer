@@ -1,3 +1,5 @@
 <map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
-<area shape="rect" id="node1" href="$class_affectation.html" title="Classe héritant de BlocSimple, elle contient tous les objets Affectations d&#39;un code,..." alt="" coords="5,5,88,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,53,57"/>
+<area shape="rect" id="node2" href="$class_bloc_compose_1_1_bloc_compose.html" title="Classe héritant de Bloc, elle contient des objets composés de plusieurs BlocSimple." alt="" coords="101,5,289,32"/>
+<area shape="rect" id="node3" href="$class_bloc_simple_1_1_bloc_simple.html" title="Classe héritant de Bloc, elle ne contient que les objets les plus basique d&#39;un code." alt="" coords="116,56,275,83"/>
 </map>

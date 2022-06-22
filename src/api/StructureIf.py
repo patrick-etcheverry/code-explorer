@@ -5,8 +5,8 @@ import logging
 logger = logging.getLogger(__name__) 
 
 
-##@class StructureIf(StructureConditionnelle)
-#@brief Classe héritant de StructureConditionnelle, elle contient toutes les Strucutures sous forme de If d'un code.         
+
+##@brief Classe héritant de StructureConditionnelle, elle contient toutes les StructureIf d'un code.         
 class StructureIf(StructureConditionnelle):
     
     ##

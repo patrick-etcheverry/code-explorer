@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class TypeQualificateur(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets TypeQualificateur d'un code, comme les constantes par exemple.
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets TypeQualificateur d'un code, comme les constantes par exemple.
 class TypeQualificateur(BlocSimple):
 
     ##

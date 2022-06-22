@@ -6,8 +6,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class ExpressionBinaire(Expression)
-#@brief Classe héritant de Expression, elle contient tous les objets ExpressionBinaire d'un code, par exemple : while("compteur < 20").
+
+##@brief Classe héritant de Expression, elle contient tous les objets ExpressionBinaire d'un code, par exemple : while("compteur < 20").
 class ExpressionBinaire(Expression):
 
     ##

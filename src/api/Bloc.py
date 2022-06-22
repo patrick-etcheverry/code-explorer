@@ -1,8 +1,8 @@
 from src.api.Noeud import Noeud
 from src.api.tree_sitter_utilities import recupereTexteDansSource
 
-##@class Bloc 
-#@brief Structure de données de plus haut niveau à laquelle on associe la gestion du Noeud.
+
+##@brief Structure de données de plus haut niveau à laquelle on associe la gestion du Noeud.
 #Un Bloc se limite à sa référence à un objet Noeud (qui lui même fait référence à un node de Tressitter).
 class Bloc:
     ##

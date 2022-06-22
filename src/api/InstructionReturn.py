@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class InstructionReturn(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient toutes instruction Return d'un code.
+
+##@brief Classe héritant de BlocSimple, elle contient toutes InstructionReturn d'un code.
 class InstructionReturn(BlocSimple):
 
     ##

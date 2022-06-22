@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class Sortie(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets Sortie d'un code, par exemple : "i" = i + 1.      
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Sortie d'un code, par exemple : "i" = i + 1.      
 class Sortie(BlocSimple):
 
     ##

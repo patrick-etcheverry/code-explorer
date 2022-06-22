@@ -5,8 +5,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class ExpressionUpdate(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets ExpressionUpdate d'un code, par exemple : "i++".
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets ExpressionUpdate d'un code, par exemple : "i++".
 class ExpressionUpdate(BlocSimple):
 
     ##

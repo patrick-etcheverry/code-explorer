@@ -1,4 +1,4 @@
 <map id="ConditionArret.ConditionArret" name="ConditionArret.ConditionArret">
-<area shape="rect" id="node1" title=" " alt="" coords="5,131,168,223"/>
+<area shape="rect" id="node1" title="Classe héritant de Condition, elle contient tous les objets ConditionArret d&#39;un code." alt="" coords="5,131,168,223"/>
 <area shape="rect" id="node2" title=" " alt="" coords="29,5,145,83"/>
 </map>

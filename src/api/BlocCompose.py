@@ -2,10 +2,8 @@ from src.api.Bloc import Bloc
 
 
 
-##@class BlocCompose(Bloc)
-#@brief Classe héritant de Bloc, elle contient des objets composés de plusieurs Blocs Simples.
 
-
+##@brief Classe héritant de Bloc, elle contient des objets composés de plusieurs BlocSimple.
 class BlocCompose(Bloc):
 
     ##

@@ -4,8 +4,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__)  
 
-##@class Affectation(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets Affectations d'un code, par exemple : "i = i + 1".
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Affectation d'un code, par exemple : "i = i + 1".
 class Affectation(BlocSimple):
 
     ##
@@ -65,7 +65,7 @@ class Affectation(BlocSimple):
         return self.expression["bloc"]
 
 
-      ##
+    ##
     #@fn setOperateur(node)
     #@brief Défini le noeud en tant qu'Operateur.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
@@ -81,7 +81,7 @@ class Affectation(BlocSimple):
         self.operateur["node"] = node
 
     ##
-    #@fn getIdentificateur()
+    #@fn getOperateur()
     #@brief Retourne tous les Operateurs sous forme d'une structure de données.
     def getOperateur(self):
         return self.operateur["bloc"]

@@ -5,8 +5,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class Declaration(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets Declaration d'un code, par exemple : "int i = 2;".
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Declaration d'un code, par exemple : "int i = 2;".
 class Declaration(BlocSimple):  
 
     ##

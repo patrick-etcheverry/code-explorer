@@ -6,8 +6,8 @@ import logging
 logger = logging.getLogger(__name__) 
 
 
-##@class ExpressionParenthesee(Expression)
-#@brief Classe héritant de Expression, elle contient tous les objets ExpressionParenthesee d'un code, par exemple : for (int i = 1; i <= "(nbCases - 2)""; i++).
+
+##@brief Classe héritant de Expression, elle contient tous les objets ExpressionParenthesee d'un code, par exemple : for (int i = 1; i <= "(nbCases - 2)""; i++).
 class ExpressionParenthesee(Expression):
 
     ##

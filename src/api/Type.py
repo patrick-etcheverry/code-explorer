@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class Type(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets Type d'un code, comme "int" ou "string" par exemple.
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Type d'un code, comme "int" ou "string" par exemple.
 class Type(BlocSimple):
 
     ##

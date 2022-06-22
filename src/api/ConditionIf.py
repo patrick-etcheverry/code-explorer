@@ -1,8 +1,8 @@
 from src.api.Condition import Condition
 from src.api.tree_sitter_utilities import splited
 
-##@class ConditionIf(Condition)
-#@brief Classe héritant de Condition, elle contient tous les objets ConditionIf d'un code.
+
+##@brief Classe héritant de Condition, elle contient tous les objets ConditionIf d'un code.
 class ConditionIf(Condition):
 
     ##

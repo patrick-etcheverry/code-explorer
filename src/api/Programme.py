@@ -13,8 +13,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class Programme
-#@brief Base de tout, la classe Programme contient tous les Blocs.
+
+##@brief Base de tout, la classe Programme contient tous les Blocs.
 class Programme:  
     ##
     #@fn __init__(liste_lignescode, arbre_TreeSitter, langage)

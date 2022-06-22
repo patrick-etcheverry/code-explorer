@@ -1,8 +1,8 @@
 from src.api.BlocSimple import BlocSimple
 
 
-##@class InstructionBreak(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient toutes instruction Break d'un code.
+
+##@brief Classe héritant de BlocSimple, elle contient toutes InstructionBreak d'un code.
 class InstructionBreak(BlocSimple):
 
     ##

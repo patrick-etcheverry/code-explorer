@@ -1,8 +1,8 @@
 from src.api.BlocSimple import BlocSimple
 
 
-##@class Commentaire(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets commentaires d'un code.
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Commentaire d'un code.
 class Commentaire(BlocSimple):
 
     ##

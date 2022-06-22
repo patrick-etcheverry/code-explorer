@@ -1,8 +1,8 @@
 from src.api.ConditionBoucle import ConditionBoucle
 from src.api.tree_sitter_utilities import splited
 
-##@class ConditionBoucle(Condition)
-#@brief Classe héritant de Condition, elle contient tous les objets ConditionArret d'un code.
+
+##@brief Classe héritant de Condition, elle contient tous les objets ConditionArret d'un code.
 class ConditionArret(ConditionBoucle):
 
     ##

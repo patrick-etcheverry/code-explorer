@@ -7,8 +7,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class StructureFor(StructureNbRepConnu)
-#@brief Classe héritant de StructureNbRepConnu, elle contient tous les objets StructureFor d'un code, par exemple : "for( ; ; )".      
+
+##@brief Classe héritant de StructureNbRepConnu, elle contient tous les objets StructureFor d'un code, par exemple : "for( ; ; )".      
 class StructureFor(StructureNbRepConnu):
 
     ##

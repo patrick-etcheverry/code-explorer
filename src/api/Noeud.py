@@ -1,6 +1,5 @@
-##
-#@class Noeud
-#@brief Base de toutes choses dans le programme, elle encapsule un "node" de Tree-Sitter.
+
+##@brief Base de toutes choses dans le programme, elle encapsule un "node" de Tree-Sitter.
 class Noeud:
 
     ##Structure de données de la classe "Noeud" constituée d'un ensemble de clés.

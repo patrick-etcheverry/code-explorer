@@ -5,9 +5,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class Identificateur(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets Identificateur d'un code, c'est-à-dire les noms des variables par exemple.
 
+##@brief Classe héritant de BlocSimple, elle contient tous les objets Identificateur d'un code, c'est-à-dire les noms des variables par exemple.
 class Identificateur(BlocSimple):
 
     ##

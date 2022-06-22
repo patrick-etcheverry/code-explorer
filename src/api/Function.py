@@ -5,8 +5,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class Function(SousProgramme)
-#@brief Classe héritant de SousProgramme, elle contient tous les objets Function d'un code, par exemple : "int function()".
+
+##@brief Classe héritant de SousProgramme, elle contient tous les objets Function d'un code, par exemple : "int function()".
 class Function(SousProgramme):
 
     ##

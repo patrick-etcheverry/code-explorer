@@ -1,8 +1,8 @@
 from src.api.StructureIterative import StructureIterative
 
 
-##@class StructureNbRepConnu(StructureIterative)
-#@brief Classe héritant de StructureIterative, elle contient tous les objets StructureNbRepConnu d'un code.
+
+##@brief Classe héritant de StructureIterative, elle contient tous les objets StructureNbRepConnu d'un code.
 class StructureNbRepConnu(StructureIterative):
 
     ##

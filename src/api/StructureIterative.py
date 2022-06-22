@@ -1,8 +1,8 @@
 from src.api.BlocSimple import BlocSimple
 from src.api.tree_sitter_utilities import splited
 
-##@class StructureIterative(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets StructureIterative d'un code.
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets StructureIterative d'un code.
 class StructureIterative(BlocSimple):
 
     ##

@@ -6,8 +6,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class ExpressionUnaire(Expression)
-#@brief Classe héritant de Expression, elle contient tous les objets ExpressionUnaire d'un code, par exemple : while("!estTrie").
+
+##@brief Classe héritant de Expression, elle contient tous les objets ExpressionUnaire d'un code, par exemple : while("!estTrie").
 class ExpressionUnaire(Expression):
 
     ##

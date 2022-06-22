@@ -4,8 +4,8 @@ import logging
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
 
-##@class StructureDoWhile(StructureNbRepNonConnu)
-#@brief Classe héritant de StructureNbRepNonConnu, elle contient tous les objets StructureDoWhile d'un code.
+
+##@brief Classe héritant de StructureNbRepNonConnu, elle contient tous les objets StructureDoWhile d'un code.
 class StructureDoWhile(StructureNbRepNonConnu):
 
     ##

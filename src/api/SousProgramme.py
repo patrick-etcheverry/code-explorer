@@ -1,7 +1,7 @@
 from src.api.BlocSimple import BlocSimple
 
-##@class Sous_Programme(BlocSimple)
-#@brief Classe héritant de BlocSimple, elle contient tous les objets Sous_Programme d'un code.         
+
+##@brief Classe héritant de BlocSimple, elle contient tous les objets SousProgramme d'un code.         
 class SousProgramme(BlocSimple):
 
     ##

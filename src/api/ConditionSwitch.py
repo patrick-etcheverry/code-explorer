@@ -1,8 +1,8 @@
 from src.api.Condition import Condition
 from src.api.tree_sitter_utilities import splited
 
-##@class ConditionSwitch(Condition)
-#@brief Classe héritant de Condition, elle contient tous les objets ConditionSwitch d'un code.
+
+##@brief Classe héritant de Condition, elle contient tous les objets ConditionSwitch d'un code.
 class ConditionSwitch(Condition):
 
     ##

@@ -1,3 +1,5 @@
 <map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
-<area shape="rect" id="node1" href="$class_bloc_compose.html" title="Classe héritant de Bloc, elle contient des objets composés de plusieurs Blocs Simples." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,46,121,73"/>
+<area shape="rect" id="node2" href="$class_condition_arret_1_1_condition_arret.html" title="Classe héritant de Condition, elle contient tous les objets ConditionArret d&#39;un code." alt="" coords="191,5,354,47"/>
+<area shape="rect" id="node3" href="$class_condition_continuation_1_1_condition_continuation.html" title="Classe héritant de Condition, elle contient tous les objets ConditionContinuation d&#39;un code." alt="" coords="169,71,376,112"/>
 </map>

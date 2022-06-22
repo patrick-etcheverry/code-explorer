@@ -3,8 +3,8 @@ import logging
 
 # Gets or creates a logger
 logger = logging.getLogger(__name__) 
-##@class StructureWhile(Boucle)
-#@brief Classe héritant de Boucle, elle contient tous les objets StructureWhile d'un code.
+
+##@brief Classe héritant de Boucle, elle contient tous les objets StructureWhile d'un code.
 class StructureWhile(StructureNbRepNonConnu):
 
     ##

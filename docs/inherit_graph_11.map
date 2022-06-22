@@ -1,3 +1,5 @@
 <map id="Graphe hiérarchique des classes" name="Graphe hiérarchique des classes">
-<area shape="rect" id="node1" href="$class_boucle_nb_rep_connu.html" title="Classe héritant de Boucle, elle contient tous les objets BoucleNbRepConnu d&#39;un code." alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,46,124,73"/>
+<area shape="rect" id="node2" href="$class_structure_nb_rep_connu_1_1_structure_nb_rep_connu.html" title="Classe héritant de StructureIterative, elle contient tous les objets StructureNbRepConnu d&#39;un code." alt="" coords="183,5,391,47"/>
+<area shape="rect" id="node3" href="$class_structure_nb_rep_non_connu_1_1_structure_nb_rep_non_connu.html" title="Classe héritant de StructureIterative, elle contient tous les objets StructureNbRepNonConnu d&#39;un code..." alt="" coords="172,71,403,112"/>
 </map>
