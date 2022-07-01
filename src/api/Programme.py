@@ -157,8 +157,10 @@ class Programme:
         self.lesStructuresIf = ListeOrdonnee(getCle)
         ##Conteneur de tous les Switchs (EX : switch())
         self.lesStructuresSwitch = ListeOrdonnee(getCle)
-        ##Conteneur de toutes les Conditions (EX : (!estTriee))
-        self.lesFonctions = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Fonctions 
+        self.lesFunctions = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Déclarations de sous-programme (EX : void triParNomCroissant(Etudiant tab[], unsigned int nbCases);
+        self.lesProcedures = ListeOrdonnee(getCle)
         ##Conteneur de tous les Sous-Programmes (EX : function())
         self.lesSousProgrammes = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Structures Conditionelles If (EX : if() { })
@@ -175,6 +177,8 @@ class Programme:
         self.lesConditionsIf = ListeOrdonnee(getCle)
         ##Conteneur de toutes les ConditionSwitch If (EX : i < 20)
         self.lesConditionsSwitch = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les Parametres If (EX : i < 20)
+        self.lesParametres = ListeOrdonnee(getCle)
 
         moduleCreeObjets.creeObjets(self)
         
@@ -774,17 +778,17 @@ class Programme:
 
 
     ##
-    #@fn getFonctions()
+    #@fn getFunctions()
     #@brief Retourne toutes les Fonctions ( bool estCroissante() { } )
-    def getFonctions(self):
-        return self.lesFonctions
+    def getFunctions(self):
+        return self.lesFunctions
     ##
-    #@fn getFonctionAt(pos)
+    #@fn getFunctionAt(pos)
     #@brief Retourne la Fonction correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
     #@param pos : Position de l'objet souhaité
-    def getFonctionAt(self, pos):
+    def getFunctionAt(self, pos):
         try:
-            return self.lesFonctions[pos]
+            return self.lesFunctions[pos]
         except:
             return False
 
@@ -933,5 +937,37 @@ class Programme:
     def getConditionSwitchAt(self, pos):
         try:
             return self.lesConditionsSwitch[pos]
+        except:
+            return False
+
+
+    ##
+    #@fn getProcedures()
+    #@brief Retourne toutes les Procédures
+    def getProcedures(self):
+        return self.lesProcedures
+    ##
+    #@fn getProcedureAt(pos)
+    #@brief Retourne la Procédure correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getProcedureAt(self, pos):
+        try:
+            return self.lesProcedures[pos]
+        except:
+            return False
+
+
+    ##
+    #@fn getParametres()
+    #@brief Retourne toutes les Parametres
+    def getParametres(self):
+        return self.lesParametres
+    ##
+    #@fn getParametreAt(pos)
+    #@brief Retourne le Parametre correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getParametreAt(self, pos):
+        try:
+            return self.lesParametres[pos]
         except:
             return False

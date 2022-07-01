@@ -52,31 +52,34 @@ class StructureWhile(StructureNbRepNonConnu):
     #@fn setConditionArret(node)
     #@brief Défini le noeud en tant que Condition d'Arret.
     #@param lenodeTreeSitter : Correspond à un objet Noeud
-    def setConditionArret(self, node):
-        self.conditionArret = {} 
-        if node==None:
-                self.conditionArret["bloc"]=False
+    def setConditionsArret(self, listNode):
+
+        self.conditionArret = []
+
+        if listNode==None:
+                    self.conditionArret = False
+
         else:
-            leBloc = self.prog.cherche(node)
-            if not leBloc == None:
-                self.conditionArret["bloc"] = leBloc
-            else:
-                pass
-                logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur conditionArret")
-        self.conditionArret["node"] = node
-        #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
+            for node in listNode:
+                leBloc = self.prog.cherche(node)
+                if not leBloc == None:
+                    self.conditionArret.append(leBloc)
+                else:
+                    pass
+                    logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur conditionArret")
+            #self.condition["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
     ##
     #@fn getConditionArret()
-    #@brief Retourne tous les Conditions d'Arrêt sous forme d'une structure de données.
-    #Exemple d'utilisation : p.getStructuresFor[0].getConditionArret().getValeur()\n
+    #@brief Retourne toutes les Conditions d'Arrêts sous forme d'une liste.
+    #Exemple d'utilisation : p.getStructuresWhile[0].getConditionArret()[0].getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Structure For du programme
-    #\n\n Résultat potentiel : i < 5 , i >= 3
-    def getConditionArret(self):
+    #- [0] = Première Structure While du programme
+    #\n\n Résultat potentiel : if () { break; }
+    def getConditionsArret(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.condition["node"])
-        return self.conditionArret["bloc"]
+        return self.conditionArret
 
 
 
@@ -92,7 +95,7 @@ class StructureWhile(StructureNbRepNonConnu):
             self.bloctrt["bloc"] = leBloc
         else:
             pass
-            logger.debug("!!!!!!! Pb sur BoucleWhile: Noeud inexistant sur bloctrt")        
+            logger.debug("!!!!!!! Pb sur StructureWhile: Noeud inexistant sur bloctrt")        
         self.bloctrt["node"] = node
         #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -102,7 +105,7 @@ class StructureWhile(StructureNbRepNonConnu):
     #Exemple d'utilisation : p.getStructuresWhile[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Boucle While du programme
+    #- [0] = Première Structures While du programme
     #\n\n Résultat potentiel : { int toto = 3 }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])

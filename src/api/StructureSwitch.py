@@ -21,7 +21,7 @@ class StructureSwitch(StructureConditionnelle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesStructuresSwitchs.append(self)
+        progObjetPatrick.lesStructuresSwitch.append(self)
 
     ##
     #@fn setCondition(node)

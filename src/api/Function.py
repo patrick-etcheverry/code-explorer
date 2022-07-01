@@ -16,7 +16,7 @@ class Function(SousProgramme):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesFonctions.append(self)
+        progObjetPatrick.lesFunctions.append(self)
 
 
     ##
@@ -69,32 +69,33 @@ class Function(SousProgramme):
 
 
     ##
-    #@fn setListParametres(node)
+    #@fn setParametres(node)
     #@brief Défini le noeud en tant que liste de parametres.
     #@param lenodeTreeSitter : Correspond à objet un Noeud
-    def setListParametres(self, node):
-        self.parametres = {}
-        leBloc = self.prog.cherche(node)
-        if not leBloc == None:
-            self.parametres["bloc"] = leBloc
+    def setParametres(self, listNode):
+        self.parametres = []
+        if listNode==None:
+                    self.parametres = False
         else:
-            pass
-            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur parametres")        
-        self.parametres["node"] = node
-        #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
+            for node in listNode:
+                leBloc = self.prog.cherche(node)
+                if not leBloc == None:
+                    self.parametres.append(leBloc)
+                else:
+                    pass
+                    logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur parametres")   
     
     ##
-    #@fn getListParametres()
+    #@fn getParametres()
     #@brief Retourne tous les liste de parametres sous forme d'une structure de données.
-    #Exemple d'utilisation : p.getFunction[0].getListParametres().getValeur()\n
+    #Exemple d'utilisation : p.getFunction[0].getListParametres()[0].getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Boucle For du programme
-    #\n\n Résultat potentiel : { int i = 0; } \n
-    #@warning La récupération des paramètres n'est pas encore fonctionnelle.
-    def getListParametres(self):
+    #- [0] = Première Fonction du code
+    #\n\n Résultat potentiel : int compteur \n
+    def getParametres(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.parametres["node"])
-        return self.parametres["bloc"]
+        return self.parametres
 
 
     
@@ -119,10 +120,74 @@ class Function(SousProgramme):
     #Exemple d'utilisation : p.getFunction[0].getBlocTrt().getValeur()\n
     #\n Avec :\n
     #- p = Objet Programme
-    #- [0] = Première Boucle For du programme
+    #- [0] = Première Fonction du code
     #\n\n Résultat potentiel : { int i = 0; }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
         return self.bloctrt["bloc"]
 
 
+
+
+    ##
+    #@fn setDeclaration(node)
+    #@brief Défini le noeud en tant que Déclaration de la fonction.
+    #@param lenodeTreeSitter : Correspond à objet un Noeud
+    def setDeclaration(self, node):
+        self.declaration = {}
+
+        if node==None:
+            self.declaration["bloc"]=False
+        else:
+            lebloc=self.prog.cherche(node)
+            if not lebloc==None:
+                self.declaration["bloc"]=lebloc
+            else:
+                pass
+                logger.debug("!!!!!!! Pb sur If: Bloc inexistant pour declaration dans Fonction")
+        self.declaration["node"]=node
+
+
+
+    
+    ##
+    #@fn getDeclaration()
+    #@brief Retourne toutes les déclarations sous forme d'une structure de données.
+    #Exemple d'utilisation : p.getFunction[0].getDeclaration().getValeur()\n
+    #\n Avec :\n
+    #- p = Objet Programme
+    #- [0] = Première Fonction du code
+    #\n\n Résultat potentiel : int tri(Etudiant tab[], int nbCases);
+    def getDeclaration(self):
+        return self.declaration["bloc"]
+
+
+
+    ##
+    #@fn setAppel(node)
+    #@brief Défini le noeud en tant qu'Appel de la fonction.
+    #@param lenodeTreeSitter : Correspond à objet un Noeud
+    def setAppel(self, node):
+        self.appel = {}
+
+        if node==None:
+            self.appel["bloc"]=False
+        else:
+            lebloc=self.prog.cherche(node)
+            if not lebloc==None:
+                self.appel["bloc"]=lebloc
+            else:
+                pass
+                logger.debug("!!!!!!! Pb sur If: Bloc inexistant pour appel dans Fonction")
+        self.appel["node"]=node   
+    
+    ##
+    #@fn getAppel()
+    #@brief Retourne tous les Appels sous forme d'une structure de données.
+    #Exemple d'utilisation : p.getFunction[0].getAppel().getValeur()\n
+    #\n Avec :\n
+    #- p = Objet Programme
+    #- [0] = Première Fonction du code
+    #\n\n Résultat potentiel : tri(etudiantsS1, EFFECTIF_S1);
+    def getAppel(self):
+        return self.appel["bloc"]

@@ -1,3 +1,11 @@
+/*
+ Programme : Trier un tableau d'étudiants
+ But :  -- A compléter selon votre exercice --
+ Date de création : 
+ Auteur : *. ***********
+ Remarques éventuelles pour le correcteur:
+ */
+
 #include <iostream>
 using namespace std;
 
@@ -10,8 +18,12 @@ struct Etudiant
     unsigned short int tp; // numéro de TP de l'étudiant
 };
 
-//Declaration du sous programme
-void triPairImpair(NB_CASES, tab);
+// DECLARATION DES SOUS-PROGRAMMES
+void trierParTpDecroissant(Etudiant tab[], unsigned int nbCases);
+// tri un tableau d'étudiants par numéro de TP décroissant selon l'algorithme du tri pair-impair
+
+void triParNomCroissant(Etudiant tab[], unsigned int nbCases);
+// tri un tableau d'étudiants par nom croissant selon l'algorithme du tri pair-impair
 
 // PROGRAMME PRINCIPAL
 int main(void)
@@ -29,58 +41,113 @@ int main(void)
        {"Berlioz", "Gabriel", 2, 4},  {"Dupont", "Benjamin", 3, 5},
        {"Pomeroy", "Thibault", 1, 1}, {"Laffitte", "Anna", 2, 4},
        {"Duret", "Christelle", 2, 3}
-
-
-      
     };
 
-    // Trier le tableau : A COMPLETER AVEC L'APPEL DE VOTRE SOUS-PROGRAMME
-    triPairImpair(EFFECTIF_S1,&etudiantsS1)
+    // Trier le tableau
+    triParNomCroissant(etudiantsS1, EFFECTIF_S1);
 
-
-    // Définition du sous-programme
-
-    void triPairImpair(NB_CASES,tab)
-    {
-        unsigned int NB_CASES; //Lee nombre de cases du tableau tab
-        int tab[NB_CASES]; //Le tableau contenant les étudiants a trier par numéro de TP décroissant
-        bool estTriee = false; // indiquesi tab est totalement trié
-        unsigned int i; //indice de parcours du tableau tab
-          
-
-        while (!estTrie)
-        {
-            estTrie = true;
-            
-            for (i = 0; i <= (NB_CASES); i+=2)
-            {
-                if (tab[i].tp < tab[i+1].tp)
-                {
-                    
-                    tab[i] = tab[i+1] ////////////////
-                    estTrie = false;
-                }
-
-                for (i = 1; i <= (NB_CASES-2); i += 2)
-                {
-                    if(tab[i].tp < tab[i+1])
-                    {
-                        tab[i] = tab[i+1]; ///////////////////////////
-                        estTrie = false;
-                    }
-                }
-            }
-        }
-
+    // Affichage du tableau trié
     for (unsigned int i = 0; i < EFFECTIF_S1; i++)
     {
         cout << etudiantsS1[i].nom << "  " << etudiantsS1[i].prenom << " TP" << etudiantsS1[i].tp << endl;
+        break;
     }
     cout << endl;
 
     return 0;
-        
-    }
+}
 
-    
+// DEFINITION DES SOUS-PROGRAMMES
+void trierParTpDecroissant(Etudiant tab[], unsigned int nbCases)
+{
+    bool estTrie = false; // Indique si tab est totalement trié
+    Etudiant copieEtudEnPosI;   // copie de l'étudiant de tab situé en position i. Utilisée pour les échanges dans le tableau
+
+    // Considérer que le tableau n'est pas trié >> estTrie
+    estTrie = false;
+
+    // tab, nbCases, estTrie >> Trier le tableau >> tab
+    while (!estTrie)
+    {
+        // Supposer que le tableau est totalement trié >> estTrie
+        estTrie = true;
+
+        // tab, nbCases >> Comparer les étudiants aux indices pairs - impairs >> [tab], [estTrie]
+        for (unsigned int i = 0; i <= (nbCases - 2); i += 2)
+        {
+            if (tab[i].tp < tab[i + 1].tp)
+            {
+                // tab, i >> Echanger tab[i] et tab[i+1] >> tab
+                copieEtudEnPosI = tab[i];
+                tab[i] = tab[i + 1];
+                tab[i + 1] = copieEtudEnPosI;
+
+                // Infirmer l'hypothèse de départ supposant que le tableau était trié >> estTrie
+                estTrie = false;
+            }
+        }
+
+        // tab, nbCases >> Comparer les étudiants aux indices impairs - pairs >> [tab], [estTrie]
+        for (unsigned int i = 1; i <= (nbCases - 2); i += 2)
+        {
+            if (tab[i].tp < tab[i + 1].tp)
+            {
+                // tab, i >> Echanger tab[i] et tab[i+1] >> tab
+                copieEtudEnPosI = tab[i];
+                tab[i] = tab[i + 1];
+                tab[i + 1] = copieEtudEnPosI;
+
+                // Infirmer l'hypothèse de départ supposant que le tableau était trié >> estTrie
+                estTrie = false;
+            }
+        }
+    }
+}
+
+
+
+void triParNomCroissant(Etudiant tab[], unsigned int nbCases)
+{
+    bool estTrie; // Indique si tab est totalement trié
+    Etudiant copieEtudEnPosI;   // copie de l'étudiant de tab situé en position i. Utilisée pour les échanges dans le tableau
+
+    // Considérer que le tableau n'est pas trié >> estTrie
+    estTrie = false;
+
+    // tab, nbCases, estTrie >> Trier le tableau >> tab
+    while (!estTrie)
+    {
+        // Supposer que le tableau est totalement trié >> estTrie
+        estTrie = true;
+
+        // tab, nbCases >> Comparer les étudiants aux indices pairs - impairs >> [tab], [estTrie]
+        for (unsigned int i = 0; i <= (nbCases - 2); i += 2)
+        {
+            if (tab[i].nom > tab[i + 1].nom)
+            {
+                // tab, i >> Echanger tab[i] et tab[i+1] >> tab
+                copieEtudEnPosI = tab[i];
+                tab[i] = tab[i + 1];
+                tab[i + 1] = copieEtudEnPosI;
+
+                // Infirmer l'hypothèse de départ supposant que le tableau était trié >> estTrie
+                estTrie = false;
+            }
+        }
+
+        // tab, nbCases >> Comparer les étudiants aux indices impairs - pairs >> [tab], [estTrie]
+        for (unsigned int i = 1; i <= (nbCases - 2); i += 2)
+        {
+            if (tab[i].nom > tab[i + 1].nom)
+            {
+                // tab, i >> Echanger tab[i] et tab[i+1] >> tab
+                copieEtudEnPosI = tab[i];
+                tab[i] = tab[i + 1];
+                tab[i + 1] = copieEtudEnPosI;
+
+                // Infirmer l'hypothèse de départ supposant que le tableau était trié >> estTrie
+                estTrie = false;
+            }
+        }
+    }
 }

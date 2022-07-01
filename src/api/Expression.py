@@ -33,4 +33,29 @@ class Expression(BlocSimple):
     def getExpression(self):
         return self.expression["bloc"]
 
+    
 
+    ##
+    #@fn setIdentificateur(node)
+    #@brief Défini le noeud en tant qu'Identificateur.
+    #@param lenodeTreeSitter : Correspond à un objet Noeud
+    def setIdentificateur(self, node):
+        self.identifiant = {}
+
+        if node==None:
+            self.identifiant["bloc"]=False
+        else:
+            lebloc=self.prog.cherche(node)
+            if not lebloc==None:
+                self.identifiant["bloc"]=lebloc
+            else:
+                pass
+                logger.debug("!!!!!!! Pb sur If: Bloc inexistant pour identifiant dans Fonction")
+        self.identifiant["node"]=node
+
+
+    ##
+    #@fn getIdentificateur()
+    #@brief Retourne tous les Noms d'Expressions sous forme d'une structure de données.
+    def getIdentificateur(self):
+        return self.identifiant["bloc"]

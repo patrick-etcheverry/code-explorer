@@ -14,10 +14,12 @@ class Bloc:
         #Cette partie permet d'éviter de créer inutilement des instances de noeuds
         cleNoeud = Noeud.get_laCle(lenodeTreeSitter) # cleNoeud contient les coordonnées du Bloc
         if cleNoeud in progObjetPatrick.lesCles:
-            self.noeud = progObjetPatrick.mondictCles[cleNoeud]   #On récupère le noeud
+            self.noeud = progObjetPatrick.mondictCles[cleNoeud]
+           #On récupère le noeud
         else:
             self.noeud = Noeud(lenodeTreeSitter, self, progObjetPatrick)  #On cree l'objet Noeud
         
+        self.blocParent = None
         self.prog = progObjetPatrick
         self.prog.lesBlocs.append(self) #Ajoute à progObjetPatrick le Bloc que l'on vient de créer
         #self.prog.lesBlocs.sort(key=getCle)  #on maintient trié
@@ -91,4 +93,10 @@ class Bloc:
         val=tab[len(tab)-1][:-2]
         return val
 
-    
+
+    ##
+    #@fn getParent()
+    #@brief Retourne le Bloc parent d'un Bloc. \n
+    #Exemple : Dans l'instruction "for(int i; i < 20; i++) { }", le parent de "i < 20" est "for(int i; i < 20; i++) { }"
+    def getParent(self):
+        return self.blocParent
