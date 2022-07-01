@@ -167,19 +167,18 @@ class Function(SousProgramme):
     #@fn setAppel(node)
     #@brief Défini le noeud en tant qu'Appel de la fonction.
     #@param lenodeTreeSitter : Correspond à objet un Noeud
-    def setAppel(self, node):
-        self.appel = {}
-
-        if node==None:
-            self.appel["bloc"]=False
+    def setAppel(self, listNode):
+        self.appel = []
+        if listNode==None:
+                    self.appel = False
         else:
-            lebloc=self.prog.cherche(node)
-            if not lebloc==None:
-                self.appel["bloc"]=lebloc
-            else:
-                pass
-                logger.debug("!!!!!!! Pb sur If: Bloc inexistant pour appel dans Fonction")
-        self.appel["node"]=node   
+            for node in listNode:
+                leBloc = self.prog.cherche(node)
+                if not leBloc == None:
+                    self.appel.append(leBloc)
+                else:
+                    pass
+                    logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur appel")  
     
     ##
     #@fn getAppel()
@@ -190,4 +189,4 @@ class Function(SousProgramme):
     #- [0] = Première Fonction du code
     #\n\n Résultat potentiel : tri(etudiantsS1, EFFECTIF_S1);
     def getAppel(self):
-        return self.appel["bloc"]
+        return self.appel

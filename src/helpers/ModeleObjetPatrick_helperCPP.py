@@ -557,19 +557,22 @@ def _detection_Declaration(prog):
 
 
 def _detection_Appel(prog):
-    estSet = False
     
     for leSousProgramme in prog.lesSousProgrammes:
+        estSet = False
+        lesAppels = []
         for lAppel in prog.lesExpressions:
             try:
                 if leSousProgramme.getIdentificateur().getValeur() == lAppel.getIdentificateur().getValeur():
-                    leSousProgramme.setAppel(lAppel.noeud.node)
+                    lesAppels.append(lAppel.noeud.node)
                     estSet = True
             except:
                 if estSet == True:
                     break
                 else:
                     leSousProgramme.setAppel(None)
+
+        leSousProgramme.setAppel(lesAppels)
 
 
 def _creeObjet_Fonction(prog):
