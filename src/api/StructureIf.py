@@ -107,5 +107,15 @@ class StructureIf(StructureConditionnelle):
     def getBlocSinon(self):
         return self.blocsinon["bloc"]
 
+    def chercheBlocsNonComposes(self):
+        lesBlocsSimples=[]
+        if self.getBlocAlors():
+            if self.getBlocAlors().getType()!="BlocCompose":
+                lesBlocsSimples.append(self.getBlocAlors)
+        if self.getBlocSinon():
+            if self.getBlocSinon().getType()!="BlocCompose":
+                lesBlocsSimples.append(self.getBlocSinon())
+        return lesBlocsSimples
+        
 
 

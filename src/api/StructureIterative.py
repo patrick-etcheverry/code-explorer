@@ -1,9 +1,8 @@
-from src.api.BlocCompose import BlocCompose
+from src.api.StructureControle import StructureControle
 from src.api.tree_sitter_utilities import splited
 
-
 ##@brief Classe héritant de BlocCompose, elle contient tous les objets StructureIterative d'un code.
-class StructureIterative(BlocCompose):
+class StructureIterative(StructureControle):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
@@ -43,4 +42,9 @@ class StructureIterative(BlocCompose):
         else:
             return False
 
+    def chercheBlocsNonComposes(self):
+        lesBlocsSimples=[]
+        if self.getBlocTrt().getType()!="BlocCompose":
+            lesBlocsSimples.append(self.getBlocTrt())
+        return lesBlocsSimples
 

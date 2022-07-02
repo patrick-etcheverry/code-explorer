@@ -108,4 +108,10 @@ class StructureSwitch(StructureConditionnelle):
         #return recupereTexteDansSource(self.prog.codeSource, self.case["node"])
         return self.case["bloc"]
 
+    def chercheBlocsNonComposes(self):
+        lesBlocsSimples=[]
+        if self.getBlocTrt.getType()!="BlocCompose":
+            lesBlocsSimples.append(self.getBlocTrt)
+        return lesBlocsSimples
+
 

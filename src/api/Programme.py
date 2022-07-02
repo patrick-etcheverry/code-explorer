@@ -179,6 +179,8 @@ class Programme:
         self.lesConditionsSwitch = ListeOrdonnee(getCle)
         ##Conteneur de toutes les Parametres If (EX : i < 20)
         self.lesParametres = ListeOrdonnee(getCle)
+        ##Conteneur de toutes les structures de controle
+        self.lesStructuresControle = ListeOrdonnee(getCle)
 
         moduleCreeObjets.creeObjets(self)
         
@@ -971,3 +973,12 @@ class Programme:
             return self.lesParametres[pos]
         except:
             return False
+
+    def chercheBlocsControleNonComposes(self):
+        lesBlocs=ListeOrdonnee(getCle)
+        for s in self.lesStructuresControle:
+            result=s.chercheBlocsNonComposes()
+            for elem in result:
+                lesBlocs.append(elem)
+        return lesBlocs
+        

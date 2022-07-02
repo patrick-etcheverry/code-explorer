@@ -1,9 +1,9 @@
-from src.api.BlocCompose import BlocCompose
+from src.api.StructureControle import StructureControle
 
 
 
 ##@brief Classe héritant de BlocCompose, elle contient toutes les StructureConditionnelle d'un code, par exemple ( if() { } ).         
-class StructureConditionnelle(BlocCompose):
+class StructureConditionnelle(StructureControle):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
@@ -18,5 +18,7 @@ class StructureConditionnelle(BlocCompose):
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesStructuresConditionelles.append(self)
+
+    
 
 
