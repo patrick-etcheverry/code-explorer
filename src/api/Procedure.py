@@ -18,7 +18,7 @@ class Procedure(SousProgramme):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesProcedures.append(self)
 
-
+''' 
     ##
     #@fn setType(node)
     #@brief Défini le noeud en tant que Type.
@@ -85,7 +85,7 @@ class Procedure(SousProgramme):
                     pass
                     logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur parametres") 
 
-'''    
+   
     ##
     #@fn getParametres()
     #@brief Retourne tous les liste de parametres sous forme d'une structure de données.
