@@ -84,7 +84,8 @@ class Procedure(SousProgramme):
                 else:
                     pass
                     logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur parametres") 
-    
+
+'''    
     ##
     #@fn getParametres()
     #@brief Retourne tous les liste de parametres sous forme d'une structure de données.
@@ -123,8 +124,7 @@ class Procedure(SousProgramme):
     #\n\n Résultat potentiel : { int i = 0; }
     def getBlocTrt(self):
         #return recupereTexteDansSource(self.prog.codeSource, self.bloctrt["node"])
-        return self.bloctrt
-        ["bloc"]
+        return self.bloctrt["bloc"]
 
     
     ##
@@ -189,3 +189,5 @@ class Procedure(SousProgramme):
     #\n\n Résultat potentiel : tri(etudiantsS1, EFFECTIF_S1);
     def getAppel(self):
         return self.appel
+
+'''

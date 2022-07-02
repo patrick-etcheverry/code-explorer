@@ -18,7 +18,7 @@ class Function(SousProgramme):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         progObjetPatrick.lesFunctions.append(self)
 
-
+'''
     ##
     #@fn setType(node)
     #@brief Défini le noeud en tant que Type.
@@ -190,3 +190,5 @@ class Function(SousProgramme):
     #\n\n Résultat potentiel : tri(etudiantsS1, EFFECTIF_S1);
     def getAppel(self):
         return self.appel
+
+'''

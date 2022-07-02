@@ -1,9 +1,9 @@
-from src.api.BlocSimple import BlocSimple
+from src.api.BlocCompose import BlocCompose
 
 
 
-##@brief Classe héritant de BlocSimple, elle contient toutes les StructureConditionnelle d'un code, par exemple ( if() { } ).         
-class StructureConditionnelle(BlocSimple):
+##@brief Classe héritant de BlocCompose, elle contient toutes les StructureConditionnelle d'un code, par exemple ( if() { } ).         
+class StructureConditionnelle(BlocCompose):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)

@@ -81,7 +81,7 @@ class Bloc:
 
     ##
     #@fn getType()
-    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #@brief Retourne le nom court du type du Bloc en se basant sur le nom des classes. \n
     #Exemple d'utilisation : p.getBlocs()[2].getType() \n \n
     #Résultats possibles : \n \n
     #'Identificateur', 'Commentaire', 'Literal', 'TypeQualificateur', 'SizedTypeSpecificateur', 'Identificateur', 'Expression', 'ExpressionUnaire'
@@ -93,7 +93,17 @@ class Bloc:
         val=tab[len(tab)-1][:-2]
         return val
 
-
+    ##
+    #@fn getTypeLong()
+    #@brief Retourne le type du Bloc en se basant sur le nom des classes. \n
+    #Exemple d'utilisation : p.getBlocs()[2].getType() \n \n
+    #Résultats possibles : \n \n
+    #'src.api.Identificateur', 'src.api.Commentaire', 'src.api.Literal', 'TypeQualificateur', 'SizedTypeSpecificateur', 'Identificateur', 'Expression', 'ExpressionUnaire'
+    #'src.api.ExpressionBinaire', 'src.api.ExpressionUpdate', 'src.api.ExpressionParenthesee', 'Function', 'Affectation', 'Declaration', 'BlocCompose', 'StructureIf'
+    #'src.api.StructureSwitch', 'src.api.StructureFor', 'StructureWhile', 'StructureDoWhile', 'InstructionReturn', 'InstructionBreak' ...
+    def getTypeLong(self):
+        return type(self)
+        
     ##
     #@fn getParent()
     #@brief Retourne le Bloc parent d'un Bloc. \n

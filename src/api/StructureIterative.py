@@ -1,9 +1,9 @@
-from src.api.BlocSimple import BlocSimple
+from src.api.BlocCompose import BlocCompose
 from src.api.tree_sitter_utilities import splited
 
 
-##@brief Classe héritant de BlocSimple, elle contient tous les objets StructureIterative d'un code.
-class StructureIterative(BlocSimple):
+##@brief Classe héritant de BlocCompose, elle contient tous les objets StructureIterative d'un code.
+class StructureIterative(BlocCompose):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)

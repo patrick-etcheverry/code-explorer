@@ -6,9 +6,16 @@ class ListeOrdonnee(list):
         self.laCleTri=cletri
         self.iterListe=iter(self)
     
+    #def __iter__(self):
+    #    return self
+
+    
     def append(self, val):
         super().append(val)
         self.sort(key=self.laCleTri)
 
-    def next(self):
+    def getNext(self):
         return next(self.iterListe)
+
+    def getLongueur(self):
+        return len(self)

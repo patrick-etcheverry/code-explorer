@@ -1,4 +1,6 @@
-from src.api.BlocSimple import BlocSimple
+from src.api.BlocCompose import BlocCompose
+from src.api.ListeOrdonnee import ListeOrdonnee
+from src.api.tree_sitter_utilities import getCle
 
 import logging
 
@@ -7,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 ##@brief Classe héritant de BlocSimple, elle contient tous les objets SousProgramme d'un code.         
-class SousProgramme(BlocSimple):
+class SousProgramme(BlocCompose):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
@@ -73,9 +75,10 @@ class SousProgramme(BlocSimple):
     #@brief Défini le noeud en tant que liste de parametres.
     #@param lenodeTreeSitter : Correspond à objet un Noeud
     def setParametres(self, listNode):
-        self.parametres = []
+        #self.parametres = []
+        self.parametres = ListeOrdonnee(getCle)        
         if listNode==None:
-                    self.parametres = False
+            self.parametres = False
         else:
             for node in listNode:
                 leBloc = self.prog.cherche(node)
@@ -112,7 +115,7 @@ class SousProgramme(BlocSimple):
             self.bloctrt["bloc"] = leBloc
         else:
             pass
-            logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur bloctrt")        
+            logger.debug("!!!!!!! Pb sur Sous-Programme : Noeud inexistant sur bloctrt")        
         self.bloctrt["node"] = node
         #self.bloctrt["text"] = recupereTexteDansSource(self.prog.codeSource, node)   
     
@@ -180,7 +183,7 @@ class SousProgramme(BlocSimple):
                     self.appel.append(leBloc)
                 else:
                     pass
-                    logger.debug("!!!!!!! Pb sur BoucleFor: Noeud inexistant sur appel")    
+                    logger.debug("!!!!!!! Pb sur Sous-Programme : Noeud inexistant sur appel")    
     
     ##
     #@fn getAppel()
