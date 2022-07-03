@@ -56,12 +56,12 @@ print("                on s'interesse aux boucles For du programme")
 print("                ----------------------------------------")
 print()
 
-for o in p.lesBouclesFor:
+for o in p.getStructuresFor():
   print("==> "+ str(o) + ":" + str(type(o)))
   init=o.getInit()
-  cond=o.getCondition()
+  cond=o.getConditionContinuation()
   pas=o.getPas()
-  trt=o.getBlocTrt()
+  trt=o.getBlocTrt() 
   print ("         init="+str(init)+ " et cond="+str(cond)+ " et pas="+str(pas)+" et trt="+str(trt))
   #on va regarder ce qu'il se passe pour init
   #print ("                  - init :"+ str(init["bloc"]))
@@ -113,7 +113,7 @@ print("FIN pour p")
 
 
 
-p2 = Programme("fichiers/essai.cpp")
+p2 = Programme("fichiers/etudiant001.cpp")
 
 
 #on compare p1 et p2

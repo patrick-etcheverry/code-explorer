@@ -9,8 +9,8 @@ print("---------------------------------")
 
 
 #Affiche "OK" si la condition de ces deux If sont égales, "Non" sinon.
-condition1 = p.lesConditionsIf[0].getCondition().getValeur()
-condition2 = p.lesConditionsIf[1].getCondition().getValeur()
+condition1 = p.lesStructuresIf[0].getCondition().getValeur()
+condition2 = p.lesStructuresIf[1].getCondition().getValeur()
 
 if condition1 == condition2:
     print("OK")
@@ -22,7 +22,7 @@ print("---------------------------------")
 
 
 #Affiche "OK" si la condition choisie est une Expression Binaire, "Non" sinon.
-if p.getConditionsIf()[0].getCondition().getTypeString() == "binary_expression":
+if p.getStructuresIf()[0].getCondition().getType() == "binary_expression":
     print("OK")
 else:
     print("Non")
@@ -33,7 +33,7 @@ print("---------------------------------")
 
 #Affiche "OK" si la condition choisie est un If avec des accolades ou un If avec une seule instruction.
 #"compound_statement" pour un corps classique et "expression_statement" pour un If avec une seule instruction.
-if p.getConditionsIf()[0].getBlocAlors().getTypeString() == "compound_statement":
+if p.getStructuresIf()[0].getBlocAlors().getTypeString() == "compound_statement":
     print("OK")
 else:
     print("Non")

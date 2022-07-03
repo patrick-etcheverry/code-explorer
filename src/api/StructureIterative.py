@@ -36,7 +36,7 @@ class StructureIterative(StructureControle):
     #\n \n Résultat potentiel : True
     def verifCondition(self, condition):
         conditionParametre = splited(condition)
-        conditionCode = splited(self.getCondition().getValeur())
+        conditionCode = splited(self.getConditionContinuation().getValeur())
         if conditionParametre == conditionCode:
             return True
         else:

@@ -1,6 +1,8 @@
 from tree_sitter import Language, Parser
 from src.api.tree_sitter_utilities import getCle
 from src.api.ListeOrdonnee import ListeOrdonnee
+from src.api.BlocCompose import BlocCompose
+
 
 
 from src.api.Noeud import Noeud
@@ -103,6 +105,8 @@ class Programme:
         self.lesBlocsSimples = ListeOrdonnee(getCle)
         ##Conteneur de tous les Blocs Composés
         self.lesBlocsComposes = ListeOrdonnee(getCle)
+        ##Conteneur de tous les Blocs Structures
+        self.lesBlocsStructures = ListeOrdonnee(getCle)
         ##Conteneur de tous les Commentaires (EX : /* */)
         self.lesCommentaires = ListeOrdonnee(getCle)
         ##Conteneur de tous les TypesQualificateurs (EX : const)
@@ -250,9 +254,9 @@ class Programme:
 
 
     ##
-    #@fn getBlocsSimple()
+    #@fn getBlocsSimples()
     #@brief Retourne tous les Blocs Simples
-    def getBlocsSimple(self):
+    def getBlocsSimples(self):
         return self.lesBlocsSimples
     ##
     #@fn getBlocSimpleAt(pos)
@@ -269,9 +273,9 @@ class Programme:
 
 
     ##
-    #@fn getBlocsCompose()
+    #@fn getBlocsComposes()
     #@brief Retourne tous les Blocs Composés
-    def getBlocsCompose(self):
+    def getBlocsComposes(self):
         return self.lesBlocsComposes
     ##
     #@fn getBlocComposeAt(pos)
@@ -283,6 +287,20 @@ class Programme:
         except:
             return False
 
+##
+    #@fn getBlocsStructures()
+    #@brief Retourne tous les Blocs Structures
+    def getBlocsStructures(self):
+        return self.lesBlocsStructures
+    ##
+    #@fn getBlocStructureAt(pos)
+    #@brief Retourne le BlocStructure correspondant à la position donnée en paramètre, si la position est trop grande, renvoie False.
+    #@param pos : Position de l'objet souhaité
+    def getBlocStructureAt(self, pos):
+        try:
+            return self.lesBlocsStructures[pos]
+        except:
+            return False
 
 
 
@@ -974,6 +992,9 @@ class Programme:
         except:
             return False
 
+    ##
+    #@fn chercheBlocsControleNonComposes()
+    #@brief Retourne une liste Ordonnee de tous les blocs non composes dans les structures de controle d'un programme? Renvoie une liste vide s'il n'y en a pas
     def chercheBlocsControleNonComposes(self):
         lesBlocs=ListeOrdonnee(getCle)
         for s in self.lesStructuresControle:
@@ -981,4 +1002,14 @@ class Programme:
             for elem in result:
                 lesBlocs.append(elem)
         return lesBlocs
+    
+    ##
+    #@fn chercheTracesIdentificateur(valeur, danslebloc)
+    #@brief Retourne la liste de tous les blocs dasn lesquelles cette valeur d'identificateur est référencée. Renvoie une liste vide si la valeur d'identificateur n'apparaît pas dans le bloc passé en paramètre
+    #@param nomIdentificateur : nom de l'identificateur cherché
+    #@param danslebloc : bloc dans lequel chercher l'identificateur
+    def chercheTracesIdentificateur(self, nomIdentificateur, danslebloc):
+        pass
+        #if isinstance(danslebloc, BlocCompose):
+        #    for e in danslebloc.getBlocs()
         

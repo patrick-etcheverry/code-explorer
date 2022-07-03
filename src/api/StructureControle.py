@@ -1,9 +1,11 @@
-from src.api.BlocCompose import BlocCompose
-from src.api.tree_sitter_utilities import getCle
-from src.api.ListeOrdonnee import ListeOrdonnee
+#from src.api.BlocCompose import BlocCompose
+from src.api.BlocStructure import BlocStructure
+
+#from src.api.tree_sitter_utilities import getCle
+#from src.api.ListeOrdonnee import ListeOrdonnee
 
 
-class StructureControle(BlocCompose):
+class StructureControle(BlocStructure):
     
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)

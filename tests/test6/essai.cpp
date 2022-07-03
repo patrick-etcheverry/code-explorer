@@ -138,6 +138,11 @@ void triParNomCroissant(Etudiant tab[], unsigned int nbCases)
                 // Infirmer l'hypothèse de départ supposant que le tableau était trié >> estTrie
                 estTrie = false;
             }
+            if (i<4)
+                j=5;
+            else
+                k=3;
+
         }
 
         // tab, nbCases >> Comparer les étudiants aux indices impairs - pairs >> [tab], [estTrie]

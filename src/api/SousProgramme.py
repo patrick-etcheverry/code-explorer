@@ -1,4 +1,4 @@
-from src.api.BlocCompose import BlocCompose
+from src.api.BlocStructure import BlocStructure
 from src.api.ListeOrdonnee import ListeOrdonnee
 from src.api.tree_sitter_utilities import getCle
 
@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 ##@brief Classe héritant de BlocSimple, elle contient tous les objets SousProgramme d'un code.         
-class SousProgramme(BlocCompose):
+class SousProgramme(BlocStructure):
 
     ##
     #@fn __init__(lenodeTreeSitter,  progObjetPatrick)
