@@ -1,3 +1,4 @@
+from sqlalchemy import true
 from src.api.Noeud import Noeud
 from src.api.tree_sitter_utilities import recupereTexteDansSource
 
@@ -40,16 +41,6 @@ class Bloc:
     def getValeur(self):
         return self.__str__()    
 
-    ##
-    #@fn getLocalisation()
-    #@brief Retourne la position d'un Bloc sous la forme : [(ligneDebut, colonneDebut) (ligneFin, colonneFin)].
-    def getLocalisation(self):
-        x1=self.noeud.node.start_point[0]
-        y1=self.noeud.node.start_point[1]
-        x2=self.noeud.node.end_point[0]
-        y2=self.noeud.node.end_point[1]
-        return "[(" + str(x1) + ", " + str(x2) + ") (" + str(y1) + ", " + str(y2) + ")]"
-
 
     ##
     #@fn getLigneDebut()
@@ -62,14 +53,14 @@ class Bloc:
     #@fn getLigneFin()
     #@brief Retourne la position de la dernière ligne du Bloc.
     def getLigneFin(self):
-        ligneFin = self.noeud.node.start_point[1]
+        ligneFin = self.noeud.node.end_point[0]
         return ligneFin
 
     ##
     #@fn getColonneDebut()
     #@brief Retourne la position du premier caractère de la première ligne du Bloc.
     def getColonneDebut(self):
-        colonneDebut = self.noeud.node.end_point[0]
+        colonneDebut = self.noeud.node.start_point[1]
         return colonneDebut
     
     ##
@@ -78,6 +69,32 @@ class Bloc:
     def getColonneFin(self):
         colonneFin = self.noeud.node.end_point[1]
         return colonneFin
+
+##
+    #@fn getLocalisation()
+    #@brief Retourne la position d'un Bloc sous la forme : [(ligneDebut, colonneDebut) (ligneFin, colonneFin)].
+    def getLocalisation(self):
+        x1=self.getLigneDebut()
+        y1=self.getColonneDebut()
+        x2=self.getLigneFin()
+        y2=self.getColonneFin()
+        return "[(" + str(x1) + ", " + str(y1) + ") (" + str(x2) + ", " + str(y2) + ")]"
+
+
+    ##
+    #@fn inBloc()
+    #@brief Retourne True ou False selon que lebloc apparait ou pas à l'interieur du bloc constitué par self
+    #@param lebloc : bloc dont on cherche à déterminer la position par rapport à self
+    def inBloc(self, lebloc):
+        if lebloc.getLigneDebut() >= self.getLigneDebut() and lebloc.getColonneDebut() >= self.getColonneDebut(): 
+            if lebloc.getLigneFin() < self.getLigneFin():
+                return true
+            elif lebloc.getLigneFin() == self.getLigneFin() and lebloc.getColonneFin() <= self.getColonneFin():
+                return True
+            else:
+                return False
+        else:
+            return False  
 
     ##
     #@fn getType()

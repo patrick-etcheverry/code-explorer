@@ -1,7 +1,8 @@
 from src.api.Bloc import Bloc
 from src.api.ListeOrdonnee import ListeOrdonnee
 from src.api.tree_sitter_utilities import getCle
-
+#from src.api.BlocSimple import BlocSimple
+#from src.api.BlocStructure import BlocStructure
 
 
 
@@ -47,11 +48,32 @@ class BlocCompose(Bloc):
      ##
     #@fn traiteBlocs()
     #@brief Applique de maniere recursive la fonction passee en paramètre à chaque bloc simple du bloc compose considere  la liste de tous les Blocs sous forme d'un ensemble.
+    #@param fonction : fonction a appliquer quand on trouve un bloc compose
     def traiteBlocs(self, fonction):
-        for e in self.lesBlocs:
+        for e in self.getBlocs():
             if isinstance(e, BlocCompose):
                 fonction(e.getType())
                 e.traiteBlocs(fonction)
             else:
                 fonction(e)
-        
+    '''
+    ##
+    #@fn chercheIdentificateur()
+    #@brief Applique de maniere recursive la fonction passee en paramètre à chaque bloc simple du bloc compose considere  la liste de tous les Blocs sous forme d'un ensemble.
+    #@param nomIdentificateur : nom de l'identificateur cherche
+   
+    def chercheTracesIdentificateur(self, nomIdentificateur):
+        leresultat=ListeOrdonnee(getCle)
+        for e in self.getBlocs():
+            if isinstance(e, BlocSimple):
+                try:
+                    if e.getIdentificateur()==nomIdentificateur:
+                        leresultat.append(e)        
+                except Exception:
+                    pass
+            elif isinstance(e, BlocStructure):
+                pass
+
+        return leresultat    
+
+    '''        

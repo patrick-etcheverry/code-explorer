@@ -79,6 +79,7 @@ def creeObjets(prog):
     
     def _creeObjet_Identificateur(lenode, prog):
         obj=Identificateur(lenode, prog)
+       
 
     def _creeObjet_Expression(lenode, prog):
         obj=Expression(lenode, prog)

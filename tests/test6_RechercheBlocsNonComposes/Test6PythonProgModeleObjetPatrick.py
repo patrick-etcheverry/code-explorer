@@ -6,7 +6,7 @@ from src.api.Programme import Programme
 # TEST SUR LES PARAMETRES
 
 
-p = Programme("tests/test6/essai.cpp")
+p = Programme("tests/test6_RechercheBlocsNonComposes/essai.cpp")
 
 print("---------------------------------")
 

@@ -2,6 +2,9 @@ from tree_sitter import Language, Parser
 from src.api.tree_sitter_utilities import getCle
 from src.api.ListeOrdonnee import ListeOrdonnee
 from src.api.BlocCompose import BlocCompose
+from src.api.StructureIterative import StructureIterative
+from src.api.StructureIf import StructureIf
+from src.api.StructureSwitch import StructureSwitch
 
 
 
@@ -1009,7 +1012,34 @@ class Programme:
     #@param nomIdentificateur : nom de l'identificateur cherché
     #@param danslebloc : bloc dans lequel chercher l'identificateur
     def chercheTracesIdentificateur(self, nomIdentificateur, danslebloc):
-        pass
-        #if isinstance(danslebloc, BlocCompose):
-        #    for e in danslebloc.getBlocs()
-        
+        leresultat=ListeOrdonnee(getCle)
+        for id in self.getIdentificateurs():
+            if id.getIdentificateur().getValeur()==nomIdentificateur:
+                if danslebloc.inBloc(id):
+                    leresultat.append(id)
+        return leresultat
+
+
+        '''
+        leresultat=ListeOrdonnee(getCle)
+        if isinstance(danslebloc, BlocCompose):
+            for e in danslebloc.getBlocs():
+                res=e.chercheTracesIdentificateur(nomIdentificateur)
+                leresultat.append(res)
+        elif isinstance(danslebloc, StructureIterative):
+            for e in danslebloc.getBlocTrt().getBlocs():
+                res=e.chercheTracesIdentificateur(nomIdentificateur)
+                leresultat.append(res)
+        elif isinstance(danslebloc, StructureIf):
+            for e in danslebloc.getBlocAlors().getBlocs():
+                res=e.chercheTracesIdentificateur(nomIdentificateur)
+                leresultat.append(res)
+            for e in danslebloc.getBlocSinon().getBlocs():
+                res=e.chercheTracesIdentificateur(nomIdentificateur)
+                leresultat.append(res)
+        elif isinstance(danslebloc, StructureSwitch):
+            pass
+        '''        
+                
+
+

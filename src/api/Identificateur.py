@@ -20,6 +20,9 @@ class Identificateur(BlocSimple):
         #self.text = recupereTexteDansSource(self.prog.codeSource, lenodeTreeSitter)
         progObjetPatrick.lesIdentificateurs.append(self)
 
+    
+    
+    '''
     ##
     #@fn setIdentificateur(node)
     #@brief Défini le noeud en tant qu'Identificateur.
@@ -35,12 +38,12 @@ class Identificateur(BlocSimple):
             logger.debug("!!!!!!! Bloc inexistant pour identificateur")
 
         self.identificateur["node"] = node
-    
+    '''
     ##
     #@fn getIdentificateur()
     #@brief Retourne tous les Identificateurs sous forme d'une structure de données.
     def getIdentificateur(self):
-        return self.identificateur["bloc"]
-
+        #return self.identificateur["bloc"]
+        return self
 
 
