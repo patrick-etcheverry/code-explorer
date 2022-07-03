@@ -111,7 +111,7 @@ class StructureIf(StructureConditionnelle):
         lesBlocsSimples=[]
         if self.getBlocAlors():
             if self.getBlocAlors().getType()!="BlocCompose":
-                lesBlocsSimples.append(self.getBlocAlors)
+                lesBlocsSimples.append(self.getBlocAlors())
         if self.getBlocSinon():
             if self.getBlocSinon().getType()!="BlocCompose":
                 lesBlocsSimples.append(self.getBlocSinon())
