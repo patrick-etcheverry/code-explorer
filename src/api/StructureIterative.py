@@ -44,7 +44,7 @@ class StructureIterative(StructureControle):
 
     def chercheBlocsNonComposes(self):
         lesBlocsSimples=[]
-        if self.getBlocTrt().getType()!="BlocCompose":
+        if self.getBlocTrt().getTypeCourt()!="BlocCompose":
             lesBlocsSimples.append(self.getBlocTrt())
         return lesBlocsSimples
 
