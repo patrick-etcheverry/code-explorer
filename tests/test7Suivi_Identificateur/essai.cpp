@@ -111,7 +111,7 @@ void trierParTpDecroissant(Etudiant tab[], unsigned int nbCases)
 
 
 
-void triParNomCroissant(Etudiant tab[], unsigned int nbCases)
+void triParNomCroissant(Etudiant tab[], int nbCases)
 {
     bool estTrie; // Indique si tab est totalement trié
     Etudiant copieEtudEnPosI;   // copie de l'étudiant de tab situé en position i. Utilisée pour les échanges dans le tableau

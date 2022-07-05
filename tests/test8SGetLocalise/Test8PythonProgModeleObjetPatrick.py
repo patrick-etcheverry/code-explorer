@@ -16,7 +16,7 @@ print(p.getSousProgrammeAt(1).getStructuresIteratives())
 print("---------------------------------")
 
 
-print(p.getSousProgrammeAt(1).getStructureIterativeAt(0).getLocalisation())
+print(p.getSousProgrammeAt(1).getStructureIterativeAt(1).getStructureIfAt(0).getCondition())
 
 
 print("---------------------------------")

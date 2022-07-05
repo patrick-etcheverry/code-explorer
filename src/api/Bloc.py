@@ -1,4 +1,3 @@
-from sqlalchemy import true
 from src.api.Noeud import Noeud
 from src.api.tree_sitter_utilities import recupereTexteDansSource
 from src.api.tree_sitter_utilities import getCle
@@ -123,7 +122,7 @@ class Bloc:
     def inBloc(self, lebloc):
         if lebloc.getLigneDebut() >= self.getLigneDebut() and lebloc.getColonneDebut() >= self.getColonneDebut(): 
             if lebloc.getLigneFin() < self.getLigneFin():
-                return true
+                return True
             elif lebloc.getLigneFin() == self.getLigneFin() and lebloc.getColonneFin() <= self.getColonneFin():
                 return True
             else:
