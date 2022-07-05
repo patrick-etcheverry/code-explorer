@@ -11,7 +11,7 @@ class StructureIterative(StructureControle):
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick):
         super().__init__(lenodeTreeSitter, progObjetPatrick)
-        progObjetPatrick.lesStructuresIterative.append(self)
+        progObjetPatrick.lesStructuresIteratives.append(self)
 
     ##
     #@fn natureBoucle(indexBoucle, programme)

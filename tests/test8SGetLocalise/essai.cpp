@@ -141,9 +141,8 @@ void triParNomCroissant(Etudiant tab[], unsigned int nbCases)
             if (i<4)
                 j=5;
             else
-            {
                 k=3;
-            }
+
         }
 
         // tab, nbCases >> Comparer les étudiants aux indices impairs - pairs >> [tab], [estTrie]

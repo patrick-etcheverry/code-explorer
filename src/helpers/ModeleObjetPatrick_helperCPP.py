@@ -484,8 +484,11 @@ def _creeParents_allblocs(prog):
     for leBloc in allBlocs:
         nodeParent = leBloc.noeud.node.parent
 
-        cleParent = Noeud.get_laCle(nodeParent)
+        
         try:
+            #deplace ici pour le cas ou le nodeParent n'existe pas (cf. objet Programme) 
+            cleParent = Noeud.get_laCle(nodeParent)
+            
             noeudParent = prog.mondictCles[cleParent]  
             blocParent = noeudParent.bloc
             leBloc.blocParent = blocParent
@@ -493,7 +496,7 @@ def _creeParents_allblocs(prog):
             leBloc.blocParent = None
 
 def _creeAllConditionsArretBoucles(prog):
-    for b in prog.getStructuresIterative():
+    for b in prog.getStructuresIteratives():
         #Result : parent d'un potentiel break
         result=_detection_break(b, prog)
         if result is not None:

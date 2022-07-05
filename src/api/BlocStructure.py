@@ -16,9 +16,11 @@ class BlocStructure(Bloc):
     #@param lenodeTreeSitter : Correspond à un Node de Tree-Sitter
     #@param progObjetPatrick : Objet instancié de la classe "Programme"
     def __init__(self, lenodeTreeSitter, progObjetPatrick): 
+        self.lesBlocs=ListeOrdonnee(getCle)
         super().__init__(lenodeTreeSitter, progObjetPatrick)
         #self.lesBlocs=[]
-        self.lesBlocs=ListeOrdonnee(getCle)
+        
+        
 
         #rajoute par nods pour pouvoir récupérer par getNext tous les blocs composant d'un bloc compose
         #self.bloccompose_iter=iter(self.lesBlocs)

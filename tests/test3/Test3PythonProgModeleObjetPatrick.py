@@ -22,7 +22,7 @@ print("---------------------------------")
 
 
 #Affiche "OK" si la condition choisie est une Expression Binaire, "Non" sinon.
-if p.getStructuresIf()[0].getCondition().getType() == "binary_expression":
+if p.getStructuresIf()[0].getCondition().getType() == "ExpressionBinaire":
     print("OK")
 else:
     print("Non")
@@ -33,7 +33,7 @@ print("---------------------------------")
 
 #Affiche "OK" si la condition choisie est un If avec des accolades ou un If avec une seule instruction.
 #"compound_statement" pour un corps classique et "expression_statement" pour un If avec une seule instruction.
-if p.getStructuresIf()[0].getBlocAlors().getTypeString() == "compound_statement":
+if p.getStructureIfAt(0).getBlocAlors().getType() == "BlocCompose":
     print("OK")
 else:
     print("Non")
