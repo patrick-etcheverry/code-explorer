@@ -6,7 +6,7 @@ from src.api.Programme import Programme
 # TEST SUR LES PARAMETRES
 
 
-p = Programme("tests/test7Suivi_Identificateur/essai.cpp")
+p = Programme("tests/test8GetLocalise/essai.cpp")
 
 
 

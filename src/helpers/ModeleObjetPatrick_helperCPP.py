@@ -167,32 +167,55 @@ def creeObjets(prog):
         #d.setIdentificateur(noeud)
 
     def _creeObjet_Declaration(lenode, prog):
+
+        def getnode_identifier(node):  #renvoie le node pour lequel on pourra setter l'identificateur
+            node_result=node
+            if node_result.type=="identifier":
+                return node_result
+            else:
+                return getnode_identifier(node_result.children[0])
+
+
         obj=Declaration(lenode, prog)
         #Attention il y a le cas ou on a une initialisation ou pas ///
-        #L'objet etant créée, on peut maintenant créer les 
+        #L'objet etant créée, on peut maintenant créer les autres propriétés 
         if lenode.children[0].type=="type_qualifier":
             rang=1
         else:
             rang=0
 
-        lenode_type=lenode.children[rang]
-        obj.setType(lenode_type)
+        lenode_type=lenode.children[rang]  #le type est soit au rang 0 soit au rang 1
+        obj.setType(lenode_type)  #ok
 
-        if lenode.children[rang+1].type=="init_declarator":
+        #Il faut maintenant récupérer l'identificateur qui peut être ni'mporte ou en dessous (cf. tableaux et tableaux de tableaux ...)
+        node_result=getnode_identifier(lenode.children[rang+1])
+
+        # pos=0 #rang pour lequel on cherche a déterminer de la zone identifier
+        #if lenode.children[rang+1].type != "identifier":  #cas ou l'identificateur est immediatement pointé par l'indice rang+1
+        #    while lenode.children[rang+1].children[pos].type != "identifier":
+        #       pos=pos+1
+        #    print("fini")
+
+                
+
+
+
+        if lenode.children[rang+1].type=="init_declarator": # s'il y a une initialisation
             #on recupere l'identificateur dans le declarateur
-            lenode_identificateur=lenode.children[rang+1].children[0]
-            obj.setIdentificateur(lenode_identificateur)
+            #lenode_identificateur=lenode.children[rang+1].children[0]
+            obj.setIdentificateur(node_result)
             #on recupere la valeur de l'expression
+            #lenode_valeurExpression=lenode.children[rang+1].children[2]
             lenode_valeurExpression=lenode.children[rang+1].children[2]
             obj.setValeurExpression(lenode_valeurExpression) 
-        elif lenode.children[1].type=="function_declarator":
-            lenode_identificateur=lenode.children[1].children[0]
-            obj.setIdentificateur(lenode_identificateur)
+        #elif lenode.children[1].type=="function_declarator":
+        #    lenode_identificateur=lenode.children[1].children[0]
+        #    obj.setIdentificateur(lenode_identificateur)
 
         else:
             #on recupere l'identificateur dans le declarateur
-            lenode_identificateur=lenode.children[rang+1]
-            obj.setIdentificateur(lenode_identificateur)
+            #lenode_identificateur=lenode.children[rang+1]
+            obj.setIdentificateur(node_result)
             #il n'y a pas de valeur d'expression
             obj.setValeurExpression(None)
 
@@ -388,7 +411,8 @@ def creeObjets(prog):
             _creeObjet_SousProgramme(node, prog)  
         elif node.type=="assignment_expression":
             _creeObjet_Affectation(node, prog)
-        elif node.type in {"declaration", "array_declarator"}:
+        #elif node.type in {"declaration", "array_declarator"}:
+        elif node.type =="declaration":
             _creeObjet_Declaration(node, prog)
         elif node.type=="for_statement":
             _creeObjet_StructureFor(node, prog)
