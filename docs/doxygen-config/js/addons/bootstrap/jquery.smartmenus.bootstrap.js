@@ -171,4 +171,3 @@
 	$($.SmartMenus.Bootstrap.init);
 
 	return $;
-}));

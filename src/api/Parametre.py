@@ -68,4 +68,3 @@ class Parametre(BlocSimple):
     #@fn getIdentificateur()
     #@brief Retourne tous les Identificateur sous forme d'une structure de données.
     def getIdentificateur(self):
-        return self.identifiant["bloc"]

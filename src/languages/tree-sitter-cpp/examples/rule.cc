@@ -284,4 +284,3 @@ size_t hash<Rule>::operator()(const Rule &rule) const {
   }
 }
 
-}  // namespace std

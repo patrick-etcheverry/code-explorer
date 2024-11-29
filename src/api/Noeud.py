@@ -45,4 +45,3 @@ class Noeud:
         dansprog.mondictCles[maCle] = self 
 
 
-  

@@ -194,4 +194,3 @@ class SousProgramme(BlocStructure):
     #- [0] = Premier Sous-Programme du code
     #\n\n Résultat potentiel : tri(etudiantsS1, EFFECTIF_S1);
     def getAppel(self):
-        return self.appel

@@ -191,4 +191,3 @@ class Function(SousProgramme):
     def getAppel(self):
         return self.appel
 
-'''

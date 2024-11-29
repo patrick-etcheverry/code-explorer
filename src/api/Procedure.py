@@ -190,4 +190,3 @@ class Procedure(SousProgramme):
     def getAppel(self):
         return self.appel
 
-'''

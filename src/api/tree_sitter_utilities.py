@@ -355,4 +355,3 @@ def AllNodesFromType(rootnode, letype):
         
 
     
-'''
